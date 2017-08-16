@@ -26,60 +26,63 @@ $this->beginPage() ?>
 <body>
 <?php $this->beginBody() ?>
 
-<header id="main-header">
-  <div class="container clearfix">
-
-    <?php
-      echo Html::beginTag('a', ['href' => '/', 'class' => 'logo']);
-        echo Html::img('/img/logo.png',
-                        [
-                            'alt' => 'Reasanik',
-                            // 'style' => 'width:15px;'
-                        ]
-                    );
-      echo Html::endTag('a');
-    ?>
-
-    <nav>
-      <div id="menu-check"></div>
-      <?php
-        $menuItems = [
-            ['label' => 'Главная', 'url' => ['site/index']],
-            ['label' => 'Фото', 'url' => ['site/category']],
-            ['label' => 'Контакты', 'url' => ['site/contact']],
-        ];
-  
-        echo Menu::widget([
-          'items' => $menuItems,
-          'options' => ['id' => 'main-menu', 'class' => 'hor-menu'],
-        ]);
-      ?>
-    </nav>
-
+  <div class="main-wrapper">
+    
+    <header id="main-header">
+      <div class="container clearfix">
+    
+        <?php
+          echo Html::beginTag('a', ['href' => '/', 'class' => 'logo']);
+            echo Html::img('/img/logo.png',
+                            [
+                                'alt' => 'Reasanik',
+                                // 'style' => 'width:15px;'
+                            ]
+                        );
+          echo Html::endTag('a');
+        ?>
+    
+        <nav>
+          <div id="menu-check"></div>
+          <?php
+            $menuItems = [
+                ['label' => 'Главная', 'url' => ['site/index']],
+                ['label' => 'Фото', 'url' => ['site/category']],
+                ['label' => 'Контакты', 'url' => ['site/contact']],
+            ];
+      
+            echo Menu::widget([
+              'items' => $menuItems,
+              'options' => ['id' => 'main-menu', 'class' => 'hor-menu'],
+            ]);
+          ?>
+        </nav>
+    
+      </div>
+    </header>
+    
+    <main>
+      <div class="container">
+        <?php
+          echo Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'hor-menu breadcrumbs'],
+           ]);
+          echo Alert::widget();
+          echo $content;
+         ?>
+      </div>
+    </main>
   </div>
-</header>
 
-<main>
-  <div class="container">
-    <?php
-      echo Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        'options' => ['class' => 'hor-menu breadcrumbs'],
-       ]);
-      echo Alert::widget();
-      echo $content;
-     ?>
-  </div>
-</main>
-
-<footer id="main-footer">
-  <div class="container">
-    <?= Menu::widget([
-      'items' => $menuItems,
-      'options' => ['class' => 'hor-menu'],
-    ]) ?>
-  </div>
-</footer>
+  <footer id="main-footer">
+    <div class="container">
+      <?= Menu::widget([
+        'items' => $menuItems,
+        'options' => ['class' => 'hor-menu'],
+      ]) ?>
+    </div>
+  </footer>
 
 <?php $this->endBody() ?>
 </body>

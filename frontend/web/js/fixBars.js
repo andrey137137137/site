@@ -18,30 +18,30 @@ $('#menu-check').on('click', function(){
 
 });
 
-fixBars();
-$(window).scroll(fixBars);
+// fixBars();
+// $(window).scroll(fixBars);
 
-function fixBars()
-{
-  if ($(window).scrollTop() > 0)
-  {
-    $header.addClass('narrow');
-  }
-  else
-  {
-    $header.removeClass('narrow');
-  }
+// function fixBars()
+// {
+//   if ($(window).scrollTop() > 0)
+//   {
+//     $header.addClass('narrow');
+//   }
+//   else
+//   {
+//     $header.removeClass('narrow');
+//   }
 
-  if ($(window).height() > $(document.body).height())
-  {
-    $footer.addClass('fixed');
-  }
-  else
-  {
-    $footer.removeClass('fixed');
-  }
+//   if ($(window).height() > $(document.body).height())
+//   {
+//     $footer.addClass('fixed');
+//   }
+//   else
+//   {
+//     $footer.removeClass('fixed');
+//   }
 
-  $footer.css({opacity: 1});
-}
+//   $footer.css({opacity: 1});
+// }
 
 });
