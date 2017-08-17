@@ -45,12 +45,12 @@ extract($params);
 
     <div class="wrap-carousel">
       <div id="carousel" class="carousel">
-        <div class="simple-slider">
+        <ul class="simple-slider">
 
           <!-- Thumbnails -->
           <?php foreach ($images as $i => $image): ?>
-      
-            <div class="slide" data-number="<?= $i ?>">
+
+            <li class="slide" data-number="<?= $i ?>">
               <div class="perforation">
                 <div></div>
                 <div></div>
@@ -62,7 +62,7 @@ extract($params);
                 <div></div>
               </div>
 
-              <div class="frame">
+              <article class="frame">
                 <a class="wrap-image" href="#">
                   <?= Html::img(Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
                             [
@@ -71,7 +71,7 @@ extract($params);
                             ]
                         ) ?>
                 </a>
-              </div>
+              </article>
 
               <div class="perforation">
                 <div></div>
@@ -83,11 +83,11 @@ extract($params);
                 <div></div>
                 <div></div>
               </div>
-            </div> 
+            </li> 
 
           <?php endforeach; ?>
 
-        </div>
+        </ul>
 
         <div class="carousel-nav left">
           <div id="prev-page"></div>
@@ -114,42 +114,41 @@ extract($params);
 
 <?php endif; ?>
 
-<?php //if ( ! empty($categories)): ?>
-  <?php foreach ($categories as $key => $category): ?>
+<?php foreach ($categories as $key => $category): ?>
 
-    <article class="category">
-      <div class="wrap-frame active">
-      <!-- <div class="wrap-frame"> -->
+  <article class="category">
 
-        <div class="inside-left-top corner"></div>
-        <div class="inside-right-top corner"></div>
-        <div class="outside-left-top corner"></div>
-        <div class="outside-right-top corner"></div>
-        <div class="outside-left-bottom corner"></div>
-        <div class="outside-right-bottom corner"></div>
-        <div class="inside-left-bottom corner"></div>
-        <div class="inside-right-bottom corner"></div>
+    <div class="wrap-frame active">
+    <!-- <div class="wrap-frame"> -->
 
-        <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame']) ?>
-          <div class="wrap-image">
-            <?= Html::img(Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
-                        [
-                            'alt' => $category->title,
-                            // 'style' => 'width:15px;'
-                        ]
-                    ) ?>
-          </div>
-          <!-- <div class="foreground image-container">
-            <image src="" alt="">
-          </div> -->
-        <?= Html::endTag('a') ?>
+      <div class="inside-left-top corner"></div>
+      <div class="inside-right-top corner"></div>
+      <div class="outside-left-top corner"></div>
+      <div class="outside-right-top corner"></div>
+      <div class="outside-left-bottom corner"></div>
+      <div class="outside-right-bottom corner"></div>
+      <div class="inside-left-bottom corner"></div>
+      <div class="inside-right-bottom corner"></div>
 
-      </div>
+      <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame']) ?>
+        <div class="wrap-image">
+          <?= Html::img(Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
+                      [
+                          'alt' => $category->title,
+                          // 'style' => 'width:15px;'
+                      ]
+                  ) ?>
+        </div>
+        <!-- <div class="foreground image-container">
+          <image src="" alt="">
+        </div> -->
+      <?= Html::endTag('a') ?>
 
-      <h2><?= Html::encode($category->title) ?></h2>
-      <p><?= Html::encode($category->description) ?></p>
+    </div>
 
-    </article>
+    <h2 class="category_header"><?= Html::encode($category->title) ?></h2>
+    <p class="category_desc"><?= Html::encode($category->description) ?></p>
 
-  <?php endforeach; ?>
-<?php //endif; ?>
+  </article>
+
+<?php endforeach; ?>

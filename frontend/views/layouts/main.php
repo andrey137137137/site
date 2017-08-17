@@ -27,9 +27,9 @@ $this->beginPage() ?>
 <?php $this->beginBody() ?>
 
   <div class="main-wrapper">
-    
-    <header id="main-header">
-      <div class="container clearfix">
+
+    <header id="main-header" class="main-header">
+      <div class="container">
     
         <?php
           echo Html::beginTag('a', ['href' => '/', 'class' => 'logo']);
@@ -43,7 +43,7 @@ $this->beginPage() ?>
         ?>
     
         <nav>
-          <div id="menu-check"></div>
+          <div id="menu-check" class="menu-check"></div>
           <?php
             $menuItems = [
                 ['label' => 'Главная', 'url' => ['site/index']],
@@ -53,14 +53,14 @@ $this->beginPage() ?>
       
             echo Menu::widget([
               'items' => $menuItems,
-              'options' => ['id' => 'main-menu', 'class' => 'hor-menu'],
+              'options' => ['id' => 'main-menu', 'class' => 'hor-menu main-menu'],
             ]);
           ?>
         </nav>
-    
+
       </div>
     </header>
-    
+
     <main>
       <div class="container">
         <?php
@@ -75,7 +75,7 @@ $this->beginPage() ?>
     </main>
   </div>
 
-  <footer id="main-footer">
+  <footer id="main-footer" class="main-footer">
     <div class="container">
       <?= Menu::widget([
         'items' => $menuItems,
