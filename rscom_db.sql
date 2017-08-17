@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 26 2017 г., 11:32
+-- Время создания: Авг 17 2017 г., 17:37
 -- Версия сервера: 5.5.45
--- Версия PHP: 5.4.44
+-- Версия PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -37,7 +37,14 @@ CREATE TABLE IF NOT EXISTS `rs_gallery_category` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `main_image_id` (`main_image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Дамп данных таблицы `rs_gallery_category`
+--
+
+INSERT INTO `rs_gallery_category` (`id`, `parent_id`, `main_image_id`, `title`, `alias`, `description`, `is_main`) VALUES
+(7, NULL, 54, 'Тест', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -58,7 +65,33 @@ CREATE TABLE IF NOT EXISTS `rs_gallery_image` (
   `update_at` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `cat_id` (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=117 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=74 ;
+
+--
+-- Дамп данных таблицы `rs_gallery_image`
+--
+
+INSERT INTO `rs_gallery_image` (`id`, `cat_id`, `title`, `ext`, `alias`, `description`, `meta_keys`, `meta_desc`, `create_at`, `update_at`) VALUES
+(54, 7, '01', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(55, 7, '1', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(56, 7, '1_3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(57, 7, '02', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(58, 7, '2', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(59, 7, '2_3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(60, 7, '03', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(61, 7, '3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(62, 7, '3_1', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(63, 7, '04', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(64, 7, '4_1', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(65, 7, '5-1', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(66, 7, '7_3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(67, 7, '24_1', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(68, 7, '43_3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(69, 7, '54s_3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(70, 7, '76_3', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(71, 7, '572632', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(72, 7, '17213621', '.jpg', NULL, NULL, NULL, NULL, 0, 0),
+(73, 7, '453303179', '.jpg', NULL, NULL, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -119,8 +152,8 @@ INSERT INTO `rs_gallery_user` (`id`, `username`, `auth_key`, `password_hash`, `p
 -- Ограничения внешнего ключа таблицы `rs_gallery_category`
 --
 ALTER TABLE `rs_gallery_category`
-  ADD CONSTRAINT `category_fk_2` FOREIGN KEY (`main_image_id`) REFERENCES `rs_gallery_image` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `category_fk_1` FOREIGN KEY (`parent_id`) REFERENCES `rs_gallery_category` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `category_fk_1` FOREIGN KEY (`parent_id`) REFERENCES `rs_gallery_category` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `category_fk_2` FOREIGN KEY (`main_image_id`) REFERENCES `rs_gallery_image` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `rs_gallery_image`
