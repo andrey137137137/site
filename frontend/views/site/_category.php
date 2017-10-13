@@ -30,12 +30,19 @@ extract($params);
         <?php foreach ($images as $i => $image): ?>
 
           <div class="wrap-image" data-number="<?= $i ?>">
-            <?= Html::img(Reasanik::$galleryPath . 'images/' . $image->id . $image->ext,
-                      [
-                          'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
-                          // 'style' => 'width:15px;'
-                      ]
-                  ) ?>
+            <picture>
+              <source srcset="examples/images/extralarge.jpg" media="(min-width: 1000px)">
+              <source srcset="examples/images/art-large.jpg" media="(min-width: 800px)">
+              <img srcset="<?= Reasanik::$galleryPath . 'images/' . $image->id . $image->ext ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
+            </picture>
+            <?php
+              // Html::img(Reasanik::$galleryPath . 'images/' . $image->id . $image->ext,
+              //   [
+              //       'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
+              //       // 'style' => 'width:15px;'
+              //   ]
+              // )
+            ?>
           </div>
 
         <?php endforeach; ?>

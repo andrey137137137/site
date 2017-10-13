@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
     'css/style.css',
   ];
   public $js = [
+    'js/lib/picturefill.js',
     'js/lib/jquery-3.2.0.min.js',
     'js/lib/jquery-migrate-3.0.0.min.js',
     'js/lib/responsiveslides.js',
