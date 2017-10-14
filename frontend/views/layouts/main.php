@@ -24,7 +24,7 @@ $this->beginPage() ?>
     // Picture element HTML5 shiv
     document.createElement( "picture" );
   </script>
-  <script src="picturefill.js" async></script>
+  <!-- <script src="picturefill.js" async></script> -->
   <?php $this->head() ?>
 </head>
 
