@@ -27,17 +27,21 @@ extract($params);
 
       <div id="rs-slider" class="frame">
 
-        <?php foreach ($images as $i => $image): ?>
+        <?php foreach ($images as $i => $image):
+
+          $tempImageName = $image->id . $image->ext;
+
+        ?>
 
           <!-- <div class="wrap-image" data-number="<?= $i ?>"> -->
             <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
-              <source srcset="<?= Reasanik::$galleryPath ?>extralarge.jpg" media="(min-width: 1048px)">
-              <source srcset="<?= Reasanik::$galleryPath ?>large.jpg" media="(min-width: 768px)">
-              <source srcset="<?= Reasanik::$galleryPath ?>medium.jpg" media="(min-width: 500px)">
-              <img srcset="<?= Reasanik::$galleryPath ?>small.jpg" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
+              <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
+              <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
+              <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
+              <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
             </picture>
             <?php
-              // Html::img(Reasanik::$galleryPath . 'images/' . $image->id . $image->ext,
+              // Html::img(Reasanik::$galleryPath . 'extralarge/' . $tempImageName,
               //   [
               //       'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
               //       // 'style' => 'width:15px;'
@@ -56,7 +60,11 @@ extract($params);
         <ul class="simple-slider">
 
           <!-- Thumbnails -->
-          <?php foreach ($images as $i => $image): ?>
+          <?php foreach ($images as $i => $image):
+
+            $tempImageName = $image->id . $image->ext;
+
+          ?>
 
             <li class="slide" data-number="<?= $i ?>">
               <div class="perforation">
@@ -70,16 +78,24 @@ extract($params);
                 <div></div>
               </div>
 
-              <article class="frame">
-                <a class="wrap-image" href="#">
-                  <?= Html::img(Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
-                            [
-                                'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
-                                // 'style' => 'width:15px;'
-                            ]
-                        ) ?>
+              <!-- <article class="frame"> -->
+                <a class="frame" href="#">
+                  <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
+                    <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
+                    <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
+                    <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
+                    <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
+                  </picture>
+                  <?php
+                    // Html::img(Reasanik::$galleryPath . 'extralarge/' . $image->id . $image->ext,
+                    //         [
+                    //             'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
+                    //             // 'style' => 'width:15px;'
+                    //         ]
+                    //     )
+                  ?>
                 </a>
-              </article>
+              <!-- </article> -->
 
               <div class="perforation">
                 <div></div>

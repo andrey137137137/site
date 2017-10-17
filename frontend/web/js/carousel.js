@@ -144,12 +144,15 @@ jQuery(function($){
     prevText: '',
     nextText: '',
     // maxwidth: 540,
+    before: function(){
+      // console.log(i);
+    },
     after: function(){
       // $('#carousel .simple-slider').find('.active').removeClass('active');
       var number = $('.rslides1_on').data('number');
 
       $frame.sly('activate', number);
-      console.log(number);
+      // console.log(number);
     }
   });
 
