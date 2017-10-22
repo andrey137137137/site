@@ -14,8 +14,9 @@ class AppAsset extends AssetBundle
   public $css = [
     'css/style.css',
   ];
+  // public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
   public $js = [
-    'js/lib/picturefill.js',
+    ['js/lib/picturefill.js', 'position' => \yii\web\View::POS_HEAD, 'async' => true],
     'js/lib/jquery-3.2.0.min.js',
     'js/lib/jquery-migrate-3.0.0.min.js',
     'js/lib/responsiveslides.js',
