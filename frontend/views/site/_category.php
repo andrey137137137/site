@@ -33,22 +33,21 @@ extract($params);
 
         ?>
 
-          <!-- <div class="wrap-image" data-number="<?= $i ?>"> -->
-            <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
+          <div class="wrap-image" data-number="<?= $i ?>">
+            <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
               <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
               <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
               <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
               <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
-            </picture>
-            <?php
-              // Html::img(Reasanik::$galleryPath . 'extralarge/' . $tempImageName,
-              //   [
-              //       'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
-              //       // 'style' => 'width:15px;'
-              //   ]
-              // )
+            </picture> -->
+            <?= Html::img(Reasanik::$galleryPath . 'extralarge/' . $tempImageName,
+                [
+                  // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
+                  'alt' => $image->cat_id
+                ]
+              )
             ?>
-          <!-- </div> -->
+          </div>
 
         <?php endforeach; ?>
 
@@ -86,12 +85,12 @@ extract($params);
                     <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
                     <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
                   </picture> -->
-                  <?= Html::img(Reasanik::$galleryPath . 'small/' . $image->id . $image->ext,
-                            [
-                                'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title,
-                                // 'style' => 'width:15px;'
-                            ]
-                        )
+                  <?= Html::img(Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
+                      [
+                        // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
+                        'alt' => $image->cat_id
+                      ]
+                    )
                   ?>
                 </a>
               </article>
@@ -141,8 +140,8 @@ extract($params);
 
   <article class="category">
 
-    <div class="wrap-frame active">
-    <!-- <div class="wrap-frame"> -->
+    <!-- <div class="wrap-frame active"> -->
+    <div class="wrap-frame">
 
       <div class="inside-left-top corner"></div>
       <div class="inside-right-top corner"></div>
@@ -156,11 +155,11 @@ extract($params);
       <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame']) ?>
         <div class="wrap-image">
           <?= Html::img(Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
-                      [
-                          'alt' => $category->title,
-                          // 'style' => 'width:15px;'
-                      ]
-                  ) ?>
+              [
+                'alt' => $category->title
+              ]
+            )
+          ?>
         </div>
         <!-- <div class="foreground image-container">
           <image src="" alt="">

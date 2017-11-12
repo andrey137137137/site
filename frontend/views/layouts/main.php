@@ -20,10 +20,10 @@ $this->beginPage() ?>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?= Html::csrfMetaTags() ?>
   <title><?= Html::encode($this->title) ?></title>
-  <script>
+  <!-- <script>
     // Picture element HTML5 shiv
     document.createElement( "picture" );
-  </script>
+  </script> -->
   <!-- <script src="picturefill.js" async></script> -->
   <?php $this->head() ?>
 </head>
