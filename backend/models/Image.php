@@ -65,16 +65,16 @@ class Image extends UploadForm
   public function attributeLabels()
   {
     return [
-      'id' => 'ID',
-      'cat_id' => 'Cat ID',
-      'title' => 'Title',
-      'ext' => 'Filename',
-      'alias' => 'Alias',
-      'description' => 'Description',
+      'id' => 'Идентификатор',
+      'cat_id' => 'Категория',
+      'title' => 'Заголовок',
+      'ext' => 'Расширение',
+      'alias' => 'Алиас',
+      'description' => 'Описание',
       'meta_keys' => 'Meta Keys',
       'meta_desc' => 'Meta Desc',
-      'create_at' => 'Create At',
-      'update_at' => 'Update At',
+      'create_at' => 'Дата создания',
+      'update_at' => 'Дата обновления',
     ];
   }
 

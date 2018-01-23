@@ -40,10 +40,10 @@ extract($params);
               <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
               <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
             </picture> -->
-            <?= Html::img(Reasanik::$galleryPath . 'extralarge/' . $tempImageName,
+            <?= Html::img(Reasanik::$galleryPath . 'images/' . $tempImageName,
                 [
                   // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
-                  'alt' => $image->cat_id
+                  'alt' => $image->title
                 ]
               )
             ?>
@@ -88,7 +88,7 @@ extract($params);
                   <?= Html::img(Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
                       [
                         // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
-                        'alt' => $image->cat_id
+                        'alt' => $image->title
                       ]
                     )
                   ?>

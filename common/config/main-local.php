@@ -3,7 +3,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            // 'dsn' => 'mysql:host=rscom.mysql.ukraine.com.ua;dbname=rscom_db',
+            // 'dsn' => 'mysql:host=rsnik.mysql.tools;dbname=rsnik_db',
+            // 'username' => 'rsnik_db',
+            // 'password' => 'BHaMxSZd',
             'dsn' => 'mysql:host=localhost;dbname=rscom_db',
             'username' => 'rscom_db',
             'password' => 'YUZwVNNt',

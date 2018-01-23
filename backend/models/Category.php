@@ -77,14 +77,14 @@ class Category extends UploadForm
   public function attributeLabels()
   {
     return [
-      'id' => 'ID',
-      'parent_id' => 'Parent ID',
-      'main_image_id' => 'Main Image ID',
-      'ext' => 'Filename',
-      'title' => 'Title',
-      'alias' => 'Alias',
-      'description' => 'Description',
-      'is_main' => 'Is Main',
+      'id' => 'Идентификатор',
+      'parent_id' => 'Родительская категория',
+      'main_image_id' => 'Превью',
+      'ext' => 'Расширение',
+      'title' => 'Заголовок',
+      'alias' => 'Алиас',
+      'description' => 'Описание',
+      'is_main' => 'На главную страницу',
     ];
   }
 
@@ -161,6 +161,8 @@ class Category extends UploadForm
         }
       }
 
+      $this->oldExt = $this->mainImage->ext;
+
       foreach ($this->images as $image)
       {
         if ( ! $image->delete())
@@ -169,7 +171,6 @@ class Category extends UploadForm
         }
       }
 
-      $this->oldExt = $this->mainImage->ext;
       $this->prepareImageConfig();
       $this->deleteImages();
       return true;
