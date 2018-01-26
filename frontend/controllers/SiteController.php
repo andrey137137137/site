@@ -69,6 +69,11 @@ class SiteController extends Controller
     return $this->getCategory($id);
   }
 
+  public function actionView($id = null)
+  {
+    return $this->getCategory($id);
+  }
+
   private function getCategory($condition)
   {
     $this->loadCatModels($condition);

@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Images';
+$this->title = 'Изображения';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="image-index">
@@ -14,25 +14,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Image', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'title',
-            'alias',
+            // 'alias',
             [
-                'label' => 'Картинка',
+                'label' => 'Изображение',
                 'format' => 'raw',
                 'value' => function($data)
                 {
                     return Html::img(Reasanik::$galleryPath . 'thumbs/' . $data->id . $data->ext,
                         [
                             'alt' => $data->title,
-                            // 'style' => 'width:15px;'
                         ]
                     );
                 },
@@ -43,7 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'update_at',
             // 'meta_keys:ntext',
             // 'meta_desc:ntext',
-            'cat.title',
+            [
+                'label' => 'Альбом',
+                'value' => 'cat.title'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

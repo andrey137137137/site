@@ -51,6 +51,7 @@ return [
               '/' => 'site/index',
               'contacts' => 'site/contact',
               'photo' => 'site/category',
+              // '<controller:\w+>/<id>' => 'site/view',
             ],
         ],
         
