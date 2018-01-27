@@ -66,4 +66,13 @@ return array (
       '@rico/yii2images' => $vendorDir . '/costa-rico/yii2-images',
     ),
   ),
+  '2amigos/yii2-translateable-behavior' => 
+  array (
+    'name' => '2amigos/yii2-translateable-behavior',
+    'version' => '0.1.3.0',
+    'alias' => 
+    array (
+      '@dosamigos/translateable' => $vendorDir . '/2amigos/yii2-translateable-behavior',
+    ),
+  ),
 );
