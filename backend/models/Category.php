@@ -47,7 +47,7 @@ class Category extends UploadForm
   public function rules()
   {
     return [
-      [['imageFiles'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/, 'maxFiles' => 27],
+      [['imageFiles'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/, 'maxFiles' => 20],
       [['title'], 'required'],
       // [['title'], 'unique'],
       [['parent_id', 'main_image_id', 'is_main'], 'integer'],

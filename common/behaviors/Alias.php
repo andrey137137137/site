@@ -5,55 +5,56 @@ namespace common\behaviors;
 use yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
+// use yii\helpers\Inflector;
 
 class Alias extends Behavior
 {
-  public $in_attribute = 'name';
+  public $in_attribute = 'title';
   public $out_attribute = 'alias';
   public $translit = true;
 
   public function events()
   {
     return [
-      ActiveRecord::EVENT_BEFORE_VALIDATE => 'getSlug'
+      ActiveRecord::EVENT_BEFORE_VALIDATE => 'getAlias'
     ];
   }
 
-  public function getSlug( $event )
+  public function getAlias( $event )
   {
     if ( empty( $this->owner->{$this->out_attribute} ) )
     {
-      $this->owner->{$this->out_attribute} = $this->generateSlug( $this->owner->{$this->in_attribute} );
+      $this->owner->{$this->out_attribute} = $this->generateAlias( $this->owner->{$this->in_attribute} );
     }
     else
     {
-      $this->owner->{$this->out_attribute} = $this->generateSlug( $this->owner->{$this->out_attribute} );
+      $this->owner->{$this->out_attribute} = $this->generateAlias( $this->owner->{$this->out_attribute} );
     }
   }
 
-  private function generateSlug( $slug )
+  private function generateAlias( $alias )
   {
-    $slug = $this->slugify( $slug );
+    $alias = $this->slugify( $alias );
 
-    if ( $this->checkUniqueSlug( $slug ) )
+    if ( $this->checkUniqueAlias( $alias ) )
     {
-      return $slug;
+      return $alias;
     }
     else
     {
-      for ( $suffix = 2; !$this->checkUniqueSlug( $new_slug = $slug . '-' . $suffix ); $suffix++ ) {}
+      for ( $suffix = 2; !$this->checkUniqueAlias( $new_alias = $alias . '-' . $suffix ); $suffix++ ) {}
 
-      return $new_slug;
+      return $new_alias;
     }
   }
 
-  private function checkUniqueSlug( $slug )
+  private function checkUniqueAlias( $alias )
   {
     $pk = $this->owner->primaryKey();
     $pk = $pk[0];
 
     $condition = $this->out_attribute . ' = :out_attribute';
-    $params = [ ':out_attribute' => $slug ];
+    $params = [ ':out_attribute' => $alias ];
 
     if ( !$this->owner->isNewRecord )
     {
@@ -66,19 +67,19 @@ class Alias extends Behavior
       ->one();
   }
 
-  private function slugify( $slug )
+  private function slugify( $alias )
   {
     if ( $this->translit )
     {
-      return Inflector::slug( TransliteratorHelper::process( $slug ), '-', true );
+      return yii\helpers\Inflector::slug( TransliteratorHelper::process( $alias ), '-', true );
     }
     else
     {
-      return $this->slug( $slug, '-', true );
+      return $this->alias( $alias, '-', true );
     }
   }
 
-  private function slug( $string, $replacement = '-', $lowercase = true )
+  private function alias( $string, $replacement = '-', $lowercase = true )
   {
     $string = preg_replace( '/[^\p{L}\p{Nd}]+/u', $replacement, $string );
     $string = trim( $string, $replacement );
