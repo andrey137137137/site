@@ -37,16 +37,16 @@ class UploadForm extends \yii\db\ActiveRecord
     ];
   }
 
-  public function behaviors()
-  {
-    return [
-      [
-        'class' => SluggableBehavior::className(),
-        'attribute' => 'title',
-        'slugAttribute' => 'alias',
-      ],
-    ];
-  }
+  // public function behaviors()
+  // {
+  //   return [
+  //     [
+  //       'class' => SluggableBehavior::className(),
+  //       'attribute' => 'title',
+  //       'slugAttribute' => 'alias',
+  //     ],
+  //   ];
+  // }
 
   // public function behaviors()
   // {
@@ -59,6 +59,24 @@ class UploadForm extends \yii\db\ActiveRecord
   //     ]
   //   ];
   // }
+
+  public function behaviors()
+  {
+      return [
+          'slug' => [
+              'class' => 'Zelenin\yii\behaviors\Slug',
+              'slugAttribute' => 'alias',
+              'attribute' => 'title',
+              // optional params
+              'ensureUnique' => true,
+              'replacement' => '-',
+              'lowercase' => true,
+              'immutable' => false,
+              // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general. 
+              'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+          ]
+      ];
+  }
 
   protected function updateImages($fromPath, $insert)
   {

@@ -39,15 +39,6 @@ return array (
       '@yii/imagine' => $vendorDir . '/yiisoft/yii2-imagine',
     ),
   ),
-  '2amigos/yii2-transliterator-helper' => 
-  array (
-    'name' => '2amigos/yii2-transliterator-helper',
-    'version' => '1.0.0.0',
-    'alias' => 
-    array (
-      '@dosamigos/transliterator' => $vendorDir . '/2amigos/yii2-transliterator-helper',
-    ),
-  ),
   'yiisoft/yii2-bootstrap' => 
   array (
     'name' => 'yiisoft/yii2-bootstrap',
@@ -73,6 +64,15 @@ return array (
     'alias' => 
     array (
       '@rico/yii2images' => $vendorDir . '/costa-rico/yii2-images',
+    ),
+  ),
+  'zelenin/yii2-slug-behavior' => 
+  array (
+    'name' => 'zelenin/yii2-slug-behavior',
+    'version' => '1.5.1.0',
+    'alias' => 
+    array (
+      '@Zelenin/yii/behaviors' => $vendorDir . '/zelenin/yii2-slug-behavior',
     ),
   ),
 );

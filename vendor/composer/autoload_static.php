@@ -35,13 +35,14 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'd' => 
-        array (
-            'dosamigos\\transliterator\\' => 25,
-        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
+        ),
+        'Z' => 
+        array (
+            'Zelenin\\yii\\behaviors\\' => 22,
+            'Zelenin\\Ddd\\String\\' => 19,
         ),
         'W' => 
         array (
@@ -127,13 +128,17 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
-        'dosamigos\\transliterator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/2amigos/yii2-transliterator-helper',
-        ),
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
+        ),
+        'Zelenin\\yii\\behaviors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zelenin/yii2-slug-behavior',
+        ),
+        'Zelenin\\Ddd\\String\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zelenin/string',
         ),
         'Webmozart\\Assert\\' => 
         array (
