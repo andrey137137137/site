@@ -20,9 +20,7 @@ $image = $model->id . $model->ext;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?php
-        // $form->field($model, 'alias')->textInput(['maxlength' => true])
-    ?>
+    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
