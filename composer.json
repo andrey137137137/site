@@ -20,7 +20,7 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "yiisoft/yii2-imagine": "~2.0.0",
         "costa-rico/yii2-images": "dev-master",
-        "2amigos/yii2-translateable-behavior" : "*"
+        "2amigos/yii2-transliterator-helper": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

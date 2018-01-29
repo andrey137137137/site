@@ -6,7 +6,7 @@ use Robo\Task\Development\GenerateMarkdownDoc as Doc;
 
 class RoboFile extends \Robo\Tasks
 {
-    const STABLE_BRANCH = '2.2';
+    const STABLE_BRANCH = '2.3';
     const REPO_BLOB_URL = 'https://github.com/Codeception/Codeception/blob';
 
     public function release()
@@ -15,14 +15,13 @@ class RoboFile extends \Robo\Tasks
         $this->update();
         $this->buildDocs();
         $this->publishDocs();
-
-        $this->buildPhar54();
         $this->buildPhar();
-        $this->revertComposerJsonChanges();
+        $this->buildPhar5();
         $this->publishPhar();
         $this->publishGit();
         $this->publishBase(null, \Codeception\Codecept::VERSION);
         $this->versionBump();
+        $this->update(); //update dependencies after release, because buildPhar5 set them to old versions
     }
 
     public function versionBump($version = '')
@@ -115,7 +114,7 @@ class RoboFile extends \Robo\Tasks
             ->test('tests/web/WebDriverTest.php'.$test)
             ->args($args)
             ->run();
-        
+
         $this->taskDockerStop($container)->run();
     }
 
@@ -155,11 +154,11 @@ class RoboFile extends \Robo\Tasks
         $this->taskComposerUpdate()->run();
     }
 
-    private function installDependenciesForPhp56()
+    private function installDependenciesForPhp70()
     {
         $this->taskReplaceInFile('composer.json')
             ->regex('/"platform": \{.*?\}/')
-            ->to('"platform": {"php": "5.6.0"}')
+            ->to('"platform": {"php": "7.0.0"}')
             ->run();
 
         $this->taskComposerUpdate()->run();
@@ -180,21 +179,20 @@ class RoboFile extends \Robo\Tasks
      */
     public function buildPhar()
     {
+        $this->installDependenciesForPhp70();
         $this->packPhar('package/codecept.phar');
+        $this->revertComposerJsonChanges();
     }
 
     /**
      * @desc creates codecept.phar with Guzzle 5.3 and Symfony 2.8
      * @throws Exception
      */
-    public function buildPhar54()
+    public function buildPhar5()
     {
-        if (!file_exists('package/php54')) {
-            mkdir('package/php54');
-        }
         $this->installDependenciesForPhp54();
-        $this->packPhar('package/php54/codecept.phar');
-        $this->installDependenciesForPhp56();
+        $this->packPhar('package/codecept5.phar');
+        $this->revertComposerJsonChanges();
     }
 
     private function packPhar($pharFileName)
@@ -261,9 +259,13 @@ class RoboFile extends \Robo\Tasks
         $pharTask->addFile('autoload.php', 'autoload.php')
             ->addFile('codecept', 'package/bin')
             ->addFile('shim.php', 'shim.php')
+            ->addFile('phpunit5-loggers.php', 'phpunit5-loggers.php')
             ->run();
-        
-        $code = $this->taskExec('php ' . $pharFileName)->run()->getExitCode();
+
+        if ($pharFileName !== 'codecept.phar') {
+            return;
+        }
+        $code = $this->taskExec('php codecept.phar')->run()->getExitCode();
         if ($code !== 0) {
             throw new Exception("There was problem compiling phar");
         }
@@ -278,6 +280,7 @@ class RoboFile extends \Robo\Tasks
         $this->buildDocsModules();
         $this->buildDocsUtils();
         $this->buildDocsCommands();
+        $this->buildDocsStub();
         $this->buildDocsApi();
         $this->buildDocsExtensions();
     }
@@ -300,7 +303,7 @@ class RoboFile extends \Robo\Tasks
                 ->append('<p>&nbsp;</p><div class="alert alert-warning">Module reference is taken from the source code. <a href="'.$source.'">Help us to improve documentation. Edit module reference</a></div>')
                 ->processClassSignature(false)
                 ->processClassDocBlock(function (\ReflectionClass $c, $text) {
-                    return "$text\n\n## Actions";
+                    return "$text\n## Actions";
                 })->processProperty(false)
                 ->filterMethods(function (\ReflectionMethod $method) use ($className) {
                     if ($method->isConstructor() or $method->isDestructor()) {
@@ -342,7 +345,8 @@ class RoboFile extends \Robo\Tasks
                     $text = str_replace("@return mixed\n", '', $text);
                     $text = preg_replace('~@return (.*?)~', ' * `return` $1', $text);
                     $text = preg_replace("~^@(.*?)([$\s])~", ' * `$1` $2', $text);
-                    return $title . $text;
+                    $result = $title . $text;
+                    return preg_replace('/\n(\s*\n){2,}/', "\n\n", $result);
                 })->processMethodSignature(false)
                 ->reorderMethods('ksort')
                 ->run();
@@ -352,7 +356,7 @@ class RoboFile extends \Robo\Tasks
     public function buildDocsUtils()
     {
         $this->say("Util Classes");
-        $utils = ['Autoload', 'Fixtures', 'Stub', 'Locator', 'XmlBuilder', 'JsonType', 'HttpCode'];
+        $utils = ['Autoload', 'Fixtures', 'Locator', 'XmlBuilder', 'JsonType', 'HttpCode'];
 
         foreach ($utils as $utilName) {
             $className = '\Codeception\Util\\' . $utilName;
@@ -362,10 +366,54 @@ class RoboFile extends \Robo\Tasks
         }
     }
 
+    public function buildDocsStub()
+    {
+        $this->say("Stub Classes");
+
+        $this->taskGenDoc('docs/reference/Stub.md')
+            ->docClass('Codeception\Stub')
+            ->filterMethods(function(\ReflectionMethod $method) {
+                if ($method->isConstructor() or $method->isDestructor()) return false;
+                if (!$method->isPublic()) return false;
+                if (strpos($method->name, '_') === 0) return false;
+                return true;
+            })
+            ->processMethodDocBlock(
+                function (\ReflectionMethod $m, $doc) {
+                    $doc = str_replace(array('@since'), array(' * available since version'), $doc);
+                    $doc = str_replace(array(' @', "\n@"), array("  * ", "\n * "), $doc);
+                    return $doc;
+                })
+            ->processProperty(false)
+            ->run();
+
+        $mocksDocumentation = <<<EOF
+# Mocks
+
+Declare mocks inside `Codeception\Test\Unit` class.
+If you want to use mocks outside it, check the reference for [Codeception/Stub](https://github.com/Codeception/Stub) library.      
+EOF;
+
+        $this->taskGenDoc('docs/reference/Mock.md')
+            ->docClass('Codeception\Test\Feature\Stub')
+            ->docClass('Codeception\Stub\Expected')
+            ->processClassDocBlock(false)
+            ->processClassSignature(false)
+            ->prepend($mocksDocumentation)
+            ->filterMethods(function(\ReflectionMethod $method) {
+                if ($method->isConstructor() or $method->isDestructor()) return false;
+                if (!$method->isPublic()) return false;
+                if (strpos($method->name, '_') === 0) return false;
+                if (strpos($method->name, 'stub') === 0) return false;
+                return true;
+            })
+            ->run();
+    }
+
     public function buildDocsApi()
     {
         $this->say("API Classes");
-        $apiClasses = ['Codeception\Module'];
+        $apiClasses = ['Codeception\Module', 'Codeception\InitTemplate'];
 
         foreach ($apiClasses as $apiClass) {
             $name = (new ReflectionClass($apiClass))->getShortName();
@@ -403,15 +451,16 @@ class RoboFile extends \Robo\Tasks
         $extensions = Finder::create()->files()->sortByName()->name('*.php')->in(__DIR__ . '/ext');
 
         $extGenerator= $this->taskGenDoc(__DIR__.'/ext/README.md');
-        foreach ($extensions as $command) {
-            $commandName = basename(substr($command, 0, -4));
-            $className = '\Codeception\Extension\\' . $commandName;
+        foreach ($extensions as $extension) {
+            $extensionName = basename(substr($extension, 0, -4));
+            $className = '\Codeception\Extension\\' . $extensionName;
             $extGenerator->docClass($className);
         }
         $extGenerator
             ->prepend("# Official Extensions\n")
-            ->processClassSignature(function ($r, $text) {
-                return "## ".$r->getName();
+            ->processClassSignature(function (ReflectionClass $r, $text) {
+                $name = $r->getShortName();
+                return "## $name\n\n[See Source](" . self::REPO_BLOB_URL."/".self::STABLE_BRANCH. "/ext/$name.php)";
             })
             ->filterMethods(function (ReflectionMethod $r) {
                 return false;
@@ -432,12 +481,9 @@ class RoboFile extends \Robo\Tasks
         if (strpos($version, self::STABLE_BRANCH) === 0) {
             $this->say("publishing to release branch");
             copy('../codecept.phar', 'codecept.phar');
-            if (!is_dir('php54')) {
-                mkdir('php54');
-            }
-            copy('../php54/codecept.phar', 'php54/codecept.phar');
+            copy('../codecept5.phar', 'php5/codecept.phar');
             $this->taskExec('git add codecept.phar')->run();
-            $this->taskExec('git add php54/codecept.phar')->run();
+            $this->taskExec('git add php5/codecept.phar')->run();
         }
 
         $this->taskFileSystemStack()
@@ -468,7 +514,7 @@ class RoboFile extends \Robo\Tasks
         foreach ($releases as $release) {
             $releaseName = $release->getBasename();
             $downloadUrl = "http://codeception.com/releases/$releaseName/codecept.phar";
-            
+
             list($major, $minor) = explode('.', $releaseName);
             if ("$major.$minor" != $branch) {
                 $branch = "$major.$minor";
@@ -484,7 +530,11 @@ class RoboFile extends \Robo\Tasks
 
             if (file_exists("releases/$releaseName/php54/codecept.phar")) {
                 $downloadUrl = "http://codeception.com/releases/$releaseName/php54/codecept.phar";
-                $versionLine .= ", [for PHP 5.4 or 5.5]($downloadUrl)";
+                if (version_compare($releaseName, '2.3.0', '>=')) {
+                    $versionLine .= ", [for PHP 5.4 - 5.6]($downloadUrl)";
+                } else {
+                    $versionLine .= ", [for PHP 5.4 or 5.5]($downloadUrl)";
+                }
             }
 
             $releaseFile->line($versionLine);
@@ -516,6 +566,7 @@ class RoboFile extends \Robo\Tasks
 
         chdir('../..');
 
+        $this->say('building changelog');
         $this->taskWriteToFile('package/site/changelog.markdown')
             ->line('---')
             ->line('layout: page')
@@ -717,7 +768,7 @@ class RoboFile extends \Robo\Tasks
         }
 
         //user
-        $changelog = preg_replace('~\s@(\w+)~', ' **[$1](https://github.com/$1)**', $changelog);
+        $changelog = preg_replace('~\s@([\w-]+)~', ' **[$1](https://github.com/$1)**', $changelog);
 
         //issue
         $changelog = preg_replace(
@@ -911,7 +962,7 @@ class RoboFile extends \Robo\Tasks
                 function (ReflectionMethod $r, $text) use ($file) {
                     $file = str_replace(__DIR__, '', $r->getFileName());
                     $source = self::REPO_BLOB_URL."/".self::STABLE_BRANCH. $file;
-                    
+
                     $line = $r->getStartLine();
                     $text = preg_replace("~^\s?@(.*?)\s~m", ' * `$1` $2', $text);
                     $text .= "\n[See source]($source#L$line)";

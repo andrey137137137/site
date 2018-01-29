@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'mainImage.ext',
             'title',
-            // 'alias',
+            'alias',
             'description:ntext',
             'is_main'
         ],

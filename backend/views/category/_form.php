@@ -21,7 +21,7 @@ $image = $model->id . $model->mainImage->ext;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?php 
-    // $form->field($model, 'alias')->textInput(['maxlength' => true]) 
+    echo $form->field($model, 'alias')->textInput(['maxlength' => true]) 
     ?>
 
     <?= $form->field($model, 'is_main')->checkbox(['maxlength' => true]) ?>

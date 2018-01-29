@@ -20,35 +20,30 @@ class Alias extends Behavior
     ];
   }
 
-  public function getAlias( $event )
+  public function getAlias($event)
   {
-    if ( empty( $this->owner->{$this->out_attribute} ) )
-    {
-      $this->owner->{$this->out_attribute} = $this->generateAlias( $this->owner->{$this->in_attribute} );
-    }
-    else
-    {
-      $this->owner->{$this->out_attribute} = $this->generateAlias( $this->owner->{$this->out_attribute} );
-    }
+    $attr = empty( $this->owner->{$this->out_attribute}) ? $this->owner->{$this->in_attribute} : $this->owner->{$this->out_attribute};
+
+    $this->owner->{$this->out_attribute} = $this->generateAlias($attr);
   }
 
-  private function generateAlias( $alias )
+  private function generateAlias($alias)
   {
-    $alias = $this->slugify( $alias );
+    $alias = $this->slugify($alias);
 
-    if ( $this->checkUniqueAlias( $alias ) )
+    if ( $this->checkUniqueAlias($alias) )
     {
       return $alias;
     }
     else
     {
-      for ( $suffix = 2; !$this->checkUniqueAlias( $new_alias = $alias . '-' . $suffix ); $suffix++ ) {}
+      for ( $suffix = 2; !$this->checkUniqueAlias($new_alias = $alias . '-' . $suffix ); $suffix++) {}
 
       return $new_alias;
     }
   }
 
-  private function checkUniqueAlias( $alias )
+  private function checkUniqueAlias($alias)
   {
     $pk = $this->owner->primaryKey();
     $pk = $pk[0];
@@ -63,27 +58,27 @@ class Alias extends Behavior
     }
 
     return !$this->owner->find()
-      ->where( $condition, $params )
+      ->where($condition, $params)
       ->one();
   }
 
-  private function slugify( $alias )
+  private function slugify($alias)
   {
-    if ( $this->translit )
+    if ($this->translit)
     {
-      return yii\helpers\Inflector::slug( TransliteratorHelper::process( $alias ), '-', true );
+      return yii\helpers\Inflector::slug($alias);
     }
     else
     {
-      return $this->alias( $alias, '-', true );
+      return $this->alias($alias);
     }
   }
 
-  private function alias( $string, $replacement = '-', $lowercase = true )
+  private function alias($string, $replacement = '-', $lowercase = true)
   {
-    $string = preg_replace( '/[^\p{L}\p{Nd}]+/u', $replacement, $string );
-    $string = trim( $string, $replacement );
+    $string = preg_replace('/[^\p{L}\p{Nd}]+/u', $replacement, $string);
+    $string = trim( string, $replacement);
 
-    return $lowercase ? strtolower( $string ) : $string;
+    return $lowercase ? strtolower($string) : $string;
   }
 }

@@ -5,6 +5,7 @@ namespace backend\models;
 use Yii;
 // use yii\base\Model;
 // use yii\web\UploadedFile;
+use yii\behaviors\SluggableBehavior;
 use abeautifulsite\SimpleImage;
 // use yii\imagine\Image;
 // use Imagine\Image\ManipulatorInterface;
@@ -33,6 +34,17 @@ class UploadForm extends \yii\db\ActiveRecord
   {
     return [
       [['image'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/],
+    ];
+  }
+
+  public function behaviors()
+  {
+    return [
+      [
+        'class' => SluggableBehavior::className(),
+        'attribute' => 'title',
+        'slugAttribute' => 'alias',
+      ],
     ];
   }
 
