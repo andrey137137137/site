@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "yiisoft/yii2-imagine": "~2.0.0",
         "costa-rico/yii2-images": "dev-master",
-        "zelenin/yii2-slug-behavior": "~1.5.1"
+        "zelenin/yii2-slug-behavior": "~1.5.1",
+        "kartik-v/yii2-widgets": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
