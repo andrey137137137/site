@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
@@ -26,7 +27,16 @@ $image = $model->id . $model->mainImage->ext;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    <?
+        if ($model->isNewRecord)
+        {
+            // echo $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
+            echo $form->field($model, 'imageFiles[]')->widget(
+                FileInput::classname(), 
+                ['options' => ['multiple' => true, 'accept' => 'image/*'],]
+            );
+        }
+    ?>
 
     <?= $form->field($model, 'main_image_id')->dropDownList($dropDownList) ?>
 

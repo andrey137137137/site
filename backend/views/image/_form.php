@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Image */
@@ -24,7 +25,13 @@ $image = $model->id . $model->ext;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'image')->fileInput(['accept' => 'image/*']) ?>
+    <?php
+        // echo $form->field($model, 'image')->fileInput(['accept' => 'image/*']);
+        echo $form->field($model, 'image')->widget(
+            FileInput::classname(), 
+            ['options' => ['accept' => 'image/*'],]
+        );
+    ?>
 
     <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/images/' . $image)): ?>
 
