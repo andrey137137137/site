@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+// use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Image */
@@ -27,6 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        // 'condensed'=>true,
+        // 'hover'=>true,
+        // 'mode'=>DetailView::MODE_VIEW,
+        // 'panel'=>[
+        //     'heading'=>'Book # ' . $model->id,
+        //     'type'=>DetailView::TYPE_INFO,
+        // ],
         'attributes' => [
             'id',
             'title',
