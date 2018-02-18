@@ -39,6 +39,7 @@ return array(
     'kartik\\alert\\' => array($vendorDir . '/kartik-v/yii2-widget-alert'),
     'kartik\\affix\\' => array($vendorDir . '/kartik-v/yii2-widget-affix'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
+    'budyaga\\cropper\\' => array($vendorDir . '/budyaga/yii2-cropper'),
     'Zelenin\\yii\\behaviors\\' => array($vendorDir . '/zelenin/yii2-slug-behavior'),
     'Zelenin\\Ddd\\String\\' => array($vendorDir . '/zelenin/string'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),

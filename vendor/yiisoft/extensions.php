@@ -255,4 +255,13 @@ return array (
       '@kartik/widgets' => $vendorDir . '/kartik-v/yii2-widgets',
     ),
   ),
+  'budyaga/yii2-cropper' => 
+  array (
+    'name' => 'budyaga/yii2-cropper',
+    'version' => '2.0.1.0',
+    'alias' => 
+    array (
+      '@budyaga/cropper' => $vendorDir . '/budyaga/yii2-cropper',
+    ),
+  ),
 );

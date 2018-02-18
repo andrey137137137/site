@@ -64,5 +64,9 @@ class CategoryController extends AppController
   protected function getListQuery()
   {
     return Image::find()->select(['id', 'title'])->where(['cat_id' => $this->curModelId])->orderBy('title')->asArray()->all();
+
+    SELECT * FROM `rs_gallery_image` INNER JOIN `rs_gallery_category` ON `rs_gallery_image`.`cat_id` = `rs_gallery_category`.`id` INNER JOIN `rs_gallery_category` ON `rs_gallery_category`.`id` = `rs_gallery_category`.`parent_id` WHERE `rs_gallery_image`.`id` = 1;
+
+    SELECT * FROM `rs_gallery_image` INNER JOIN `rs_gallery_category` ON `rs_gallery_image`.`cat_id` = `rs_gallery_category`.`id` WHERE `rs_gallery_image`.`cat_id` = 1 AND `rs_gallery_category`.`id` = `rs_gallery_category`.`parent_id`;
   }
 }

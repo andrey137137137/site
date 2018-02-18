@@ -64,6 +64,10 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
         array (
             'cebe\\markdown\\' => 14,
         ),
+        'b' => 
+        array (
+            'budyaga\\cropper\\' => 16,
+        ),
         'Z' => 
         array (
             'Zelenin\\yii\\behaviors\\' => 22,
@@ -244,6 +248,10 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
+        ),
+        'budyaga\\cropper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/budyaga/yii2-cropper',
         ),
         'Zelenin\\yii\\behaviors\\' => 
         array (

@@ -352,6 +352,51 @@
         ]
     },
     {
+        "name": "budyaga/yii2-cropper",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/budyaga/yii2-cropper.git",
+            "reference": "aa079dfc333c81bef4e826a27be92596e4d44066"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/budyaga/yii2-cropper/zipball/aa079dfc333c81bef4e826a27be92596e4d44066",
+            "reference": "aa079dfc333c81bef4e826a27be92596e4d44066",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*",
+            "yiisoft/yii2-imagine": "*"
+        },
+        "time": "2015-12-23T15:08:48+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "budyaga\\cropper\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Sergey Krivochenko",
+                "email": "budyaga@gmail.com"
+            }
+        ],
+        "description": "Yii-Framework widget for uploading and cropping images",
+        "keywords": [
+            "crop",
+            "extension",
+            "upload",
+            "yii2"
+        ]
+    },
+    {
         "name": "cebe/markdown",
         "version": "1.1.2",
         "version_normalized": "1.1.2.0",
