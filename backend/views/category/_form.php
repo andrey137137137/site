@@ -27,7 +27,7 @@ $image = $model->id . $model->mainImage->ext;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?
+    <?php
         if ($model->isNewRecord)
         {
             // echo $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
@@ -38,16 +38,15 @@ $image = $model->id . $model->mainImage->ext;
         }
     ?>
 
-    <?= $form->field($model, 'main_image_id')->dropDownList($dropDownList) ?>
+    <?= $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
+        'id' => 'main_image_dropdownlist',
+        'options' => $imagesList
+    ]) ?>
 
     <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $image)): ?>
 
       <div>
-        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $image,
-            [
-                'alt' => $model->title,
-            ]
-        ); ?>
+        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $image, ['alt' => $model->title]) ?>
       </div>
 
     <?php endif; ?>

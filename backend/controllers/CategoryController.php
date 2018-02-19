@@ -18,6 +18,7 @@ class CategoryController extends AppController
 
   private $parentsList;
   private $childrenList = [];
+  private $imagesList = [];
 
   // protected function change()
   // {
@@ -58,8 +59,19 @@ class CategoryController extends AppController
 
     $categories = $categories->orderBy('title')->asArray()->all();
 
+    $imagesList = [];
+
+    foreach ($this->imagesList as $i => $array)
+    {
+      $imagesList[$array['id']] = [
+        'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['ext']];
+    }
+
+    // var_dump($imagesList);
+
     return [
-      'parentsList' => $this->getArray($categories, 'title', 'id', [null => 'Нет родителя'])
+      'parentsList' => $this->getArray($categories, 'title', 'id', [null => 'Нет родителя']),
+      'imagesList' => $imagesList
     ];
   }
 
@@ -69,8 +81,11 @@ class CategoryController extends AppController
 
     $this->setChildren($this->curModelId);
 
-    // return Image::find()->select(['id', 'title'])->where(['cat_id' => $this->curModelId])->orderBy('title')->asArray()->all();
-    return Image::find()->select(['id', 'title'])->where(['cat_id' => $this->childrenList])->orderBy('title')->asArray()->all();
+    $result = Image::find()->select(['id', 'title', 'ext'])->where(['cat_id' => $this->childrenList])->orderBy('title')->asArray()->all();
+
+    $this->imagesList = $result;
+
+    return $result;
 
     // SELECT * FROM `rs_gallery_image` INNER JOIN `rs_gallery_category` ON `rs_gallery_image`.`cat_id` = `rs_gallery_category`.`id` INNER JOIN `rs_gallery_category` ON `rs_gallery_category`.`id` = `rs_gallery_category`.`parent_id` WHERE `rs_gallery_image`.`id` = 1;
 
