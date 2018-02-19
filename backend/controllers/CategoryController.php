@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use backend\models\Category;
 use backend\models\Image;
 
@@ -64,22 +65,28 @@ class CategoryController extends AppController
 
   protected function getListQuery()
   {
-    return Image::find()->select(['id', 'title'])->where(['cat_id' => $this->curModelId])->orderBy('title')->asArray()->all();
+    $this->childrenList = [$this->curModelId];
+
+    $this->setChildren($this->curModelId);
+
+    // return Image::find()->select(['id', 'title'])->where(['cat_id' => $this->curModelId])->orderBy('title')->asArray()->all();
+    return Image::find()->select(['id', 'title'])->where(['cat_id' => $this->childrenList])->orderBy('title')->asArray()->all();
 
     // SELECT * FROM `rs_gallery_image` INNER JOIN `rs_gallery_category` ON `rs_gallery_image`.`cat_id` = `rs_gallery_category`.`id` INNER JOIN `rs_gallery_category` ON `rs_gallery_category`.`id` = `rs_gallery_category`.`parent_id` WHERE `rs_gallery_image`.`id` = 1;
 
     // SELECT * FROM `rs_gallery_image` INNER JOIN `rs_gallery_category` ON `rs_gallery_image`.`cat_id` = `rs_gallery_category`.`id` WHERE `rs_gallery_image`.`cat_id` = 1 AND `rs_gallery_category`.`id` = `rs_gallery_category`.`parent_id`;
   }
 
-  protected function getChildren($curId)
+  private function setChildren($curId)
   {
-    if ($buffArray = Category::find()->select(['id'])->where(['parent_id' => $curId])->asArray()->all())
+    if ($buffArray = Category::find()->select(['id', 'title'])->where(['parent_id' => $curId])->asArray()->all())
     {
+      $buffArray = ArrayHelper::getColumn($buffArray, 'id');
       $this->childrenList = array_merge($this->childrenList, $buffArray);
 
       foreach ($buffArray as $i => $id)
       {
-        $this->getChildren($id);
+        $this->setChildren($id);
       }
     }
   }
