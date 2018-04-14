@@ -1,0 +1,286 @@
+@media screen and (min-width: 100px) {
+  .wrap-carousel {
+    z-index: $z6;
+    margin-top: -126px;
+  }
+
+  .carousel {
+    @include carousel(62px);
+  }
+}
+
+@media screen and (min-width: 420px) {
+  .main-slider {
+    width: 410px;
+    height: 318px;
+
+    .frame {
+      border: $mainSliderBorderSize solid $white;
+    }
+
+    .rslides_nav {
+      line-height: 318px;
+    }
+  }
+
+  .wrap-carousel {
+    margin-top: -131px;
+  }
+
+  // .carousel
+  // {
+  //   @include carousel(67px);
+  // }
+}
+
+@media screen and (min-width: 500px) {
+  .main-slider {
+    width: 532px;
+    height: 412px;
+
+    .inside-left-top,
+    .inside-right-top,
+    .inside-left-bottom,
+    .inside-right-bottom {
+      width: $mainSliderInsideFrameMargin;
+      height: $mainSliderInsideCornerHeight;
+    }
+
+    .outside-left-top,
+    .outside-right-top,
+    .outside-left-bottom,
+    .outside-right-bottom {
+      width: $mainSliderOutsideCornerHeight;
+      height: $mainSliderOutsideFrameMargin;
+    }
+
+    .inside-left-top,
+    .outside-left-top {
+      top: $mainSliderOutsideFrameMargin;
+      left: $mainSliderInsideFrameMargin;
+    }
+
+    .inside-right-top,
+    .outside-right-top {
+      top: $mainSliderOutsideFrameMargin;
+      right: $mainSliderInsideFrameMargin;
+    }
+
+    .outside-left-bottom,
+    .inside-left-bottom {
+      left: $mainSliderInsideFrameMargin;
+      bottom: $mainSliderOutsideFrameMargin;
+    }
+
+    .outside-right-bottom,
+    .inside-right-bottom {
+      right: $mainSliderInsideFrameMargin;
+      bottom: $mainSliderOutsideFrameMargin;
+    }
+
+    .frame {
+      top: $mainSliderOutsideFrameMargin;
+      width: 86.6412213740458%;
+      height: 82.75862068965517%;
+      background-color: $blackShadow;
+      // background: none;
+      // box-shadow: 35px 35px 35px $blackShadow;
+      @include box-shadow(18px, 35px, $blackShadow);
+    }
+
+    .rslides_nav {
+      line-height: 412px;
+    }
+
+    .inside-left-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-left: $mainSliderBorderSize solid $white;
+    }
+
+    .inside-right-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-right: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-left-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-left: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-right-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-right: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-left-bottom {
+      border-left: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-right-bottom {
+      border-right: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    .inside-left-bottom {
+      border-left: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    .inside-right-bottom {
+      border-right: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+  }
+
+  .wrap-carousel {
+    margin-top: -164px;
+  }
+
+  .carousel {
+    @include carousel(87px);
+  }
+}
+
+@media screen and (min-width: 550px) {
+  #menu-check:before {
+    display: none;
+    // border: 2px solid #ffffff;
+    // margin-bottom: 9px;
+    // border-radius: 4px;
+    // padding: 5px 10px;
+    // font: 36px/1 FontAwesome;
+    // color: $white;
+    // content: '\f0c9';
+    // cursor: pointer;
+  }
+
+  #main-menu {
+    position: static;
+    // right: 0;
+    // z-index: $z7;
+    display: block;
+    // line-height: 51px;
+    background: none;
+
+    li {
+      float: left;
+      width: auto;
+    }
+  }
+}
+
+@media screen and (min-width: 605px) {
+  .category {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main-slider {
+    width: 758px;
+    height: 587px;
+
+    .rslides_nav {
+      font-size: 60px;
+      line-height: 587px;
+    }
+
+    .inside-left-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-left: $mainSliderBorderSize solid $white;
+    }
+
+    .inside-right-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-right: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-left-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-left: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-right-top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-right: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-left-bottom {
+      border-left: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    .outside-right-bottom {
+      border-right: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    .inside-left-bottom {
+      border-left: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    .inside-right-bottom {
+      border-right: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+  }
+
+  .wrap-carousel {
+    margin-top: -231px;
+  }
+
+  .carousel {
+    @include carousel(124px);
+  }
+}
+
+@media screen and (min-width: 899px) {
+  .category {
+    width: 33.33333333333333%;
+  }
+}
+
+@media screen and (min-width: 1048px) {
+  .main-slider {
+    z-index: $z6;
+    width: 1048px;
+    height: 812px;
+
+    .rslides_nav {
+      font-size: 70px;
+      line-height: 812px;
+    }
+
+    // @include wrap-frame(812px, $mainSliderHeight, 41px, $mainSliderCornerHeight, 4px, 0);
+
+    // @include wrap-frame(908px, $mainSliderHeight, 41px, $mainSliderCornerHeight, 4px, 0);
+
+    // @include wrap-frame();
+  }
+
+  .wrap-carousel {
+    z-index: 1;
+    // margin-top: round(-($mainSliderHeight + $mainSliderCornerHeight*2)/2 - round(($carouselMargin*2 + $carouselHeight)/2));
+    margin-top: round(
+      -$rslidesNavLineheight/2 - round(($carouselMargin * 2 + $carouselHeight)/2)
+    );
+  }
+
+  .carousel {
+    @include carousel;
+  }
+}
+
+@media screen and (min-width: 1193px) {
+  .category {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1487px) {
+  .category {
+    width: 20%;
+  }
+}

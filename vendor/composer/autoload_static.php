@@ -4,15 +4,15 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
+class ComposerStaticInitafc84938adfde3b691341220fca5f54e
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -156,8 +156,8 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'kartik\\widgets\\' => 
         array (
@@ -341,8 +341,8 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
         ),
         'Codeception\\' => 
         array (
-            0 => __DIR__ . '/..' . '/codeception/base/src/Codeception',
-            1 => __DIR__ . '/..' . '/codeception/stub/src',
+            0 => __DIR__ . '/..' . '/codeception/stub/src',
+            1 => __DIR__ . '/..' . '/codeception/base/src/Codeception',
         ),
     );
 
@@ -862,10 +862,10 @@ class ComposerStaticInit57eab4d0870c082e9f88da494937fc2a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit57eab4d0870c082e9f88da494937fc2a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit57eab4d0870c082e9f88da494937fc2a::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit57eab4d0870c082e9f88da494937fc2a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit57eab4d0870c082e9f88da494937fc2a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitafc84938adfde3b691341220fca5f54e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitafc84938adfde3b691341220fca5f54e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitafc84938adfde3b691341220fca5f54e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitafc84938adfde3b691341220fca5f54e::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,0 +1,50 @@
+$white: #fff;
+$black: #000;
+$blackShadow: rgba(0, 0, 1, 0.75);
+// $linkColor: #2d9aa7;
+$linkColor: #4cbee8;
+// $headerFooterBgColor: #162f57;
+// $headerFooterBgColor: #131135;
+$headerFooterBgColor: rgba(19, 17, 53, 0.51);
+
+$darkWhite: darken($white, 10%);
+
+$transitionTime: 0.5s;
+
+$z1: 10;
+$z2: 100;
+$z3: 1000;
+$z4: 10000;
+$z5: 100000;
+$z6: 1000000;
+$z7: 10000000;
+
+// $headerHeight: 100px;
+// $headerHeight: 70px;
+// $headerNarrowHeight: 70px;
+$headerHeight: 65px;
+$headerNarrowHeight: $headerHeight;
+$headerSeperator: 4px;
+
+$defaultWrapFrameHeight: 294px;
+$defaulFrameMargin: 11.9047619047619%; // 35px
+$defaulCornerHeight: 7.142857142857143%; // 21px
+$defaulBorderSize: 2px;
+
+// $mainSliderHeight: 400px;
+// $mainSliderHeight: 600px;
+$mainSliderHeight: 672px;
+// $mainSliderCornerHeight: 70px;
+$mainSliderInsideFrameMargin: 6.679389312977099%;
+$mainSliderOutsideFrameMargin: 8.620689655172414%;
+$mainSliderInsideCornerHeight: 5.049261083743842%;
+$mainSliderOutsideCornerHeight: 3.912213740458015%;
+$mainSliderBorderSize: 4px;
+
+$rslidesNavLineheight: $mainSliderHeight + 70px * 2;
+
+// $carouselMargin: 10px;
+$carouselMargin: 71px;
+$carouselHeight: 171px;
+
+$footerHeight: 40px;

@@ -655,7 +655,7 @@
         },
         "time": "2017-11-21T20:46:30+00:00",
         "type": "yii2-extension",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "rico\\yii2images\\": ""
