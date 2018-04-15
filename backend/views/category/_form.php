@@ -38,9 +38,14 @@ $image = $model->id . $model->mainImage->ext;
         }
     ?>
 
-    <?= $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
+    <?= Html::dropDownList('', null, $dropDownList, [
         'id' => 'main_image_dropdownlist',
         'options' => $imagesList
+    ]) ?>
+
+    <?= $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
+        'id' => 'main_image_hidden_input'
+        // 'options' => $imagesList
     ]) ?>
 
     <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $image)): ?>
