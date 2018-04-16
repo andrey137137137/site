@@ -20,8 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
+            [   
+                'label' => 'Родительский альбом',
+                'value' => 'parent.title'
+            ],
             'title',
             'alias',
             // 'main_image_id',
@@ -40,12 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'mainImage.ext',
             'description:ntext',
-            [   
-                'label' => 'Родительский альбом',
-                'value' => 'parent.title'
-            ],
             'is_main',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

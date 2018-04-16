@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     );
                 },
             ],
-            'ext',
+            // 'ext',
             'description:ntext',
             // 'create_at',
             // 'update_at',
