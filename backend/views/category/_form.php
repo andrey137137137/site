@@ -48,6 +48,8 @@ $image = $model->id . $model->mainImage->ext;
         // 'options' => $imagesList
     ]) ?>
 
+    <!-- ?= $form->field($model, 'main_image_id')->textInput(['id' => 'main_image_hidden_input', 'maxlength' => true]) ?> -->
+
     <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $image)): ?>
 
       <div>
