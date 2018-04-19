@@ -14,7 +14,7 @@
     width: 410px;
     height: 318px;
 
-    .frame {
+    .frame_wrap__frame {
       border: $mainSliderBorderSize solid $white;
     }
 
@@ -38,47 +38,88 @@
     width: 532px;
     height: 412px;
 
-    .inside-left-top,
-    .inside-right-top,
-    .inside-left-bottom,
-    .inside-right-bottom {
-      width: $mainSliderInsideFrameMargin;
-      height: $mainSliderInsideCornerHeight;
-    }
+    .frame_wrap__corner {
+      &--inside_left_top,
+      &--inside_right_top,
+      &--inside_left_bottom,
+      &--inside_right_bottom {
+        width: $mainSliderInsideFrameMargin;
+        height: $mainSliderInsideCornerHeight;
+      }
 
-    .outside-left-top,
-    .outside-right-top,
-    .outside-left-bottom,
-    .outside-right-bottom {
-      width: $mainSliderOutsideCornerHeight;
-      height: $mainSliderOutsideFrameMargin;
-    }
+      &--outside_left_top,
+      &--outside_right_top,
+      &--outside_left_bottom,
+      &--outside_right_bottom {
+        width: $mainSliderOutsideCornerHeight;
+        height: $mainSliderOutsideFrameMargin;
+      }
 
-    .inside-left-top,
-    .outside-left-top {
-      top: $mainSliderOutsideFrameMargin;
-      left: $mainSliderInsideFrameMargin;
-    }
+      &--inside_left_top,
+      &--outside_left_top {
+        top: $mainSliderOutsideFrameMargin;
+        left: $mainSliderInsideFrameMargin;
+      }
 
-    .inside-right-top,
-    .outside-right-top {
-      top: $mainSliderOutsideFrameMargin;
-      right: $mainSliderInsideFrameMargin;
-    }
+      &--inside_right_top,
+      &--outside_right_top {
+        top: $mainSliderOutsideFrameMargin;
+        right: $mainSliderInsideFrameMargin;
+      }
 
-    .outside-left-bottom,
-    .inside-left-bottom {
-      left: $mainSliderInsideFrameMargin;
-      bottom: $mainSliderOutsideFrameMargin;
-    }
+      &--outside_left_bottom,
+      &--inside_left_bottom {
+        left: $mainSliderInsideFrameMargin;
+        bottom: $mainSliderOutsideFrameMargin;
+      }
 
-    .outside-right-bottom,
-    .inside-right-bottom {
-      right: $mainSliderInsideFrameMargin;
-      bottom: $mainSliderOutsideFrameMargin;
-    }
+      &--outside_right_bottom,
+      &--inside_right_bottom {
+        right: $mainSliderInsideFrameMargin;
+        bottom: $mainSliderOutsideFrameMargin;
+      }
 
-    .frame {
+      &--inside_left_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-left: $mainSliderBorderSize solid $white;
+      }
+
+      &--inside_right_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-right: $mainSliderBorderSize solid $white;
+      }
+
+      &--outside_left_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-left: $mainSliderBorderSize solid $white;
+      }
+
+      &--outside_right_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-right: $mainSliderBorderSize solid $white;
+      }
+
+      &--outside_left_bottom {
+        border-left: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
+
+      &--outside_right_bottom {
+        border-right: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
+
+      &--inside_left_bottom {
+        border-left: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
+
+      &--inside_right_bottom {
+        border-right: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
+    }
+    .frame_wrap__frame {
       top: $mainSliderOutsideFrameMargin;
       width: 86.6412213740458%;
       height: 82.75862068965517%;
@@ -90,46 +131,6 @@
 
     .rslides_nav {
       line-height: 412px;
-    }
-
-    .inside-left-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-left: $mainSliderBorderSize solid $white;
-    }
-
-    .inside-right-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-right: $mainSliderBorderSize solid $white;
-    }
-
-    .outside-left-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-left: $mainSliderBorderSize solid $white;
-    }
-
-    .outside-right-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-right: $mainSliderBorderSize solid $white;
-    }
-
-    .outside-left-bottom {
-      border-left: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
-    }
-
-    .outside-right-bottom {
-      border-right: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
-    }
-
-    .inside-left-bottom {
-      border-left: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
-    }
-
-    .inside-right-bottom {
-      border-right: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
     }
   }
 
@@ -186,44 +187,46 @@
       line-height: 587px;
     }
 
-    .inside-left-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-left: $mainSliderBorderSize solid $white;
-    }
+    .frame_wrap__corner {
+      &--inside_left_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-left: $mainSliderBorderSize solid $white;
+      }
 
-    .inside-right-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-right: $mainSliderBorderSize solid $white;
-    }
+      &--inside_right_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-right: $mainSliderBorderSize solid $white;
+      }
 
-    .outside-left-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-left: $mainSliderBorderSize solid $white;
-    }
+      &--outside_left_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-left: $mainSliderBorderSize solid $white;
+      }
 
-    .outside-right-top {
-      border-top: $mainSliderBorderSize solid $white;
-      border-right: $mainSliderBorderSize solid $white;
-    }
+      &--outside_right_top {
+        border-top: $mainSliderBorderSize solid $white;
+        border-right: $mainSliderBorderSize solid $white;
+      }
 
-    .outside-left-bottom {
-      border-left: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
-    }
+      &--outside_left_bottom {
+        border-left: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
 
-    .outside-right-bottom {
-      border-right: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
-    }
+      &--outside_right_bottom {
+        border-right: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
 
-    .inside-left-bottom {
-      border-left: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
-    }
+      &--inside_left_bottom {
+        border-left: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
 
-    .inside-right-bottom {
-      border-right: $mainSliderBorderSize solid $white;
-      border-bottom: $mainSliderBorderSize solid $white;
+      &--inside_right_bottom {
+        border-right: $mainSliderBorderSize solid $white;
+        border-bottom: $mainSliderBorderSize solid $white;
+      }
     }
   }
 

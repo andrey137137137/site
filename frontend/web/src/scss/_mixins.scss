@@ -224,6 +224,8 @@
   // width: 100%;
   // height: 160px;
 
+  $block: &;
+
   $width: round($height * 1.076); // 184px;
 
   $widthPercent: $width/100;
@@ -246,7 +248,7 @@
   //   overflow: hidden;
   // }
 
-  .slide {
+  &__slide {
     margin: $margin 0;
     // margin: 22.68370607028754% 0;
     border-top: $borderWidth solid $white;
@@ -274,20 +276,22 @@
     box-shadow: 0 $shadowSize $shadowSize $white,
       unquote("0 -#{$shadowSize}") $shadowSize $white;
 
-    .perforation div {
+    #{$block}__perforation_item {
       box-shadow: 0 1px 2px $white, 0 -1px 2px $white;
     }
   }
 
-  .perforation {
-    // display: flex;
-    // flex-wrap: nowrap;
-    // justify-content: space-between;
-    // height: round($heightPercent*14);
-    // height: 14.03508771929825%;
-    // height: 14.37125748502994%;
+  &__perforation {
+    // &_list {
+    //   display: flex;
+    //   flex-wrap: nowrap;
+    //   justify-content: space-between;
+    //   height: round($heightPercent * 14);
+    //   height: 14.03508771929825%;
+    //   height: 14.37125748502994%;
+    // }
 
-    div {
+    &_item {
       // margin: 4px auto;
       // margin: 17% auto;
       // margin: round($heightPercent*2.34) auto;
@@ -305,7 +309,7 @@
     }
   }
 
-  .frame {
+  &__frame {
     // margin: 0 auto;
     border: $borderWidth solid $white;
     /*width: 380px;*/

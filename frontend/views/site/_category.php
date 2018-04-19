@@ -6,6 +6,32 @@ use yii\helpers\Html;
 
 extract($params);
 
+$perforationList = '<ul class="carousel__perforation_list">';
+
+for ($j = 0; $j < 8; $j++)
+  $perforationList .= '<li class="carousel__perforation_item"></li>';
+
+$perforationList .= '</ul>';
+
+function frameCorners($tag = 'div')
+{
+  $cornerClasses = [
+    'frame_wrap__corner--inside_left_top',
+    'frame_wrap__corner--inside_right_top',
+    'frame_wrap__corner--outside_left_top',
+    'frame_wrap__corner--outside_right_top',
+    'frame_wrap__corner--outside_left_bottom',
+    'frame_wrap__corner--outside_right_bottom',
+    'frame_wrap__corner--inside_left_bottom',
+    'frame_wrap__corner--inside_right_bottom'
+  ];
+
+  foreach ($cornerClasses as $i => $value)
+  {
+    echo '<' . $tag . ' class="frame_wrap__corner ' . $value . '"></' . $tag . '>';
+  }
+}
+
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
@@ -15,26 +41,20 @@ extract($params);
   <!-- <div> -->
   <!-- <div class="container"> -->
 
-    <div class="wrap-frame main-slider">
-      <div class="inside-left-top corner"></div>
-      <div class="inside-right-top corner"></div>
-      <div class="outside-left-top corner"></div>
-      <div class="outside-right-top corner"></div>
-      <div class="outside-left-bottom corner"></div>
-      <div class="outside-right-bottom corner"></div>
-      <div class="inside-left-bottom corner"></div>
-      <div class="inside-right-bottom corner"></div>
+    <div id="mainSlider" class="frame_wrap main-slider">
+      <?php frameCorners() ?>
 
-      <div id="rs-slider" class="frame">
+      <ul id="rs-slider" class="frame frame_wrap__frame">
 
-        <?php foreach ($images as $i => $image):
-
+        <?php foreach ($images as $i => $image)
+        {
+          
           $tempImageName = $image->id . $image->ext;
 
         ?>
 
-          <div class="wrap-image" data-number="<?= $i ?>">
-            <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
+          <li class="frame__img_wrap" data-number="<?= $i ?>">
+            <!-- <picture class="frame__img_wrape" data-number="<?= $i ?>" style="display: block;">
               <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
               <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
               <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
@@ -42,16 +62,17 @@ extract($params);
             </picture> -->
             <?= Html::img(Reasanik::$galleryPath . 'images/' . $tempImageName,
                 [
+                  'class' => 'frame__img',
                   // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
                   'alt' => $image->title
                 ]
               )
             ?>
-          </div>
+          </li>
 
-        <?php endforeach; ?>
+        <?php } ?>
 
-      </div>
+      </ul>
     </div>
 
     <div class="wrap-carousel">
@@ -59,26 +80,18 @@ extract($params);
         <ul class="simple-slider">
 
           <!-- Thumbnails -->
-          <?php foreach ($images as $i => $image):
-
+          <?php foreach ($images as $i => $image)
+          {
+            
             $tempImageName = $image->id . $image->ext;
 
           ?>
 
-            <li class="slide" data-number="<?= $i ?>">
-              <div class="perforation">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+            <li class="carousel__slide" data-number="<?= $i ?>">
+              <?= $perforationList ?>
 
-              <article class="frame">
-                <a class="wrap-image" href="#" data-number="<?= $i ?>">
+              <article class="frame carousel__frame">
+                <a class="frame__img_wrap" href="#" data-number="<?= $i ?>">
                   <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
                     <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
                     <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
@@ -87,6 +100,7 @@ extract($params);
                   </picture> -->
                   <?= Html::img(Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
                       [
+                        'class' => 'frame__img',
                         // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
                         'alt' => $image->title
                       ]
@@ -95,19 +109,10 @@ extract($params);
                 </a>
               </article>
 
-              <div class="perforation">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <?= $perforationList ?>
             </li> 
 
-          <?php endforeach; ?>
+          <?php } ?>
 
         </ul>
 
@@ -140,33 +145,27 @@ extract($params);
 
   <article class="category">
 
-    <!-- <div class="wrap-frame active"> -->
-    <div class="wrap-frame">
+    <!-- <ul class="wrap-frame active"> -->
+    <ul class="frame_wrap">
 
-      <div class="inside-left-top corner"></div>
-      <div class="inside-right-top corner"></div>
-      <div class="outside-left-top corner"></div>
-      <div class="outside-right-top corner"></div>
-      <div class="outside-left-bottom corner"></div>
-      <div class="outside-right-bottom corner"></div>
-      <div class="inside-left-bottom corner"></div>
-      <div class="inside-right-bottom corner"></div>
+      <?php frameCorners('li') ?>
 
-      <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame']) ?>
-        <div class="wrap-image">
+      <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame frame_wrap__frame']) ?>
+        <li class="frame__img_wrap">
           <?= Html::img(Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
               [
+                'class' => 'frame__img',
                 'alt' => $category->title
               ]
             )
           ?>
-        </div>
-        <!-- <div class="foreground image-container">
+        </li>
+        <!-- <li class="foreground image-container">
           <image src="" alt="">
-        </div> -->
+        </li> -->
       <?= Html::endTag('a') ?>
 
-    </div>
+    </ul>
 
     <h2 class="category_header"><?= Html::encode($category->title) ?></h2>
     <p class="category_desc"><?= Html::encode($category->description) ?></p>
