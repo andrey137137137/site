@@ -22,14 +22,14 @@ body {
   // background: #163578;
 }
 
-.main-header,
-.main-footer {
+.header,
+.footer {
   // font-size: 24px;
   background-color: $headerFooterBgColor;
   overflow: hidden;
 }
 
-.main-wrapper {
+.main_wrapper {
   position: relative;
   min-height: 100%;
   overflow: hidden;
@@ -50,7 +50,7 @@ body {
 
 .clearfix,
 .container,
-.hor-menu,
+.menu,
 .simple-slider,
 .carousel__perforation_list {
   &:after {
@@ -74,9 +74,13 @@ body {
   // }
 }
 
-main,
-.main-footer {
+.main,
+.footer {
   text-align: center;
+}
+
+ul {
+  list-style: none outside;
 }
 
 // a,
@@ -103,30 +107,31 @@ a {
 }
 
 .logo,
-.menu-check,
-.hor-menu a {
+.menu_checker,
+.menu a,
+.menu__link {
   padding: 0 20px;
 }
 
-ul {
-  list-style: none outside;
-}
+.menu {
+  $block: &;
 
-.hor-menu {
   // display: flex;
   // flex-wrap: wrap;
 
+  &__link,
   li {
     float: left;
   }
 
+  &__link#{$block}__link--active,
   .current_page_item,
   .active {
     color: $white;
   }
 }
 
-.main-header {
+.header {
   // position: fixed;
   position: relative;
   // z-index: $z7;
@@ -213,12 +218,12 @@ ul {
   // }
 }
 
-nav {
+.nav {
   position: relative;
   float: right;
 }
 
-.menu-check:before {
+.menu_checker:before {
   display: block;
   border: 2px solid #ffffff;
   margin-bottom: 9px;
@@ -230,7 +235,7 @@ nav {
   cursor: pointer;
 }
 
-.main-menu {
+.main_menu {
   position: absolute;
   right: 0;
   z-index: $z7;
@@ -243,12 +248,12 @@ nav {
   }
 }
 
-main {
+.main {
   // padding: $headerHeight + 20px 0 52px;
   padding: 20px 0 52px;
   color: $white;
 
-  .container {
+  &__container {
     justify-content: space-around;
     max-width: 100%;
   }
@@ -742,7 +747,7 @@ form {
   content: "\f101";
 }
 
-.main-footer {
+.footer {
   position: relative;
   // bottom: 0;
   margin-top: -$footerHeight;
@@ -752,11 +757,11 @@ form {
   // opacity: 0;
   // transition: opacity $transitionTime;
 
-  .container {
+  &__container {
     justify-content: center;
   }
 
-  ul {
+  &__footer {
     display: table;
     margin: 0 auto;
   }

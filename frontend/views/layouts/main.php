@@ -31,34 +31,35 @@ $this->beginPage() ?>
 <body>
 <?php $this->beginBody() ?>
 
-  <div class="main-wrapper">
+  <div class="main_wrapper">
 
-    <header id="main-header" class="main-header">
+    <header id="main-header" class="header">
       <div class="container">
-    
+
         <?php
-          echo Html::beginTag('a', ['href' => '/', 'class' => 'logo']);
+          echo Html::beginTag('a', ['href' => '/', 'class' => 'img_wrap logo']);
             echo Html::img('/img/logo.png',
                             [
+                              'class' => 'img',
                                 'alt' => 'Reasanik',
                                 // 'style' => 'width:15px;'
                             ]
                         );
           echo Html::endTag('a');
         ?>
-    
-        <nav>
-          <div id="menu-check" class="menu-check"></div>
+
+        <nav class="nav">
+          <div id="menu-check" class="menu_checker"></div>
           <?php
             $menuItems = [
-                ['label' => 'Главная', 'url' => ['site/index']],
-                ['label' => 'Фото', 'url' => ['site/category']],
-                ['label' => 'Контакты', 'url' => ['site/contact']],
+                ['class' => 'menu__link', 'label' => 'Главная', 'url' => ['site/index']],
+                ['class' => 'menu__link', 'label' => 'Фото', 'url' => ['site/category']],
+                ['class' => 'menu__link', 'label' => 'Контакты', 'url' => ['site/contact']],
             ];
-      
+
             echo Menu::widget([
               'items' => $menuItems,
-              'options' => ['id' => 'main-menu', 'class' => 'hor-menu main-menu'],
+              'options' => ['id' => 'main-menu', 'class' => 'menu main_menu header__main_menu'],
             ]);
           ?>
         </nav>
@@ -66,12 +67,12 @@ $this->beginPage() ?>
       </div>
     </header>
 
-    <main>
-      <div class="container">
+    <main class="main">
+      <div class="container main__container">
         <?php
           echo Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            'options' => ['class' => 'hor-menu breadcrumbs'],
+            'options' => ['class' => 'menu breadcrumbs'],
            ]);
           echo Alert::widget();
           echo $content;
@@ -80,11 +81,11 @@ $this->beginPage() ?>
     </main>
   </div>
 
-  <footer id="main-footer" class="main-footer">
-    <div class="container">
+  <footer id="main-footer" class="footer">
+    <div class="container footer__container">
       <?= Menu::widget([
         'items' => $menuItems,
-        'options' => ['class' => 'hor-menu'],
+        'options' => ['class' => 'menu footer__main_menu'],
       ]) ?>
     </div>
   </footer>

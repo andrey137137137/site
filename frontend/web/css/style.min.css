@@ -526,19 +526,19 @@ body {
   background: #163578 url("../img/bg.jpg") no-repeat center top/cover;
 }
 
-.main-header,
-.main-footer {
+.header,
+.footer {
   background-color: rgba(19, 17, 53, 0.51);
   overflow: hidden;
 }
 
-.main-wrapper {
+.main_wrapper {
   position: relative;
   min-height: 100%;
   overflow: hidden;
 }
 
-.main-wrapper:after {
+.main_wrapper:after {
   display: block;
   height: 40px;
   content: "";
@@ -553,7 +553,7 @@ body {
 
 .clearfix:after,
 .container:after,
-.hor-menu:after,
+.menu:after,
 .simple-slider:after,
 .carousel__perforation_list:after {
   display: block;
@@ -570,9 +570,13 @@ body {
   max-width: 952px;
 }
 
-main,
-.main-footer {
+.main,
+.footer {
   text-align: center;
+}
+
+ul {
+  list-style: none outside;
 }
 
 a,
@@ -594,25 +598,24 @@ a {
 }
 
 .logo,
-.menu-check,
-.hor-menu a {
+.menu_checker,
+.menu a,
+.menu__link {
   padding: 0 20px;
 }
 
-ul {
-  list-style: none outside;
-}
-
-.hor-menu li {
+.menu__link,
+.menu li {
   float: left;
 }
 
-.hor-menu .current_page_item,
-.hor-menu .active {
+.menu__link.menu__link--active,
+.menu .current_page_item,
+.menu .active {
   color: #fff;
 }
 
-.main-header {
+.header {
   position: relative;
   padding-top: 10px;
   width: 100%;
@@ -621,15 +624,15 @@ ul {
   transition: height 0.5s, line-height 0.5s;
 }
 
-.main-header .container {
+.header .container {
   display: block;
 }
 
-.main-header.narrow {
+.header.narrow {
   height: 69px;
 }
 
-.main-header:after {
+.header:after {
   position: absolute;
   bottom: 0;
   display: block;
@@ -673,12 +676,12 @@ ul {
   border-top: 3px solid #fff;
 }
 
-nav {
+.nav {
   position: relative;
   float: right;
 }
 
-.menu-check:before {
+.menu_checker:before {
   display: block;
   border: 2px solid #ffffff;
   margin-bottom: 9px;
@@ -690,7 +693,7 @@ nav {
   cursor: pointer;
 }
 
-.main-menu {
+.main_menu {
   position: absolute;
   right: 0;
   z-index: 10000000;
@@ -699,38 +702,38 @@ nav {
   background-color: rgba(19, 17, 53, 0.51);
 }
 
-.main-menu li {
+.main_menu li {
   width: 125px;
 }
 
-main {
+.main {
   padding: 20px 0 52px;
   color: #fff;
 }
 
-main .container {
+.main__container {
   justify-content: space-around;
   max-width: 100%;
 }
 
-main a {
+.main a {
   transition: text-decoration 0.5s;
 }
 
-main a:hover {
+.main a:hover {
   text-decoration: underline;
 }
 
-main .breadcrumbs li + li:before {
+.main .breadcrumbs li + li:before {
   font-family: FontAwesome;
   content: "\f105";
 }
 
-main .breadcrumbs a {
+.main .breadcrumbs a {
   display: inline-block;
 }
 
-main .breadcrumbs .active:before {
+.main .breadcrumbs .active:before {
   padding-right: 20px;
 }
 
@@ -1152,7 +1155,7 @@ form .button:hover {
   content: "\f101";
 }
 
-.main-footer {
+.footer {
   position: relative;
   margin-top: -40px;
   width: 100%;
@@ -1160,11 +1163,11 @@ form .button:hover {
   line-height: 40px;
 }
 
-.main-footer .container {
+.footer__container {
   justify-content: center;
 }
 
-.main-footer ul {
+.footer__footer {
   display: table;
   margin: 0 auto;
 }
