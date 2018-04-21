@@ -1,5 +1,62 @@
-// #reasanik
-// {
+@mixin fonts($fontFamily, $weight: normal, $style: normal) {
+  $rootPath: "../fonts";
+
+  @font-face {
+    font-family: $fontFamily;
+    src: url("#{$rootPath}/#{$fontFamily}/#{$fontFamily}.eot");
+    src: url("#{$rootPath}/#{$fontFamily}/#{$fontFamily}.eot?#iefix")
+        format("embedded-opentype"),
+      url("#{$rootPath}/#{$fontFamily}/#{$fontFamily}.woff2") format("woff2"),
+      url("#{$rootPath}/#{$fontFamily}/#{$fontFamily}.woff") format("woff"),
+      url("#{$rootPath}/#{$fontFamily}/#{$fontFamily}.ttf") format("truetype");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+@mixin cssProp($property, $value) {
+  #{$property}: unquote($value);
+}
+
+@mixin margin($value) {
+  // margin: unquote($value);
+  @include cssProp(margin, $value);
+}
+
+@mixin border($value) {
+  // border: unquote($value);
+  @include cssProp(border, $value);
+}
+
+@mixin padding($value) {
+  // padding: unquote($value);
+  @include cssProp(padding, $value);
+}
+
+@mixin size($value) {
+  // size: unquote($value);
+  @include cssProp(size, $value);
+}
+
+@mixin position($value) {
+  @include cssProp(position, $value);
+}
+
+@mixin oneLineBlock($height, $border: 0) {
+  height: $height;
+  line-height: $height - $border * 2;
+}
+
+@mixin svgBg($id) {
+  background: url("../svg/symbol/svg/sprite.symbol.svg##{$id}");
+}
+
+@mixin widthToPercents($value, $total) {
+  $per: $value * 100%;
+
+  width: calc(#{$per}/#{$total});
+}
+
 @mixin box-shadow($size, $blur, $color) {
   $halfSize: round($size/2);
   $halfBlur: round($blur/2);
@@ -12,210 +69,6 @@
     0 -#{$halfSize} #{$halfBlur} #{$color}, #{$halfSize} 0 #{$halfBlur} #{$color}"
   );
 }
-
-// $mixin wrap-frame($frameWidth: 224px, $frameHeight: 224px, $cornerHeight: 21px, $frameMargin: 35px, $borderSize: 2px, $marginBottom: 14px)
-// $mixin wrap-frame($frameWidth: 1048px, $frameHeight: 812px, $cornerHeight: 41px, $frameMargin: 70px, $borderSize: 4px, $marginBottom: 0)
-// {
-// //   position: relative;
-// //   display: flex;
-// //   justify-content: center;
-//   width: $frameWidth;
-//   height: $frameHeight;
-//   margin-bottom: $marginBottom;
-
-// //   .corner {
-// //     position: absolute;
-// //     transition: top $transitionTime, left $transitionTime, right $transitionTime, bottom $transitionTime;
-// //   }
-
-//   .inside-left-top,
-//   .inside-right-top,
-//   .inside-left-bottom,
-//   .inside-right-bottom {
-//     width: 6.679389312977099%;
-//     height: 5.049261083743842%;
-//   }
-
-//   .outside-left-top,
-//   .outside-right-top,
-//   .outside-left-bottom,
-//   .outside-right-bottom {
-//     width: 3.912213740458015%;
-//     height: 8.620689655172414%;
-//   }
-
-//   .inside-left-top,
-//   .outside-left-top {
-//     top: 8.620689655172414%;
-//     left: 6.679389312977099%;
-//   }
-
-//   .inside-right-top,
-//   .outside-right-top {
-//     top: 8.620689655172414%;
-//     right: 6.679389312977099%;
-//   }
-
-//   .outside-left-bottom,
-//   .inside-left-bottom {
-//     left: 6.679389312977099%;
-//     bottom: 8.620689655172414%;
-//   }
-
-//   .outside-right-bottom,
-//   .inside-right-bottom {
-//     right: 6.679389312977099%;
-//     bottom: 8.620689655172414%;
-//   }
-
-//   .inside-left-top {
-//     border-top: $borderSize solid $white;
-//     border-left: $borderSize solid $white;
-//   }
-
-//   .inside-right-top {
-//     border-top: $borderSize solid $white;
-//     border-right: $borderSize solid $white;
-//   }
-
-//   .outside-left-top {
-//     border-top: $borderSize solid $white;
-//     border-left: $borderSize solid $white;
-//   }
-
-//   .outside-right-top {
-//     border-top: $borderSize solid $white;
-//     border-right: $borderSize solid $white;
-//   }
-
-//   .outside-left-bottom {
-//     border-left: $borderSize solid $white;
-//     border-bottom: $borderSize solid $white;
-//   }
-
-//   .outside-right-bottom {
-//     border-right: $borderSize solid $white;
-//     border-bottom: $borderSize solid $white;
-//   }
-
-//   .inside-left-bottom {
-//     border-left: $borderSize solid $white;
-//     border-bottom: $borderSize solid $white;
-//   }
-
-//   .inside-right-bottom {
-//     border-right: $borderSize solid $white;
-//     border-bottom: $borderSize solid $white;
-//   }
-
-//   .frame {
-//     // position: relative;
-//     top: 8.620689655172414%;
-//     // display: flex;
-//     // align-content: center;
-//     // margin: auto;
-//     border: $borderSize solid $white;
-//     width: 86.6412213740458%;
-//     height: 82.75862068965517%;
-//     // text-align: center;
-//     // overflow: hidden;
-//   }
-
-// //     .wrap-image {
-// //       position: relative;
-// //       // display: flex;
-// //       // justify-content: center;
-// //       // align-items: center;
-// //       width: 100%;
-// //       height: 100%;
-// //       max-width: 100%;
-// //       max-height: 100%;
-// //     }
-
-// //       img {
-// //         position: relative;
-// //         display: block;
-// //         top: 50%;
-// //         // left: 50%;
-// //         margin: 0 auto;
-// //         width: auto;
-// //         height: auto;
-// //         max-width: 100%;
-// //         max-height: 100%;
-// //         transform: translate(0, -50%);
-// //       }
-
-// //     .foreground {
-// //       position: absolute;
-// //       top: 0;
-// //       left: 0;
-// //       opacity: 1;
-// //       transition: opacity $transitionTime+1s;
-// //     }
-
-// //   .delete
-// //   {
-// //     position: absolute;
-// //     top: -5px;
-// //     right: -5px;
-// //     width: $frameMargin;
-// //     height: $frameMargin;
-
-// //     div
-// //     {
-// //       position: relative;
-// //       height: 100%;
-// //       transform: rotate(45deg);
-
-// //       &:before,
-// //       &:after {
-// //         position: absolute;
-// //         display: block;
-// //         content: '';
-// //       }
-
-// //       &:before {
-// //         top: 50%;
-// //         width: 100%;
-// //         border-top: 2px solid $white;
-// //       }
-
-// //       &:after {
-// //         left: 50%;
-// //         height: 100%;
-// //         border-left: 2px solid $white;
-// //       }
-// //     }
-// //   }
-
-// //   &:hover,
-// //   &.active
-// //   {
-// //     .inside-left-top,
-// //     .inside-right-top {
-// //       top: 0;
-// //     }
-
-// //     .outside-left-top,
-// //     .outside-left-bottom {
-// //       left: 0;
-// //     }
-
-// //     .outside-right-top,
-// //     .outside-right-bottom {
-// //       right: 0;
-// //     }
-
-// //     .inside-left-bottom,
-// //     .inside-right-bottom {
-// //       bottom: 0;
-// //     }
-
-// //       .foreground {
-// //         opacity: 0;
-// //       }
-// //   }
-// }
 
 @mixin carousel($height: $carouselHeight) {
   // border-left: 2px solid $white;
@@ -249,6 +102,8 @@
   // }
 
   &__slide {
+    $elem: &;
+
     margin: $margin 0;
     // margin: 22.68370607028754% 0;
     border-top: $borderWidth solid $white;
@@ -261,12 +116,12 @@
       unquote("0 -#{$shadowSize}") $shadowSize $blackShadow;
     // transition: box-shadow $transitionTime;
 
-    &:first-child {
+    &#{$elem}--first {
       border-left: $borderWidth solid $white;
       width: $width + $borderWidth;
     }
 
-    &:last-child {
+    &#{$elem}--last {
       border-right: $borderWidth solid $white;
       width: $width + $borderWidth;
     }
@@ -362,5 +217,3 @@
     line-height: $navHeight;
   }
 }
-
-// }

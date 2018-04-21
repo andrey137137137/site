@@ -13,6 +13,8 @@ for ($j = 0; $j < 8; $j++)
 
 $perforationList .= '</ul>';
 
+$carSlideClass = 'carousel__slide';
+
 function frameCorners($tag = 'div')
 {
   $cornerClasses = [
@@ -53,7 +55,7 @@ function frameCorners($tag = 'div')
 
         ?>
 
-          <li class="frame__img_wrap" data-number="<?= $i ?>">
+          <li class="img_wrap frame__img_wrap" data-number="<?= $i ?>">
             <!-- <picture class="frame__img_wrape" data-number="<?= $i ?>" style="display: block;">
               <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
               <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
@@ -62,7 +64,7 @@ function frameCorners($tag = 'div')
             </picture> -->
             <?= Html::img(Reasanik::$galleryPath . 'images/' . $tempImageName,
                 [
-                  'class' => 'frame__img',
+                  'class' => 'img_wrap__img frame__img',
                   // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
                   'alt' => $image->title
                 ]
@@ -82,12 +84,32 @@ function frameCorners($tag = 'div')
           <!-- Thumbnails -->
           <?php foreach ($images as $i => $image)
           {
-            
+
+            switch ($i)
+            {
+              case 0:
+                $carSlideModif = 'first';
+                break;
+              case count($images) - 1:
+                $carSlideModif = 'last';
+                break;
+              default:
+                $carSlideModif = false;
+
+            }
+
+            $carSlideClasses = $carSlideClass;
+
+            if ($carSlideModif)
+            {
+              $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
+            }
+
             $tempImageName = $image->id . $image->ext;
 
           ?>
 
-            <li class="carousel__slide" data-number="<?= $i ?>">
+            <li class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
               <?= $perforationList ?>
 
               <article class="frame carousel__frame">

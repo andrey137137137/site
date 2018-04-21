@@ -222,7 +222,7 @@ function watch() {
   //   [`${pathes.html.src}/**/*.pug`, `${pathes.html.views}/**/**/*.pug`],
   //   gulp.series(html)
   // );
-  gulp.watch(pathes.css.src + "/**/*.scss", gulp.series(css));
+  gulp.watch(pathes.css.src + "/**/**/*.scss", gulp.series(css));
   // gulp.watch(
   //   ["./webpack.config.js", pathes.js.src + "/**/*.js"],
   //   gulp.series(js)
