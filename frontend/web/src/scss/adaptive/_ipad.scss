@@ -1,0 +1,59 @@
+.main-slider {
+  width: 758px;
+  height: 587px;
+
+  .rslides_nav {
+    font-size: 60px;
+    line-height: 587px;
+  }
+
+  .frame_wrap__corner {
+    &--inside_left_top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-left: $mainSliderBorderSize solid $white;
+    }
+
+    &--inside_right_top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-right: $mainSliderBorderSize solid $white;
+    }
+
+    &--outside_left_top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-left: $mainSliderBorderSize solid $white;
+    }
+
+    &--outside_right_top {
+      border-top: $mainSliderBorderSize solid $white;
+      border-right: $mainSliderBorderSize solid $white;
+    }
+
+    &--outside_left_bottom {
+      border-left: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    &--outside_right_bottom {
+      border-right: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    &--inside_left_bottom {
+      border-left: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+
+    &--inside_right_bottom {
+      border-right: $mainSliderBorderSize solid $white;
+      border-bottom: $mainSliderBorderSize solid $white;
+    }
+  }
+}
+
+.wrap-carousel {
+  margin-top: -231px;
+}
+
+.carousel {
+  @include carousel(124px);
+}

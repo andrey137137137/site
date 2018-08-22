@@ -151,7 +151,7 @@ function css() {
       .pipe($gp.plumber())
       // .pipe(cssGlobbing())
       .pipe($gp.sass().on("error", $gp.sass.logError))
-      // .pipe($gp.postcss(plugins))
+      .pipe($gp.postcss(plugins))
       // .pipe(autoprefixer({
       //   browsers: ['last 15 versions'],
       //   cascade: false

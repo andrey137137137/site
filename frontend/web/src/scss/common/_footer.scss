@@ -1,0 +1,23 @@
+.footer {
+  position: relative;
+  // bottom: 0;
+  margin-top: -$footerHeight;
+  width: 100%;
+  height: $footerHeight;
+  line-height: $footerHeight;
+  // opacity: 0;
+  // transition: opacity $transitionTime;
+
+  &__container {
+    justify-content: center;
+  }
+
+  &__footer {
+    display: table;
+    margin: 0 auto;
+  }
+}
+
+// .fixed {
+//   position: fixed;
+// }

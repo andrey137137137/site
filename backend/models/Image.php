@@ -24,11 +24,11 @@ namespace backend\models;
  */
 class Image extends UploadForm
 {
-  protected $imageConfig = [
-    // 'image' => ['path' => 'images/', 'w' => 908, 'h' => 672],
-    'image' => ['path' => 'images/', 'w' => 900, 'h' => 664],
-    // 'thumb' => ['path' => 'thumbs/', 'w' => 174, 'h' => 115]
-    'thumb' => ['path' => 'thumbs/', 'w' => 174, 'h' => 119]
+  protected $imageParams = [
+    // 'image' => ['folder' => 'images/', 'width' => 908, 'height' => 672],
+    'image' => ['folder' => 'images/', 'width' => 900, 'height' => 664],
+    // 'thumb' => ['folder' => 'thumbs/', 'width' => 174, 'height' => 115]
+    'thumb' => ['folder' => 'thumbs/', 'width' => 174, 'height' => 119]
   ];
 
   private $imageValidated = false;
@@ -88,18 +88,11 @@ class Image extends UploadForm
 
         if ( ! $this->title)
         {
-          $ext = '.' . $this->image->extension;
-
           $nameLen = strlen($this->image->name);
-          $extLen = strlen($ext);
+          $extLen = strlen($this->image->extension);
 
           $this->title = substr($this->image->name, 0, $nameLen - $extLen);
-
-          $this->ext = $ext;
         }
-
-        $this->newExt = $this->ext;
-        $this->imageValidated = true;
       }
 
       return true;
@@ -114,10 +107,18 @@ class Image extends UploadForm
   {
     parent::afterSave($insert, $changedAttributes);
 
-    if ($this->imageValidated)
+    if ($this->image)
     {
-      $this->prepareImageConfig();
-      $this->updateImages($this->image->tempName, $insert);
+      $this->names['old'] = $this->getOldAttribute('image');
+
+      $translit = (new Translit())->translit($this->image->name, true, 'ru-en');
+
+      $this->names['new'] = $this->id . '_' . $translit;
+      $this->updateImage($insert);
+
+      $this->logo = $this->names['new'];
+      $this->image = null;
+      $this->save();
     }
   }
 
@@ -125,8 +126,8 @@ class Image extends UploadForm
   {
     if (parent::beforeDelete()/* && ! $this->categories*/)
     {
-      $this->oldExt = $this->ext;
-      $this->prepareImageConfig();
+      $this->names['old'] = $this->image;
+      $this->setGalleryPath();
       $this->deleteImages();
       return true;
     }

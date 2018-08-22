@@ -24,8 +24,8 @@ class Category extends UploadForm
 {
   public $imageFiles;
 
-  protected $imageConfig = [
-    'category' => ['path' => 'categories/', 'w' => 220, 'h' => 220]
+  protected $imageParams = [
+    'category' => ['folder' => 'categories/', 'w' => 220, 'h' => 220]
   ];
 
   private $imagePath;

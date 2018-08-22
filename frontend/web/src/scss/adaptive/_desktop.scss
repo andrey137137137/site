@@ -1,0 +1,28 @@
+.main-slider {
+  z-index: $z6;
+  width: 1048px;
+  height: 812px;
+
+  .rslides_nav {
+    font-size: 70px;
+    line-height: 812px;
+  }
+
+  // @include wrap-frame(812px, $mainSliderHeight, 41px, $mainSliderCornerHeight, 4px, 0);
+
+  // @include wrap-frame(908px, $mainSliderHeight, 41px, $mainSliderCornerHeight, 4px, 0);
+
+  // @include wrap-frame();
+}
+
+.wrap-carousel {
+  z-index: 1;
+  // margin-top: round(-($mainSliderHeight + $mainSliderCornerHeight*2)/2 - round(($carouselMargin*2 + $carouselHeight)/2));
+  margin-top: round(
+    -$rslidesNavLineheight/2 - round(($carouselMargin * 2 + $carouselHeight)/2)
+  );
+}
+
+.carousel {
+  @include carousel;
+}

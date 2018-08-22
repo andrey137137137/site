@@ -20,10 +20,9 @@ class UploadForm extends \yii\db\ActiveRecord
    */
   public $image;
 
-  protected $imageConfig;
   protected $galleryPath;
-  protected $newExt;
-  protected $oldExt;
+  protected $imageParams;
+  protected $names = ['new' => false, 'old' => false];
 
   private $imagePathes;
 
@@ -78,72 +77,77 @@ class UploadForm extends \yii\db\ActiveRecord
     ];
   }
 
-  protected function updateImages($fromPath, $insert)
+  protected function updateImages($insert)
   {
-    if ( ! $insert)
+    $this->setGalleryPath();
+
+    if (!$insert)
     {
       $this->deleteImages();
     }
 
-    $this->setImagePathes();
-
-    // Image::$driver = Image::DRIVER_GD2;
-
-    foreach ($this->imagePathes as $key => $toPath)
-    {
-      $this->createImage($fromPath, $toPath, $this->imageConfig[$key]['w'], $this->imageConfig[$key]['h']);
-    }
+    $this->createImages();
   }
 
   protected function deleteImages()
   {
-    if (/* ! $this->curModelId && */ ! $this->oldExt)
+    if (/* ! $this->curModelId && */ !$this->names['old'])
     {
       return;
     }
 
     $this->setImagePathes(false);
 
-    foreach ($this->imagePathes as $key => $path)
+    foreach ($this->imagePathes as $path)
     {
-      $this->deleteImage($path);
+      if (file_exists($path))
+      {
+        return unlink($path);
+      }
     }
   }
 
-  protected function prepareImageConfig()
+  protected function setGalleryPath()
   {
     $this->galleryPath = Yii::getAlias('@gallery') . '/';
 
-    foreach ($this->imageConfig as $key => $conf)
+    foreach ($this->imageParams as $root => $params)
     {
-      $this->imageConfig[$key]['path'] = $this->galleryPath . $conf['path'];
+      $this->imageParams[$root]['folder'] = $this->galleryPath . $params['folder'];
     }
   }
 
-  private function createImage($fromPath, $toPath, $width, $height)
+  private function createImages()
   {
-    (new SimpleImage($fromPath))->best_fit($width, $height)->save($toPath, 100);
-    // $this->fileModel->image->saveAs($toPath);
+    $this->setImagePathes();
 
-    // Image::thumbnail($fromPath, $width, $height, ManipulatorInterface::THUMBNAIL_INSET)->save($toPath, ['quality' => 100]);
-  }
+    // Image::$driver = Image::DRIVER_GD2;
 
-  private function deleteImage($path)
-  {
-    if (file_exists($path))
+    foreach ($this->imageParams as $root => $params)
     {
-      return unlink($path);
+      (new SimpleImage($this->image->tempName))->
+        best_fit($params['width'], $params['height'])->
+        toFile($this->imagePathes[$root]);
+
+      // Image::thumbnail(
+      //   $this->image->tempName,
+      //   $params['width'],
+      //   $params['height'],
+      //   ManipulatorInterface::THUMBNAIL_INSET
+      // )->
+      //   save($this->imagePathes[$root], ['quality' => 100]);
     }
+
   }
 
   private function setImagePathes($new = true)
   {
     $this->imagePathes = [];
-    $ext = $new ? $this->newExt : $this->oldExt;
+    $name = $new ? $this->names['new'] : $this->names['old'];
 
-    foreach ($this->imageConfig as $key => $conf)
+    foreach ($this->imageParams as $root => $params)
     {
-      $this->imagePathes[$key] = $conf['path'] . $this->id . $ext;
+      $this->imagePathes[$root] = $params['folder'] . $name;
     }
   }
 }
