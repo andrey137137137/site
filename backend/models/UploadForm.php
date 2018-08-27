@@ -18,7 +18,7 @@ class UploadForm extends \yii\db\ActiveRecord
   /**
    * @var UploadedFile file attribute
    */
-  public $image;
+  public $imageFile;
 
   protected $galleryPath;
   protected $imageParams;
@@ -32,7 +32,7 @@ class UploadForm extends \yii\db\ActiveRecord
   public function rules()
   {
     return [
-      [['image'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/],
+      [['imageFile'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/],
     ];
   }
 
@@ -125,12 +125,12 @@ class UploadForm extends \yii\db\ActiveRecord
 
     foreach ($this->imageParams as $root => $params)
     {
-      (new SimpleImage($this->image->tempName))->
+      (new SimpleImage($this->imageFile->tempName))->
         best_fit($params['width'], $params['height'])->
         toFile($this->imagePathes[$root]);
 
       // Image::thumbnail(
-      //   $this->image->tempName,
+      //   $this->imageFile->tempName,
       //   $params['width'],
       //   $params['height'],
       //   ManipulatorInterface::THUMBNAIL_INSET

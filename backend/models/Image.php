@@ -9,15 +9,15 @@ namespace backend\models;
  * This is the model class for table "{{%image}}".
  *
  * @property string $id
- * @property string $cat_id
- * @property string $title
- * @property string $ext
+ * @property string $name
  * @property string $alias
+ * @property string $image_name
  * @property string $description
  * @property string $meta_keys
  * @property string $meta_desc
  * @property string $create_at
  * @property string $update_at
+ * @property string $cat_id
  *
  * @property Category[] $categories
  * @property Category $cat
@@ -48,12 +48,12 @@ class Image extends UploadForm
   {
     $rules = parent::rules();
 
-    $rules[] = [['cat_id'/*, 'ext'*/], 'required'];
+    $rules[] = [['cat_id'/*, 'image_name'*/], 'required'];
     $rules[] = [['cat_id'/*, 'create_at', 'update_at'*/], 'integer'];
     // [['cat_id'], 'default', 'value' => 1];
     // [['create_at', 'update_at'], 'default', 'value' => 0];
     $rules[] = [['description', 'meta_keys', 'meta_desc'], 'string'];
-    $rules[] = [['title'/*, 'ext'*/, 'alias'], 'string', 'max' => 255];
+    $rules[] = [['name'/*, 'image_name'*/, 'alias'], 'string', 'max' => 255];
     $rules[] = [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['cat_id' => 'id']];
 
     return $rules;
@@ -66,15 +66,15 @@ class Image extends UploadForm
   {
     return [
       'id' => 'Идентификатор',
-      'cat_id' => 'Категория',
-      'title' => 'Заголовок',
-      'ext' => 'Расширение',
+      'name' => 'Заголовок',
       'alias' => 'Алиас',
+      'image_name' => 'Расширение',
       'description' => 'Описание',
       'meta_keys' => 'Meta Keys',
       'meta_desc' => 'Meta Desc',
       'create_at' => 'Дата создания',
       'update_at' => 'Дата обновления',
+      'cat_id' => 'Категория',
     ];
   }
 
@@ -82,17 +82,12 @@ class Image extends UploadForm
   {
     if (parent::beforeSave($insert))
     {
-      if ($this->image)
+      if ($this->imageFile && !$this->name)
       {
-        $this->oldExt = $this->getOldAttribute('ext');
+        $nameLen = strlen($this->imageFile->name);
+        $extLen = strlen($this->imageFile->extension);
 
-        if ( ! $this->title)
-        {
-          $nameLen = strlen($this->image->name);
-          $extLen = strlen($this->image->extension);
-
-          $this->title = substr($this->image->name, 0, $nameLen - $extLen);
-        }
+        $this->name = substr($this->imageFile->name, 0, $nameLen - $extLen);
       }
 
       return true;
@@ -107,17 +102,17 @@ class Image extends UploadForm
   {
     parent::afterSave($insert, $changedAttributes);
 
-    if ($this->image)
+    if ($this->imageFile)
     {
-      $this->names['old'] = $this->getOldAttribute('image');
+      $this->names['old'] = $this->getOldAttribute('image_name');
 
-      $translit = (new Translit())->translit($this->image->name, true, 'ru-en');
+      $translit = (new Translit())->translit($this->imageFile->name, true, 'ru-en');
 
       $this->names['new'] = $this->id . '_' . $translit;
       $this->updateImage($insert);
 
       $this->logo = $this->names['new'];
-      $this->image = null;
+      $this->imageFile = null;
       $this->save();
     }
   }
@@ -126,7 +121,7 @@ class Image extends UploadForm
   {
     if (parent::beforeDelete()/* && ! $this->categories*/)
     {
-      $this->names['old'] = $this->image;
+      $this->names['old'] = $this->image_name;
       $this->setGalleryPath();
       $this->deleteImages();
       return true;

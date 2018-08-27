@@ -15,6 +15,6 @@ class ImageController extends AppController
 
   protected function getListQuery()
   {
-    return Category::find()->select(['id', 'title'])->orderBy('title')->asArray()->all();
+    return Category::find()->select(['id', 'name'])->orderBy('name')->asArray()->all();
   }
 }

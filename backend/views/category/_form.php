@@ -9,7 +9,7 @@ use kartik\file\FileInput;
 /* @var $form yii\widgets\ActiveForm */
 
 extract($params);
-$image = $model->id . $model->mainImage->ext;
+$image_name = $model->id . $model->mainImage->image_name;
 
 ?>
 
@@ -19,7 +19,7 @@ $image = $model->id . $model->mainImage->ext;
 
     <?= $form->field($model, 'parent_id')->dropDownList($parentsList) ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
@@ -50,10 +50,10 @@ $image = $model->id . $model->mainImage->ext;
 
     <?= $form->field($model, 'main_image_id')->hiddenInput(['id' => 'main_image_hidden_input', 'maxlength' => true]) ?>
 
-    <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $image)): ?>
+    <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $image_name)): ?>
 
       <div>
-        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $image, ['alt' => $model->title]) ?>
+        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $image_name, ['alt' => $model->name]) ?>
       </div>
 
     <?php endif; ?>

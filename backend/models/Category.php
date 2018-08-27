@@ -10,7 +10,7 @@ namespace backend\models;
  * @property string $id
  * @property string $parent_id
  * @property string $main_image_id
- * @property string $title
+ * @property string $name
  * @property string $alias
  * @property string $description
  * @property integer $is_main
@@ -48,8 +48,8 @@ class Category extends UploadForm
   {
     return [
       [['imageFiles'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/, 'maxFiles' => 20],
-      [['title'], 'required'],
-      // [['title'], 'unique'],
+      [['name'], 'required'],
+      // [['name'], 'unique'],
       [['parent_id', 'main_image_id', 'is_main'], 'integer'],
       ['is_main', function ($attribute, $params)
       {
@@ -65,7 +65,7 @@ class Category extends UploadForm
       }],
       [['parent_id'], 'default', 'value' => null],
       [['description'], 'string'],
-      [['title', 'alias'], 'string', 'max' => 255],
+      [['name', 'alias'], 'string', 'max' => 255],
       [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent_id' => 'id']],
       [['main_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['main_image_id' => 'id']],
     ];
@@ -80,8 +80,8 @@ class Category extends UploadForm
       'id' => 'Идентификатор',
       'parent_id' => 'Родительская категория',
       'main_image_id' => 'Превью',
-      'ext' => 'Расширение',
-      'title' => 'Заголовок',
+      'image_name' => 'Расширение',
+      'name' => 'Заголовок',
       'alias' => 'Алиас',
       'description' => 'Описание',
       'is_main' => 'На главную страницу',
@@ -96,8 +96,8 @@ class Category extends UploadForm
 
       if ($this->oldMainImageId != $this->main_image_id)
       {
-        $this->oldExt = Image::findOne($this->oldMainImageId)->ext;
-        $this->newExt = $this->mainImage->ext;
+        $this->oldExt = Image::findOne($this->oldMainImageId)->image_name;
+        $this->newExt = $this->mainImage->image_name;
 
         $this->prepareImageConfig();
 
@@ -161,7 +161,7 @@ class Category extends UploadForm
         }
       }
 
-      $this->oldExt = $this->mainImage->ext;
+      $this->oldExt = $this->mainImage->image_name;
 
       foreach ($this->images as $image)
       {

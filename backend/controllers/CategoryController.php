@@ -50,27 +50,27 @@ class CategoryController extends AppController
 
   protected function additionalViewParams()
   {
-    $categories = Category::find()->select(['id', 'title']);
+    $categories = Category::find()->select(['id', 'name']);
 
     if ($this->curModelId)
     {
       $categories = $categories->where('(parent_id is null or parent_id != :id) and (id != :id)', ['id' => $this->curModelId]);
     }
 
-    $categories = $categories->orderBy('title')->asArray()->all();
+    $categories = $categories->orderBy('name')->asArray()->all();
 
     $imagesList = [];
 
     foreach ($this->imagesList as $i => $array)
     {
       $imagesList[$array['id']] = [
-        'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['ext']];
+        'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['image_name']];
     }
 
     // var_dump($imagesList);
 
     return [
-      'parentsList' => $this->getArray($categories, 'title', 'id', [null => 'Нет родителя']),
+      'parentsList' => $this->getArray($categories, 'name', 'id', [null => 'Нет родителя']),
       'imagesList' => $imagesList
     ];
   }
@@ -81,7 +81,7 @@ class CategoryController extends AppController
 
     $this->setChildren($this->curModelId);
 
-    $result = Image::find()->select(['id', 'title', 'ext'])->where(['cat_id' => $this->childrenList])->orderBy('title')->asArray()->all();
+    $result = Image::find()->select(['id', 'name', 'image_name'])->where(['cat_id' => $this->childrenList])->orderBy('name')->asArray()->all();
 
     $this->imagesList = $result;
 
@@ -94,7 +94,7 @@ class CategoryController extends AppController
 
   private function setChildren($curId)
   {
-    if ($buffArray = Category::find()->select(['id', 'title'])->where(['parent_id' => $curId])->asArray()->all())
+    if ($buffArray = Category::find()->select(['id', 'name'])->where(['parent_id' => $curId])->asArray()->all())
     {
       $buffArray = ArrayHelper::getColumn($buffArray, 'id');
       $this->childrenList = array_merge($this->childrenList, $buffArray);

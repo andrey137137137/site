@@ -9,8 +9,6 @@ use kartik\file\FileInput;
 /* @var $form yii\widgets\ActiveForm */
 
 extract($params);
-$image = $model->id . $model->ext;
-
 ?>
 
 <div class="image-form">
@@ -19,20 +17,20 @@ $image = $model->id . $model->ext;
 
   <?= $form->field($model, 'cat_id')->dropDownList($dropDownList) ?>
 
-  <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+  <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
   <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
   <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
   <?php
-    // echo $form->field($model, 'image')->fileInput(['accept' => 'image/*']);
+    // echo $form->field($model, 'imageFile')->fileInput(['accept' => 'image/*']);
 
     // $url1 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg';
-    // $url1 = Yii::getAlias('@gallery') . '/images/' . $image;
-    $url1 = Reasanik::$galleryPath . 'images/' . $image;
+    // $url1 = Yii::getAlias('@gallery') . '/images/' . $model->image_name;
+    $url1 = Reasanik::$galleryPath . 'images/' . $model->image_name;
 
-    echo $form->field($model, 'image')->widget(
+    echo $form->field($model, 'imageFile')->widget(
         FileInput::classname(),
         [
           'options' => ['accept' => 'image/*'],
@@ -52,10 +50,10 @@ $image = $model->id . $model->ext;
   ?>
 
 <!-- 
-  <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/images/' . $image)): ?>
+  <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/images/' . $model->image_name)): ?>
 
     <div>
-      <?= Html::img(Reasanik::$galleryPath . 'images/' . $image, ['alt' => $model->title,]); ?>
+      <?= Html::img(Reasanik::$galleryPath . 'images/' . $model->image_name, ['alt' => $model->name,]); ?>
     </div>
 
   <?php endif; ?>
