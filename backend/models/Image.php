@@ -4,6 +4,7 @@ namespace backend\models;
 
 // use Yii;
 // use abeautifulsite\SimpleImage;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%image}}".
@@ -39,6 +40,16 @@ class Image extends UploadForm
   public static function tableName()
   {
     return '{{%image}}';
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function behaviors()
+  {
+    return [
+      TimestampBehavior::className(),
+    ];
   }
 
   /**
@@ -106,12 +117,13 @@ class Image extends UploadForm
     {
       $this->names['old'] = $this->getOldAttribute('image_name');
 
-      $translit = (new Translit())->translit($this->imageFile->name, true, 'ru-en');
+      // $translit = (new Translit())->translit($this->imageFile->name, true, 'ru-en');
 
-      $this->names['new'] = $this->id . '_' . $translit;
-      $this->updateImage($insert);
+      // $this->names['new'] = $this->id . '_' . $translit;
+      $this->names['new'] = $this->id . '_' . $this->imageFile->name;
+      $this->updateImages($insert);
 
-      $this->logo = $this->names['new'];
+      $this->image_name = $this->names['new'];
       $this->imageFile = null;
       $this->save();
     }

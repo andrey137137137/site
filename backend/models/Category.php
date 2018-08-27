@@ -80,7 +80,7 @@ class Category extends UploadForm
       'id' => 'Идентификатор',
       'parent_id' => 'Родительская категория',
       'main_image_id' => 'Превью',
-      'image_name' => 'Расширение',
+      // 'image_name' => 'Расширение',
       'name' => 'Заголовок',
       'alias' => 'Алиас',
       'description' => 'Описание',

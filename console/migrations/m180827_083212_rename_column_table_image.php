@@ -12,6 +12,6 @@ class m180827_083212_rename_column_table_image extends Migration
 
     public function down()
     {
-        
+        $this->renameColumn('{{%image}}', 'image_name', 'image');
     }
 }

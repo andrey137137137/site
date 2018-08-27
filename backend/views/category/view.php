@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
 
-$this->title = $model->title;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Альбомы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'parent.title',
+            'parent.name',
             // 'main_image_id',
             [
                 'label' => 'Изображение',
@@ -38,13 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                     return Html::img(Reasanik::$galleryPath . 'categories/' . $data->id . $data->mainImage->ext,
                         [
-                            'alt' => $data->title,
+                            'alt' => $data->name,
                         ]
                     );
                 },
             ],
             'mainImage.ext',
-            'title',
+            'name',
             'alias',
             'description:ntext',
             'is_main'

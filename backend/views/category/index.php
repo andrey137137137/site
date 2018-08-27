@@ -23,12 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [   
                 'label' => 'Родительский альбом',
-                'value' => 'parent.title'
+                'value' => 'parent.name'
             ],
-            'title',
+            'name',
             'alias',
             // 'main_image_id',
-            // 'mainImage.title',
+            // 'mainImage.name',
             [
                 'label' => 'Изображение',
                 'format' => 'raw',
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                     return Html::img(Reasanik::$galleryPath . 'categories/' . $data->id . $data->mainImage->ext,
                         [
-                            'alt' => $data->title,
+                            'alt' => $data->name,
                         ]
                     );
                 },

@@ -22,29 +22,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'title',
+            'name',
             'alias',
             [
                 'label' => 'Изображение',
                 'format' => 'raw',
                 'value' => function($data)
                 {
-                    return Html::img(Reasanik::$galleryPath . 'thumbs/' . $data->id . $data->ext,
+                    return Html::img(Reasanik::$galleryPath . 'thumbs/' . $data->image_name,
                         [
-                            'alt' => $data->title,
+                            'alt' => $data->name,
                         ]
                     );
                 },
             ],
-            // 'ext',
+            // 'image_name',
             'description:ntext',
-            // 'create_at',
-            // 'update_at',
+            // 'created_at',
+            // 'updated_at',
             // 'meta_keys:ntext',
             // 'meta_desc:ntext',
             [
                 'label' => 'Альбом',
-                'value' => 'cat.title'
+                'value' => 'cat.name'
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

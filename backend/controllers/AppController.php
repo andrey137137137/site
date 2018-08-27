@@ -162,7 +162,7 @@ class AppController extends Controller
         break;
 
         case 'Image':
-          $this->model->image = UploadedFile::getInstance($this->model, 'image');
+          $this->model->imageFile = UploadedFile::getInstance($this->model, 'imageFile');
         break;
       }
 
@@ -179,7 +179,7 @@ class AppController extends Controller
   {
     $params = [
       'model' => $this->model,
-      'dropDownList' => $this->getArray($this->getListQuery(), 'title', 'id', $this->defaultListValue)
+      'dropDownList' => $this->getArray($this->getListQuery(), 'name', 'id', $this->defaultListValue)
     ];
 
     foreach ($this->additionalViewParams() as $key => $value)

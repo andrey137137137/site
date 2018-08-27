@@ -65,7 +65,7 @@ class UploadForm extends \yii\db\ActiveRecord
       'slug' => [
         'class' => 'Zelenin\yii\behaviors\Slug',
         'slugAttribute' => 'alias',
-        'attribute' => 'title',
+        'attribute' => 'name',
         // optional params
         'ensureUnique' => true,
         'replacement' => '-',
@@ -98,11 +98,11 @@ class UploadForm extends \yii\db\ActiveRecord
 
     $this->setImagePathes(false);
 
-    foreach ($this->imagePathes as $path)
+    foreach ($this->imagePathes as $root => $path)
     {
       if (file_exists($path))
       {
-        return unlink($path);
+        unlink($path);
       }
     }
   }
@@ -127,7 +127,7 @@ class UploadForm extends \yii\db\ActiveRecord
     {
       (new SimpleImage($this->imageFile->tempName))->
         best_fit($params['width'], $params['height'])->
-        toFile($this->imagePathes[$root]);
+        save($this->imagePathes[$root]);
 
       // Image::thumbnail(
       //   $this->imageFile->tempName,

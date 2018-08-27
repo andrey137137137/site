@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Image */
 
-$this->title = $model->title;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Изображения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -37,33 +37,33 @@ $this->params['breadcrumbs'][] = $this->title;
         // ],
         'attributes' => [
             'id',
-            'title',
+            'name',
             'alias',
             [
                 'label' => 'Изображение',
                 'format' => 'raw',
                 'value' => function($data)
                 {
-                    return Html::img(Reasanik::$galleryPath . 'images/' . $data->id . $data->ext,
+                    return Html::img(Reasanik::$galleryPath . 'images/' . $data->image_name,
                         [
-                            'alt' => $data->title,
+                            'alt' => $data->name,
                         ]
                     );
                 },
             ],
-            'ext',
+            'image_name',
             'description:ntext',
-            'create_at',
-            'update_at',
+            'created_at',
+            'updated_at',
             'meta_keys:ntext',
             'meta_desc:ntext',
             [
                 'label' => 'Альбом',
-                'value' => $model->cat->title
+                'value' => $model->cat->name
             ],
             // [
             //     'label' => 'cat_id',
-            //     'value' => $model->cat->title,
+            //     'value' => $model->cat->name,
             // ],
         ],
     ]) ?>
