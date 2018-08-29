@@ -47,27 +47,16 @@ class Category extends UploadForm
   public function rules()
   {
     return [
-      [['imageFiles'], 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/, 'maxFiles' => 20],
-      [['name'], 'required'],
+      ['imageFiles', 'image', 'extensions' => 'gif, jpg, jpeg, png'/*, 'skipOnEmpty' => false*/, 'maxFiles' => 20],
+      ['name', 'required'],
       // [['name'], 'unique'],
       [['parent_id', 'main_image_id', 'is_main'], 'integer'],
-      ['is_main', function ($attribute, $params)
-      {
-        if ( ! $this->isNewRecord && $this->$attribute != $this->getOldAttribute('is_main'))
-        {
-          if ( ! $this->$attribute && ! count(Category::find()->where('is_main = 1 and id != :id', ['id' => $this->id])->all()) )
-          {
-            $this->addError($attribute, 'Хотя бы одна категория должна быть главной.');
-          }
-  
-          $this->changedMain = true;
-        }
-      }],
-      [['parent_id'], 'default', 'value' => null],
-      [['description'], 'string'],
+      ['is_main', 'validateIsMain'],
+      ['parent_id', 'default', 'value' => null],
+      ['description', 'string'],
       [['name', 'alias'], 'string', 'max' => 255],
-      [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent_id' => 'id']],
-      [['main_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['main_image_id' => 'id']],
+      ['parent_id', 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent_id' => 'id']],
+      ['main_image_id', 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['main_image_id' => 'id']],
     ];
   }
 
@@ -86,6 +75,19 @@ class Category extends UploadForm
       'description' => 'Описание',
       'is_main' => 'На главную страницу',
     ];
+  }
+
+  public function validateIsMain($attribute, $params)
+  {
+    if ( ! $this->isNewRecord && $this->$attribute != $this->getOldAttribute('is_main'))
+    {
+      if ( ! $this->$attribute && ! count(Category::find()->where('is_main = 1 and id != :id', ['id' => $this->id])->all()) )
+      {
+        $this->addError($attribute, 'Хотя бы одна категория должна быть главной.');
+      }
+
+      $this->changedMain = true;
+    }
   }
 
   public function beforeSave($insert)

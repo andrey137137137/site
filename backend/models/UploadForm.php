@@ -36,29 +36,6 @@ class UploadForm extends \yii\db\ActiveRecord
     ];
   }
 
-  // public function behaviors()
-  // {
-  //   return [
-  //     [
-  //       'class' => SluggableBehavior::className(),
-  //       'attribute' => 'title',
-  //       'slugAttribute' => 'alias',
-  //     ],
-  //   ];
-  // }
-
-  // public function behaviors()
-  // {
-  //   return [
-  //     'alias' => [
-  //       'class' => 'common\behaviors\Alias',
-  //       'in_attribute' => 'title',
-  //       'out_attribute' => 'alias',
-  //       'translit' => true
-  //     ]
-  //   ];
-  // }
-
   public function behaviors()
   {
     return [

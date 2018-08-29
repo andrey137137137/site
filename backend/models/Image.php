@@ -66,6 +66,10 @@ class Image extends UploadForm
     $rules[] = [['description', 'meta_keys', 'meta_desc'], 'string'];
     $rules[] = [['name'/*, 'image_name'*/, 'alias'], 'string', 'max' => 255];
     $rules[] = [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['cat_id' => 'id']];
+    $rules[] = ['name', 'validateName', 'skipOnEmpty' => false];
+    // $rules[] = ['name', 'validateName', 'when' => function ($model) {
+    //     return $model->imageFile;
+    //   }, 'skipOnEmpty' => false];
 
     return $rules;
   }
@@ -89,23 +93,18 @@ class Image extends UploadForm
     ];
   }
 
-  public function beforeSave($insert)
+  public function validateName($attribute, $params)
   {
-    if (parent::beforeSave($insert))
+    if (!$this->$attribute)
     {
-      if ($this->imageFile && !$this->name)
-      {
+      if ($this->imageFile) {
         $nameLen = strlen($this->imageFile->name);
         $extLen = strlen($this->imageFile->extension);
-
-        $this->name = substr($this->imageFile->name, 0, $nameLen - $extLen);
+  
+        $this->$attribute = substr($this->imageFile->name, 0, $nameLen - $extLen);
+      } else {
+        $this->addError($attribute, 'Название изображения не должно быть пустым');
       }
-
-      return true;
-    }
-    else
-    {
-      return false;
     }
   }
 
