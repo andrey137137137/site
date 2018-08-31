@@ -9,8 +9,8 @@ use Yii;
  *
  * @property string $id
  * @property string $cat_id
- * @property string $title
- * @property string $ext
+ * @property string $name
+ * @property string $image_name
  * @property string $alias
  * @property string $description
  * @property string $meta_keys
@@ -37,11 +37,11 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cat_id', 'ext'], 'required'],
+            [['cat_id', 'image_name'], 'required'],
             [['cat_id', 'create_at', 'update_at'], 'integer'],
             [['description', 'meta_keys', 'meta_desc'], 'string'],
-            [['title', 'alias'], 'string', 'max' => 255],
-            [['ext'], 'string', 'max' => 15],
+            [['name', 'alias'], 'string', 'max' => 255],
+            [['image_name'], 'string', 'max' => 15],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ];
     }
@@ -54,8 +54,8 @@ class Image extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cat_id' => 'Cat ID',
-            'title' => 'Title',
-            'ext' => 'Ext',
+            'name' => 'Name',
+            'image_name' => 'Image',
             'alias' => 'Alias',
             'description' => 'Description',
             'meta_keys' => 'Meta Keys',

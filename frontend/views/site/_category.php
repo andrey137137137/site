@@ -51,22 +51,22 @@ function frameCorners($tag = 'div')
         <?php foreach ($images as $i => $image)
         {
           
-          $tempImageName = $image->id . $image->ext;
+          // $tempImageName = $image->id . $image->ext;
 
         ?>
 
           <li class="img_wrap frame__img_wrap" data-number="<?= $i ?>">
             <!-- <picture class="frame__img_wrape" data-number="<?= $i ?>" style="display: block;">
-              <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
-              <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
-              <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
-              <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
+              <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)">
+              <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)">
+              <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)">
+              <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>">
             </picture> -->
-            <?= Html::img(Reasanik::$galleryPath . 'images/' . $tempImageName,
+            <?= Html::img(Reasanik::$galleryPath . 'images/' . $image->image_name,
                 [
                   'class' => 'img_wrap__img frame__img',
-                  // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
-                  'alt' => $image->title
+                  // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->name
+                  'alt' => $image->name
                 ]
               )
             ?>
@@ -105,7 +105,7 @@ function frameCorners($tag = 'div')
               $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
             }
 
-            $tempImageName = $image->id . $image->ext;
+            // $tempImageName = $image->id . $image->ext;
 
           ?>
 
@@ -115,19 +115,20 @@ function frameCorners($tag = 'div')
               <article class="frame carousel__frame">
                 <a class="frame__img_wrap" href="#" data-number="<?= $i ?>">
                   <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
-                    <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $tempImageName ?>" media="(min-width: 1048px)">
-                    <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $tempImageName ?>" media="(min-width: 768px)">
-                    <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $tempImageName ?>" media="(min-width: 500px)">
-                    <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $tempImageName ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->title ?>">
+                    <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)">
+                    <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)">
+                    <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)">
+                    <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>">
                   </picture> -->
-                  <?= Html::img(Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
-                      [
-                        'class' => 'frame__img',
-                        // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->title
-                        'alt' => $image->title
-                      ]
-                    )
-                  ?>
+                  <?= Html::img(
+                    // Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
+                    Reasanik::$galleryPath . 'thumbs/' . $image->image_name,
+                    [
+                      'class' => 'frame__img',
+                      // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->name
+                      'alt' => $image->name
+                    ]
+                  ) ?>
                 </a>
               </article>
 
@@ -174,13 +175,14 @@ function frameCorners($tag = 'div')
 
       <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame frame_wrap__frame']) ?>
         <li class="frame__img_wrap">
-          <?= Html::img(Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
-              [
-                'class' => 'frame__img',
-                'alt' => $category->title
-              ]
-            )
-          ?>
+          <?= Html::img(
+            // Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
+            Reasanik::$galleryPath . 'categories/' . $category->mainImage->image_name,
+            [
+              'class' => 'frame__img',
+              'alt' => $category->name
+            ]
+          ) ?>
         </li>
         <!-- <li class="foreground image-container">
           <image src="" alt="">
@@ -189,7 +191,7 @@ function frameCorners($tag = 'div')
 
     </ul>
 
-    <h2 class="category_header"><?= Html::encode($category->title) ?></h2>
+    <h2 class="category_header"><?= Html::encode($category->name) ?></h2>
     <p class="category_desc"><?= Html::encode($category->description) ?></p>
 
   </article>

@@ -16,7 +16,7 @@ for ($i = count($parents) - 1; $i >= 0; $i--)
 
 if ($category)
 {
-  $this->title = $category->title;
+  $this->title = $category->name;
   $this->params['breadcrumbs'][] = $this->title;
 }
 

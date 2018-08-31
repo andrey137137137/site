@@ -10,7 +10,7 @@ use Yii;
  * @property string $id
  * @property string $parent_id
  * @property string $main_image_id
- * @property string $title
+ * @property string $name
  * @property string $alias
  * @property string $description
  * @property integer $is_main
@@ -37,10 +37,10 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'main_image_id', 'is_main'], 'integer'],
-            [['title'], 'required'],
+            [['name'], 'required'],
             [['description'], 'string'],
-            [['title', 'alias'], 'string', 'max' => 255],
-            [['title'], 'unique'],
+            [['name', 'alias'], 'string', 'max' => 255],
+            [['name'], 'unique'],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent_id' => 'id']],
             [['main_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Image::className(), 'targetAttribute' => ['main_image_id' => 'id']],
         ];
@@ -55,7 +55,7 @@ class Category extends \yii\db\ActiveRecord
             'id' => 'ID',
             'parent_id' => 'Parent ID',
             'main_image_id' => 'Main Image ID',
-            'title' => 'Title',
+            'name' => 'Name',
             'alias' => 'Alias',
             'description' => 'Description',
             'is_main' => 'Is Main',
