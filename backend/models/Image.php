@@ -2,15 +2,7 @@
 
 namespace backend\models;
 
-// use Yii;
-// use abeautifulsite\SimpleImage;
 use yii\behaviors\TimestampBehavior;
-// use Zelenin\Ddd\String\Infrastructure\Service\Transformer;
-// use Zelenin\Ddd\String\Domain\Model\TransformerCollection;
-// use Zelenin\Ddd\String\Infrastructure\Service\Transformer\IntlNormalizeTransformer;
-// use Zelenin\Ddd\String\Infrastructure\Service\Transformer\IntlTransliterateTransformer;
-// use Zelenin\Ddd\String\Infrastructure\Service\Transformer\UrlifyTransformer;
-// use Zelenin\Ddd\String\Infrastructure\Service\Transformer\TemplateTransformer;
 use dastanaron\translit\Translit;
 
 /**
@@ -127,17 +119,6 @@ class Image extends UploadForm
 
       $this->names['new'] = $this->id . '_' . $translit;
 
-      // $transformers = new TransformerCollection([
-      //   new IntlNormalizeTransformer(\Normalizer::FORM_D),
-      //   new IntlTransliterateTransformer('Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFKC;'),
-      //   new UrlifyTransformer('_', false),
-      //   new TemplateTransformer('{id}_{slug}', ['{id}' => $this->id])
-      // ]);
-      // $transformer = new Transformer($transformers);
-
-      // $this->names['new'] = $transformer->transform($this->imageFile->name);
-
-      // $this->names['new'] = $this->id . '_' . $this->imageFile->name;
       $this->updateImages($insert);
 
       $this->image_name = $this->names['new'];
