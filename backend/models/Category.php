@@ -25,10 +25,10 @@ class Category extends UploadForm
   public $imageFiles;
 
   protected $imageParams = [
-    'category' => ['folder' => 'categories/', 'w' => 220, 'h' => 220]
+    'category' => ['folder' => 'categories/', 'width' => 220, 'height' => 220]
   ];
 
-  private $imagePath;
+  private $imageOrigin;
   private $oldMainImageId;
 
   private $changedMain = false;
@@ -98,14 +98,16 @@ class Category extends UploadForm
 
       if ($this->oldMainImageId != $this->main_image_id)
       {
-        $this->oldExt = Image::findOne($this->oldMainImageId)->image_name;
-        $this->newExt = $this->mainImage->image_name;
+        $this->names['old'] = Image::findOne($this->oldMainImageId)->image_name;
+        $this->names['new'] = $this->mainImage->image_name;
 
-        $this->prepareImageConfig();
+        $this->setGalleryPath();
 
         if ($this->main_image_id)
         {
-          $this->imagePath = $this->galleryPath . 'images/' . $this->main_image_id . $this->newExt;
+          // $this->imageOrigin = $this->galleryPath .
+          //   'images/' . $this->main_image_id . $this->names['new'];
+          $this->imageOrigin = $this->galleryPath . 'images/' . $this->names['new'];
         }
       }
 
@@ -125,14 +127,14 @@ class Category extends UploadForm
     {
       $imageModel = new Image;
       $imageModel->cat_id = $this->id;
-      $imageModel->image = $image;
+      $imageModel->imageFile = $image;
       $imageModel->save();
       $imageModel = null;
     }
 
-    if ($this->imagePath && file_exists($this->imagePath) && ! is_dir($this->imagePath))
+    if ($this->imageOrigin && file_exists($this->imageOrigin) && !is_dir($this->imageOrigin))
     {
-      $this->updateImages($this->imagePath, $insert);
+      $this->updateImages($this->imageOrigin, $insert);
     }
     else
     {
@@ -163,17 +165,17 @@ class Category extends UploadForm
         }
       }
 
-      $this->oldExt = $this->mainImage->image_name;
+      $this->names['old'] = $this->mainImage->image_name;
 
       foreach ($this->images as $image)
       {
-        if ( ! $image->delete())
+        if (!$image->delete())
         {
           return false;
         }
       }
 
-      $this->prepareImageConfig();
+      // $this->setGalleryPath();
       $this->deleteImages();
       return true;
     }

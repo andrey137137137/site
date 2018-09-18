@@ -12,9 +12,12 @@ return [
     'homeUrl' => '/admin',
     'defaultRoute' => 'site/index',
     'controllerNamespace' => 'backend\controllers',
-    'language' => 'ru-RU', // язык приложения
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'gridview' =>  [
+             'class' => '\kartik\grid\Module'
+         ]
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',

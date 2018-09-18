@@ -20,7 +20,7 @@ class UploadForm extends \yii\db\ActiveRecord
    */
   public $imageFile;
 
-  protected $galleryPath;
+  protected $galleryPath = false;
   protected $imageParams;
   protected $names = ['new' => false, 'old' => false];
 
@@ -54,7 +54,7 @@ class UploadForm extends \yii\db\ActiveRecord
     ];
   }
 
-  protected function updateImages($insert)
+  protected function updateImages($from, $insert)
   {
     $this->setGalleryPath();
 
@@ -63,11 +63,13 @@ class UploadForm extends \yii\db\ActiveRecord
       $this->deleteImages();
     }
 
-    $this->createImages();
+    $this->createImages($from);
   }
 
   protected function deleteImages()
   {
+    $this->setGalleryPath();
+
     if (/* ! $this->curModelId && */ !$this->names['old'])
     {
       return;
@@ -86,6 +88,11 @@ class UploadForm extends \yii\db\ActiveRecord
 
   protected function setGalleryPath()
   {
+    if ($this->galleryPath)
+    {
+      return;
+    }
+
     $this->galleryPath = Yii::getAlias('@gallery') . '/';
 
     foreach ($this->imageParams as $root => $params)
@@ -94,7 +101,7 @@ class UploadForm extends \yii\db\ActiveRecord
     }
   }
 
-  private function createImages()
+  private function createImages($from)
   {
     $this->setImagePathes();
 
@@ -102,7 +109,7 @@ class UploadForm extends \yii\db\ActiveRecord
 
     foreach ($this->imageParams as $root => $params)
     {
-      (new SimpleImage($this->imageFile->tempName))->
+      (new SimpleImage($from))->
         best_fit($params['width'], $params['height'])->
         save($this->imagePathes[$root]);
 

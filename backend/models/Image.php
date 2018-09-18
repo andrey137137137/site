@@ -98,7 +98,7 @@ class Image extends UploadForm
     {
       if ($this->imageFile) {
         $nameLen = strlen($this->imageFile->name);
-        $extLen = strlen($this->imageFile->extension);
+        $extLen = strlen($this->imageFile->extension) + 1;
   
         $this->$attribute = substr($this->imageFile->name, 0, $nameLen - $extLen);
       } else {
@@ -119,7 +119,7 @@ class Image extends UploadForm
 
       $this->names['new'] = $this->id . '_' . $translit;
 
-      $this->updateImages($insert);
+      $this->updateImages($this->imageFile->tempName, $insert);
 
       $this->image_name = $this->names['new'];
       $this->imageFile = null;
@@ -132,7 +132,7 @@ class Image extends UploadForm
     if (parent::beforeDelete()/* && ! $this->categories*/)
     {
       $this->names['old'] = $this->image_name;
-      $this->setGalleryPath();
+      // $this->setGalleryPath();
       $this->deleteImages();
       return true;
     }

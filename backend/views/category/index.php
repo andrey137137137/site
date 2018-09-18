@@ -34,14 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($data)
                 {
-                    return Html::img(Reasanik::$galleryPath . 'categories/' . $data->id . $data->mainImage->ext,
-                        [
-                            'alt' => $data->name,
-                        ]
+                    return Html::img(
+                        Reasanik::$galleryPath . 'categories/' . $data->mainImage->image_name,
+                        ['alt' => $data->name]
                     );
                 },
             ],
-            // 'mainImage.ext',
+            // 'mainImage.image_name',
             'description:ntext',
             'is_main',
             ['class' => 'yii\grid\ActionColumn'],

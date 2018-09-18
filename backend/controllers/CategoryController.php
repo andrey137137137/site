@@ -64,7 +64,9 @@ class CategoryController extends AppController
     foreach ($this->imagesList as $i => $array)
     {
       $imagesList[$array['id']] = [
-        'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['image_name']];
+        // 'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['image_name']
+        'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['image_name']
+      ];
     }
 
     // var_dump($imagesList);

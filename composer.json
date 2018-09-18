@@ -30,7 +30,8 @@
     "budyaga/yii2-cropper": "*",
     "kartik-v/yii2-detail-view": "*",
     "dastanaron/yii2-translit": "^1.0",
-    "kartik-v/yii2-grid": "@dev"
+    "kartik-v/yii2-grid": "@dev",
+    "kartik-v/yii2-editable": "@dev"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.0.0",

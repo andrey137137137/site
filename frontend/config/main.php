@@ -13,7 +13,6 @@ return [
     'bootstrap' => ['log'],
     'defaultRoute' => 'site/index',
     'controllerNamespace' => 'frontend\controllers',
-    'language' => 'ru-RU', // язык приложения
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
