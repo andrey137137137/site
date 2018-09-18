@@ -9,6 +9,7 @@ use kartik\file\FileInput;
 /* @var $form yii\widgets\ActiveForm */
 
 extract($params);
+$imageName = $model->id . '_' . $model->image_name;
 ?>
 
 <div class="image-form">
@@ -27,8 +28,8 @@ extract($params);
     // echo $form->field($model, 'imageFile')->fileInput(['accept' => 'image/*']);
 
     // $url1 = 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg';
-    // $url1 = Yii::getAlias('@gallery') . '/images/' . $model->image_name;
-    $url1 = Reasanik::$galleryPath . 'images/' . $model->image_name;
+    // $url1 = Yii::getAlias('@gallery') . '/images/' . $imageName;
+    $url1 = Reasanik::$galleryPath . 'images/' . $imageName;
 
     echo $form->field($model, 'imageFile')->widget(
         FileInput::classname(),
@@ -50,10 +51,10 @@ extract($params);
   ?>
 
 <!-- 
-  <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/images/' . $model->image_name)): ?>
+  <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/images/' . $imageName)): ?>
 
     <div>
-      <?= Html::img(Reasanik::$galleryPath . 'images/' . $model->image_name, ['alt' => $model->name,]); ?>
+      <?= Html::img(Reasanik::$galleryPath . 'images/' . $imageName, ['alt' => $model->name,]); ?>
     </div>
 
   <?php endif; ?>

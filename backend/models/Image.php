@@ -26,9 +26,19 @@ class Image extends UploadForm
 {
   protected $imageParams = [
     // 'image' => ['folder' => 'images/', 'width' => 908, 'height' => 672],
-    'image' => ['folder' => 'images/', 'width' => 900, 'height' => 664],
+    'image' => [
+      'prefix' => false,
+      'folder' => 'images/',
+      'width' => 900,
+      'height' => 664
+    ],
     // 'thumb' => ['folder' => 'thumbs/', 'width' => 174, 'height' => 115]
-    'thumb' => ['folder' => 'thumbs/', 'width' => 174, 'height' => 119]
+    'thumb' => [
+      'prefix' => 'thumb',
+      'folder' => 'thumbs/',
+      'width' => 174,
+      'height' => 119
+    ]
   ];
 
   private $imageValidated = false;
@@ -115,9 +125,11 @@ class Image extends UploadForm
     {
       $this->names['old'] = $this->getOldAttribute('image_name');
 
-      $translit = (new Translit())->translit($this->imageFile->name, true, 'ru-en');
+      // $translit = (new Translit())->translit($this->imageFile->name, true, 'ru-en');
+      // $this->names['new'] = $this->id . '_' . $translit;
 
-      $this->names['new'] = $this->id . '_' . $translit;
+      $this->names['new'] = (new Translit())->translit($this->name, true, 'ru-en') .
+        '.' . $this->imageFile->extension;
 
       $this->updateImages($this->imageFile->tempName, $insert);
 

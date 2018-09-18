@@ -34,7 +34,7 @@ $gridColumns = [
     [
         'attribute' => 'image_name',
         'content' => function ($model, $key, $index, $widget) {
-            $image = $model->image_name ? Reasanik::$galleryPath . 'thumbs/' . $model->image_name : 'logo_black_login.png';
+            $image = $model->image_name ? Reasanik::$galleryPath . 'thumbs/' . $model->id . '_thumb_' . $model->image_name : '/logo_black_login.png';
             // return Html::decode("<div class='img-wrap><img class='img-wrap__img src='/img/{$image}' alt='{$model->name}'></div>");
             return Html::img(
                 $image,

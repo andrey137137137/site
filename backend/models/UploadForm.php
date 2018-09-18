@@ -131,7 +131,10 @@ class UploadForm extends \yii\db\ActiveRecord
 
     foreach ($this->imageParams as $root => $params)
     {
-      $this->imagePathes[$root] = $params['folder'] . $name;
+      $this->imagePathes[$root] = $params['folder'] . 
+        $this->id . '_' . 
+        ($params['prefix'] ? $params['prefix'] . '_' : '') . 
+        $name;
     }
   }
 }

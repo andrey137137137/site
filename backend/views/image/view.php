@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($data)
                 {
-                    return Html::img(Reasanik::$galleryPath . 'images/' . $data->image_name,
+                    return Html::img(Reasanik::$galleryPath . 'images/' . $data->id . '_' . $data->image_name,
                         [
                             'alt' => $data->name,
                         ]
