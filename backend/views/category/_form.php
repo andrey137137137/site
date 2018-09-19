@@ -9,8 +9,8 @@ use kartik\file\FileInput;
 /* @var $form yii\widgets\ActiveForm */
 
 extract($params);
-// $image_name = $model->id . $model->mainImage->image_name;
-$image_name = $model->mainImage->image_name;
+// $imageName = $model->id . $model->mainImage->image_name;
+$imageName = $model->id . '_category_' . $model->mainImage->image_name;
 
 ?>
 
@@ -51,10 +51,10 @@ $image_name = $model->mainImage->image_name;
 
     <?= $form->field($model, 'main_image_id')->hiddenInput(['id' => 'main_image_hidden_input', 'maxlength' => true]) ?>
 
-    <?php if ( ! $model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $image_name)): ?>
+    <?php if (!$model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $imageName)): ?>
 
       <div>
-        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $image_name, ['alt' => $model->name]) ?>
+        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $imageName, ['alt' => $model->name]) ?>
       </div>
 
     <?php endif; ?>

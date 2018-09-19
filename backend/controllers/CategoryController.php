@@ -65,7 +65,7 @@ class CategoryController extends AppController
     {
       $imagesList[$array['id']] = [
         // 'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['image_name']
-        'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['image_name']
+        'data-imagesrc' => \Reasanik::$galleryPath . 'thumbs/' . $array['id'] . '_thumb_' . $array['image_name']
       ];
     }
 

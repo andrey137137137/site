@@ -62,7 +62,7 @@ function frameCorners($tag = 'div')
               <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)">
               <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>">
             </picture> -->
-            <?= Html::img(Reasanik::$galleryPath . 'images/' . $image->image_name,
+            <?= Html::img(Reasanik::$galleryPath . 'images/' . $image->id . '_' . $image->image_name,
                 [
                   'class' => 'img_wrap__img frame__img',
                   // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->name
@@ -122,7 +122,7 @@ function frameCorners($tag = 'div')
                   </picture> -->
                   <?= Html::img(
                     // Reasanik::$galleryPath . 'thumbs/' . $image->id . $image->ext,
-                    Reasanik::$galleryPath . 'thumbs/' . $image->image_name,
+                    Reasanik::$galleryPath . 'thumbs/' . $image->id . '_thumb_' . $image->image_name,
                     [
                       'class' => 'frame__img',
                       // 'alt' => $image->cat_id . ' : ' . $image->id . ' : ' . $image->name
@@ -177,7 +177,7 @@ function frameCorners($tag = 'div')
         <li class="frame__img_wrap">
           <?= Html::img(
             // Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
-            Reasanik::$galleryPath . 'categories/' . $category->mainImage->image_name,
+            Reasanik::$galleryPath . 'categories/' . $category->id . '_category_' . $category->mainImage->image_name,
             [
               'class' => 'frame__img',
               'alt' => $category->name

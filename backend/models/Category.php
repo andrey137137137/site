@@ -25,7 +25,12 @@ class Category extends UploadForm
   public $imageFiles;
 
   protected $imageParams = [
-    'category' => ['folder' => 'categories/', 'width' => 220, 'height' => 220]
+    'category' => [
+      'prefix' => 'category',
+      'folder' => 'categories/',
+      'width' => 220,
+      'height' => 220
+    ]
   ];
 
   private $imageOrigin;
@@ -107,7 +112,7 @@ class Category extends UploadForm
         {
           // $this->imageOrigin = $this->galleryPath .
           //   'images/' . $this->main_image_id . $this->names['new'];
-          $this->imageOrigin = $this->galleryPath . 'images/' . $this->names['new'];
+          $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->names['new'];
         }
       }
 

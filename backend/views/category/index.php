@@ -21,14 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            [   
-                'label' => 'Родительский альбом',
-                'value' => 'parent.name'
-            ],
             'name',
             'alias',
             // 'main_image_id',
             // 'mainImage.name',
+            [   
+                'label' => 'Родительский альбом',
+                'value' => 'parent.name'
+            ],
             [
                 'label' => 'Изображение',
                 'format' => 'raw',

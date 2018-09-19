@@ -4,4 +4,4 @@
 
 $this->title = 'Reasanik';
 
-echo $this->render('_category', compact('params'));
+echo $this->render('_gallery', compact('params'));

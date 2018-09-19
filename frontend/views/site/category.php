@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $category ? ['label' => $this->title, 'url' => 
 
 for ($i = count($parents) - 1; $i >= 0; $i--)
 {
-  $this->params['breadcrumbs'][] = ['label' => $parents[$i]['title'], 'url' => ['/site/category', 'id' => $parents[$i]['id']]];
+  $this->params['breadcrumbs'][] = ['label' => $parents[$i]['name'], 'url' => ['/site/category', 'id' => $parents[$i]['id']]];
 }
 
 if ($category)
@@ -20,4 +20,4 @@ if ($category)
   $this->params['breadcrumbs'][] = $this->title;
 }
 
-echo $this->render('_category', compact('params'));
+echo $this->render('_gallery', compact('params'));

@@ -87,7 +87,7 @@ class SiteController extends Controller
       {
         $parents[] = [
           'id' => $parent->id,
-          'title' => $parent->title
+          'name' => $parent->name
         ];
         $parentModel = Category::findOne($parent->id);
       }
