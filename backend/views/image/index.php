@@ -34,7 +34,7 @@ $gridColumns = [
     [
         'attribute' => 'image_name',
         'content' => function ($model, $key, $index, $widget) {
-            $image = $model->image_name ? Reasanik::$galleryPath . 'thumbs/' . $model->id . '_thumb_' . $model->image_name : '/logo_black_login.png';
+            $image = $model->image_name ? Reasanik::$galleryPath . 'thumbs/' . $model->id . '_thumb_' . $model->image_name : '/img/empty.png';
             // return Html::decode("<div class='img-wrap><img class='img-wrap__img src='/img/{$image}' alt='{$model->name}'></div>");
             return Html::img(
                 $image,
@@ -76,9 +76,9 @@ $gridColumns = [
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <!-- <p>
         <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </p> -->
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         // 'columns' => [

@@ -3,6 +3,8 @@
 namespace backend\models;
 
 // use Yii;
+// use yii\behaviors\TimestampBehavior;
+
 
 /**
  * This is the model class for table "{{%category}}".
@@ -33,9 +35,10 @@ class Category extends UploadForm
     ]
   ];
 
-  private $imageOrigin;
   private $oldMainImageId;
 
+  private $imageOrigin = false;
+  private $changedImage = false;
   private $changedMain = false;
 
   /**
@@ -45,6 +48,16 @@ class Category extends UploadForm
   {
       return '{{%category}}';
   }
+
+  // /**
+  //  * @inheritdoc
+  //  */
+  // public function behaviors()
+  // {
+  //   return [
+  //     TimestampBehavior::className(),
+  //   ];
+  // }
 
   /**
    * @inheritdoc
@@ -104,15 +117,18 @@ class Category extends UploadForm
       if ($this->oldMainImageId != $this->main_image_id)
       {
         $this->names['old'] = Image::findOne($this->oldMainImageId)->image_name;
-        $this->names['new'] = $this->mainImage->image_name;
+        // $this->names['new'] = $this->mainImage->image_name;
 
+        $extPos = strrpos($this->mainImage->image_name, '.');
+        $ext = substr($this->mainImage->image_name, $extPos + 1);
+
+        $this->names['new'] = $this->getTranslitedName($this->name, $ext);
         $this->setGalleryPath();
 
         if ($this->main_image_id)
         {
-          // $this->imageOrigin = $this->galleryPath .
-          //   'images/' . $this->main_image_id . $this->names['new'];
-          $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->names['new'];
+          // $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->names['new'];
+          $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->mainImage->image_name;
         }
       }
 
@@ -140,21 +156,32 @@ class Category extends UploadForm
     if ($this->imageOrigin && file_exists($this->imageOrigin) && !is_dir($this->imageOrigin))
     {
       $this->updateImages($this->imageOrigin, $insert);
+      $this->image_name = $this->names['new'];
+      // $this->changedImage = true;
     }
-    else
-    {
-      $this->deleteImages();
-    }
+    // else
+    // {
+    //   $this->deleteImages();
+    //   $this->image_name = null;
+    // }
 
     if ($this->changedMain && $this->is_main)
     {
-      $catModels = Category::find()->where('is_main = 1 and id != :id', ['id' => $this->id])->all();
+      $catModels = Category::find()->
+        where('is_main = 1 and id != :id', ['id' => $this->id])->
+        all();
 
       foreach ($catModels as $catModel)
       {
         $catModel->is_main = 0;
         $catModel->save();
       }
+    }
+
+    if ($this->imageOrigin)
+    {
+      $this->imageOrigin = null;
+      $this->save();
     }
   }
 

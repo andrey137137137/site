@@ -3,7 +3,6 @@
 namespace backend\models;
 
 use yii\behaviors\TimestampBehavior;
-use dastanaron\translit\Translit;
 
 /**
  * This is the model class for table "{{%image}}".
@@ -125,11 +124,13 @@ class Image extends UploadForm
     {
       $this->names['old'] = $this->getOldAttribute('image_name');
 
-      // $translit = (new Translit())->translit($this->imageFile->name, true, 'ru-en');
-      // $this->names['new'] = $this->id . '_' . $translit;
+      // $this->names['new'] = (new Translit())->translit($this->name, true, 'ru-en') .
+      //   '.' . $this->imageFile->extension;
 
-      $this->names['new'] = (new Translit())->translit($this->name, true, 'ru-en') .
-        '.' . $this->imageFile->extension;
+      $this->names['new'] = $this->getTranslitedName(
+        $this->name,
+        $this->imageFile->extension
+      );
 
       $this->updateImages($this->imageFile->tempName, $insert);
 

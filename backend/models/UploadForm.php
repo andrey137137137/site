@@ -6,6 +6,7 @@ use Yii;
 // use yii\base\Model;
 // use yii\web\UploadedFile;
 use yii\behaviors\SluggableBehavior;
+use dastanaron\translit\Translit;
 use abeautifulsite\SimpleImage;
 // use yii\imagine\Image;
 // use Imagine\Image\ManipulatorInterface;
@@ -52,6 +53,12 @@ class UploadForm extends \yii\db\ActiveRecord
         'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
       ]
     ];
+  }
+
+  protected function getTranslitedName($name, $ext)
+  {
+    return (new Translit())->translit($name, true, 'ru-en') .
+        '.' . $ext;
   }
 
   protected function updateImages($from, $insert)

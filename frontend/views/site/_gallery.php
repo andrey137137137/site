@@ -177,7 +177,7 @@ function frameCorners($tag = 'div')
         <li class="frame__img_wrap">
           <?= Html::img(
             // Reasanik::$galleryPath . 'categories/' . $category->id . $category->mainImage->ext,
-            Reasanik::$galleryPath . 'categories/' . $category->id . '_category_' . $category->mainImage->image_name,
+            Reasanik::$galleryPath . 'categories/' . $category->id . '_category_' . $category->image_name,
             [
               'class' => 'frame__img',
               'alt' => $category->name

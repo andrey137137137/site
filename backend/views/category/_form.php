@@ -10,7 +10,7 @@ use kartik\file\FileInput;
 
 extract($params);
 // $imageName = $model->id . $model->mainImage->image_name;
-$imageName = $model->id . '_category_' . $model->mainImage->image_name;
+$imageName = $model->id . '_category_' . $model->image_name;
 
 ?>
 

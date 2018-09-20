@@ -37,7 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data)
                 {
                     return Html::img(
-                        Reasanik::$galleryPath . 'categories/' . $data->mainImage->image_name,
+                        Reasanik::$galleryPath . 'categories/' .
+                            $data->id . '_category_' . $data->image_name,
                         ['alt' => $data->name]
                     );
                 },
