@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Category;
+use backend\models\Image;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -33,7 +34,7 @@ class ImageController extends AppController
   
       // Preventing extra unnecessary query
       if (!$pk) {
-          return;
+        return;
       }
   
       return Image::deleteAll(['id' => $pk]);

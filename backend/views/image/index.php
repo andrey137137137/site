@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $gridColumns = [
 	['class' => 'kartik\grid\SerialColumn'],
+	'id',
 	[
 		'class' => 'kartik\grid\EditableColumn',
 		'attribute' => 'name',
@@ -22,7 +23,7 @@ $gridColumns = [
 		'contentOptions'=>['class'=>'kv-sticky-column'],
 		'editableOptions'=>['header'=>'Name', 'size'=>'md']
 	],
-	// 'alias',
+	'alias',
 	// [
 	//     'label' => 'Изображение',
 	//     'format' => 'raw',
@@ -52,49 +53,6 @@ $gridColumns = [
 		'label' => 'Альбом',
 		'value' => 'cat.name'
 	],
-	// [
-	// 	'label' => Yii::t('app', 'Actions'),
-	// 	'format' => 'raw',
-	// 	'value' => function($model, $key, $index, $widget) {
-	// 		$status = [
-  //       'encode' => false,
-  //       'label' => '<span class="glyphicon glyphicon-eye-open"></span> '.Yii::t('app', 'Status'),
-  //       'url' => ['status', 'id'=>$model->ID],
-  //     ];
-	// 		$update = [
-  //       'encode' => false,
-  //       'label' => '<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('app', 'User'),
-  //       'url' => ['edit', 'id'=>$model->ID],
-  //     ];
-	// 		$delete = [
-  //       'encode' => false,
-  //       'label' => '<span class="glyphicon glyphicon-trash"></span> '.Yii::t('app', 'Delete'),
-  //       'url' => ['delete', 'id'=>$model->ID, ],
-  //       'linkOptions'=>[
-  //         'aria-label' => 'Delete',
-  //         'data-confirm' => Yii::t('kvgrid', 'Are you sure to delete this item?'),
-  //         'data-method'=>'get',
-  //         'data-pjax'=>'0',
-  //       ],
-  //     ];
-
-	// 		$items[] = $status;
-	// 		$items[] = $update;
-	// 		$items[] = $delete;
-
-	// 		return ButtonDropdown::widget([
-	// 			'encodeLabel' => false,
-	// 			'label' => 'Actions',
-	// 			'options' => [
-  //         'class' => 'btn btn-default',
-  //         'role'=>"menu",
-  //       ],
-	// 			'dropdown' => [
-  //         'items' => $items,
-  //       ]
-  //     ]);
-	// 	},
-	// ],
 	[
 	    'class' => 'kartik\grid\ActionColumn',
 	    'dropdown' => false,
@@ -109,7 +67,7 @@ $gridColumns = [
 	        'label'=>"<div class=\"btn btn-info btn-xs admin\"><i class=\"fa fa-pencil\"></i> ".Yii::t('app', 'Edit data')."</div>",
 	        'data-toggle'=>'tooltip'
 	    ],
-	    'deleteOptions'=>['title'=>$deleteMsg, 'data-toggle'=>'tooltip'], 
+	    'deleteOptions'=>['title'=>$deleteMsg, 'data-toggle'=>'tooltip'],
 	],
 	['class' => 'kartik\grid\CheckboxColumn']
 ];
@@ -118,16 +76,19 @@ $this->registerJs(
 	'$(document).ready(function(){
 		$(\'#MyButton\').click(function(){
 
-			console.log($(\'#image-pjax\').yiiGridView(\'getSelectedRows\'));
-			$.post(
-				"delete-multiple", 
-				{
-					pk : $(\'#image-pjax\').yiiGridView(\'getSelectedRows\')
-				},
-				function () {
-					$.pjax.reload({container:\'#image-pjax\'});
-				}
-			);
+			ids = $(\'#image-pjax\').yiiGridView(\'getSelectedRows\');
+			count = ids.length;
+
+			if (count > 0 && confirm(\'Are you sure to delete \' + count + \' item(s)?\'))
+			{
+				$.post(
+					"delete-multiple", 
+					{pk: ids},
+					function () {
+						$.pjax.reload({container:\'#image-pjax\'});
+					}
+				);
+			}
 
 		});
 	});',
@@ -178,8 +139,8 @@ $this->registerJs(
 		'columns' => $gridColumns,
 		'containerOptions' => [
 			'class' => 'image-pjax-container',
-			'style'=>'overflow: auto'
-		], // only set when $responsive = false
+			'style'=>'overflow: auto'							// only set when $responsive = false
+		],
 		'options' => ['id' => 'image-pjax'],
 		// 'beforeHeader'=>[
 		//     [
