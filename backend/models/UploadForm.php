@@ -5,6 +5,7 @@ namespace backend\models;
 use Yii;
 // use yii\base\Model;
 // use yii\web\UploadedFile;
+use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use dastanaron\translit\Translit;
 use abeautifulsite\SimpleImage;
@@ -40,18 +41,24 @@ class UploadForm extends \yii\db\ActiveRecord
   public function behaviors()
   {
     return [
-      'slug' => [
-        'class' => 'Zelenin\yii\behaviors\Slug',
-        'slugAttribute' => 'alias',
+      TimestampBehavior::className(),
+      [
+        'class' => SluggableBehavior::className(),
         'attribute' => 'name',
-        // optional params
-        'ensureUnique' => true,
-        'replacement' => '-',
-        'lowercase' => true,
-        'immutable' => false,
-        // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general. 
-        'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
-      ]
+        'slugAttribute' => 'alias',
+      ],
+      // 'slug' => [
+      //   'class' => 'Zelenin\yii\behaviors\Slug',
+      //   'slugAttribute' => 'alias',
+      //   'attribute' => 'name',
+      //   // optional params
+      //   'ensureUnique' => true,
+      //   'replacement' => '-',
+      //   'lowercase' => true,
+      //   'immutable' => false,
+      //   // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general. 
+      //   'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+      // ]
     ];
   }
 

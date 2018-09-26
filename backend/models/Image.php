@@ -2,8 +2,6 @@
 
 namespace backend\models;
 
-use yii\behaviors\TimestampBehavior;
-
 /**
  * This is the model class for table "{{%image}}".
  *
@@ -48,16 +46,6 @@ class Image extends UploadForm
   public static function tableName()
   {
     return '{{%image}}';
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public function behaviors()
-  {
-    return [
-      TimestampBehavior::className(),
-    ];
   }
 
   /**
