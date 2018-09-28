@@ -37,6 +37,16 @@ class ImageController extends AppController
         return;
       }
   
-      return Image::deleteAll(['id' => $pk]);
+      $count = 0;
+
+      $images = Image::findAll(['id' => $pk]);
+
+      foreach ($images as $image) {
+        if ($image->delete()) {
+          $count++;
+        }
+      }
+
+      return $count;
   }
 }
