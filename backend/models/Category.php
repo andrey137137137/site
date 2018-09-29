@@ -35,10 +35,9 @@ class Category extends UploadForm
     ]
   ];
 
-  private $oldMainImageId;
-
   private $imageOrigin = false;
   private $changedImage = false;
+  private $deleteImage = false;
   private $changedMain = false;
 
   /**
@@ -112,23 +111,30 @@ class Category extends UploadForm
   {
     if (parent::beforeSave($insert))
     {
-      $this->oldMainImageId = $this->getOldAttribute('main_image_id');
+      $oldMainImageId = $this->getOldAttribute('main_image_id');
 
-      if ($this->oldMainImageId != $this->main_image_id)
+      if ($this->main_image_id != $oldMainImageId)
       {
-        $this->names['old'] = Image::findOne($this->oldMainImageId)->image_name;
-        // $this->names['new'] = $this->mainImage->image_name;
-
-        $extPos = strrpos($this->mainImage->image_name, '.');
-        $ext = substr($this->mainImage->image_name, $extPos + 1);
-
-        $this->names['new'] = $this->getTranslitedName($this->name, $ext);
-        $this->setGalleryPath();
+        // $this->names['old'] = Image::findOne($oldMainImageId)->image_name;
+        $this->names['old'] = $this->image_name;
 
         if ($this->main_image_id)
         {
+          // $this->names['new'] = $this->mainImage->image_name;
+
+          $extPos = strrpos($this->mainImage->image_name, '.');
+          $ext = substr($this->mainImage->image_name, $extPos + 1);
+  
+          $this->names['new'] = $this->getTranslitedName($this->name, $ext);
+
+          $this->setGalleryPath();
+
           // $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->names['new'];
           $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->mainImage->image_name;
+        }
+        else
+        {
+          $this->deleteImage = true;
         }
       }
 
@@ -157,13 +163,16 @@ class Category extends UploadForm
     {
       $this->updateImages($this->imageOrigin, $insert);
       $this->image_name = $this->names['new'];
-      // $this->changedImage = true;
+      $this->imageOrigin = null;
+      $this->changedImage = true;
     }
-    // else
-    // {
-    //   $this->deleteImages();
-    //   $this->image_name = null;
-    // }
+    else if ($this->deleteImage)
+    {
+      $this->deleteImages();
+      $this->image_name = null;
+      $this->deleteImage = false;
+      $this->changedImage = true;
+    }
 
     if ($this->changedMain && $this->is_main)
     {
@@ -178,9 +187,9 @@ class Category extends UploadForm
       }
     }
 
-    if ($this->imageOrigin)
+    if ($this->changedImage)
     {
-      $this->imageOrigin = null;
+      $this->changedImage = false;
       $this->save();
     }
   }

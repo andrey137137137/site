@@ -93,12 +93,15 @@ class Image extends UploadForm
   {
     if (!$this->$attribute)
     {
-      if ($this->imageFile) {
+      if ($this->imageFile)
+      {
         $nameLen = strlen($this->imageFile->name);
         $extLen = strlen($this->imageFile->extension) + 1;
   
         $this->$attribute = substr($this->imageFile->name, 0, $nameLen - $extLen);
-      } else {
+      }
+      else
+      {
         $this->addError($attribute, 'Название изображения не должно быть пустым');
       }
     }
@@ -133,8 +136,14 @@ class Image extends UploadForm
     if (parent::beforeDelete()/* && ! $this->categories*/)
     {
       $this->names['old'] = $this->image_name;
-      // $this->setGalleryPath();
       $this->deleteImages();
+
+      // if ($this->id == $this->cat->main_image_id)
+      // {
+      //   $this->cat->main_image_id == null;
+      //   $this->cat->save();
+      // }
+
       return true;
     }
     else
