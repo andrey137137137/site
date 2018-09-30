@@ -41,7 +41,12 @@ $gridColumns = [
   [
     'attribute' => 'main_image_id',
     'content' => function ($model, $key, $index, $widget) {
-      $image = $model->main_image_id ? Reasanik::$galleryPath . 'categories/' . $model->id . '_category_' . $model->image_name : '/img/empty.png';
+      $image = $model->main_image_id
+        ? Reasanik::$galleryPath
+          . 'categories/' . $model->id . '_'
+					. $model->updated_at . '_category_'
+					. $model->image_name
+        : '/img/empty.png';
       // return Html::decode("<div class='img-wrap><img class='img-wrap__img src='/img/{$image}' alt='{$model->name}'></div>");
       return Html::img($image, ['alt' => $model->name]);
     }
@@ -70,6 +75,29 @@ $gridColumns = [
   ],
   ['class' => 'kartik\grid\CheckboxColumn']
 ];
+
+$this->registerJs(
+	'$(document).ready(function(){
+		$(\'#MyButton\').click(function(){
+
+			ids = $(\'#image-pjax\').yiiGridView(\'getSelectedRows\');
+			count = ids.length;
+
+			if (count > 0 && confirm(\'Are you sure to delete \' + count + \' item(s)?\'))
+			{
+				$.post(
+					"delete-multiple", 
+					{pk: ids},
+					function () {
+						$.pjax.reload({container:\'#image-pjax\'});
+					}
+				);
+			}
+
+		});
+	});',
+	\yii\web\View::POS_READY
+);
 
 ?>
 <div class="category-index">
@@ -109,7 +137,11 @@ $gridColumns = [
     //     ['class' => 'yii\grid\ActionColumn'],
     // ],
     'columns' => $gridColumns,
-    'containerOptions' => ['style'=>'overflow: auto'], // only set when $responsive = false
+		'containerOptions' => [
+			'class' => 'image-pjax-container',
+			'style'=>'overflow: auto'							// only set when $responsive = false
+		],
+		'options' => ['id' => 'image-pjax'],
     // 'beforeHeader'=>[
     //     [
     //         'columns'=>[
@@ -141,6 +173,7 @@ $gridColumns = [
               'title' => Yii::t('kvgrid', 'Reset Grid')
             ]
           )
+					. '<input type="button" class="btn btn-info" value="Multiple Delete" id="MyButton" >'
       ],
       // '{export}',
       '{toggleData}'
@@ -153,7 +186,7 @@ $gridColumns = [
     'hover' => true,
     'floatHeader' => true,
     'floatHeaderOptions' => ['scrollingTop' => $scrollingTop],
-    'showPageSummary' => true,
+    // 'showPageSummary' => true,
     'panel' => [
       'type' => GridView::TYPE_PRIMARY
     ],

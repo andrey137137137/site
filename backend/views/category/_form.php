@@ -10,7 +10,7 @@ use kartik\file\FileInput;
 
 extract($params);
 // $imageName = $model->id . $model->mainImage->image_name;
-$imageName = $model->id . '_category_' . $model->image_name;
+$imageName = $model->id . '_' . $model->updated_at . '_category_' . $model->image_name;
 
 ?>
 
@@ -18,50 +18,50 @@ $imageName = $model->id . '_category_' . $model->image_name;
 
   <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList($parentsList) ?>
+  <?= $form->field($model, 'parent_id')->dropDownList($parentsList) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+  <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
+  <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_main')->checkbox(['maxlength' => true]) ?>
+  <?= $form->field($model, 'is_main')->checkbox(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+  <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?php
-        if ($model->isNewRecord)
-        {
-            // echo $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
-            echo $form->field($model, 'imageFiles[]')->widget(
-                FileInput::classname(), 
-                ['options' => ['multiple' => true, 'accept' => 'image/*'],]
-            );
-        }
-    ?>
+  <?php
+    if ($model->isNewRecord)
+    {
+      // echo $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
+      echo $form->field($model, 'imageFiles[]')->widget(
+        FileInput::classname(), 
+        ['options' => ['multiple' => true, 'accept' => 'image/*'],]
+      );
+    }
+  ?>
 
-    <?= Html::dropDownList('', null, $dropDownList, [
-        'id' => 'main_image_dropdownlist',
-        'options' => $imagesList
-    ]) ?>
+  <?= Html::dropDownList('', null, $dropDownList, [
+    'id' => 'main_image_dropdownlist',
+    'options' => $imagesList
+  ]) ?>
 
-    <!-- ?= $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
-        'id' => 'main_image_hidden_input'
-        // 'options' => $imagesList
-    ]) ?> -->
+  <!-- ?= $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
+    'id' => 'main_image_hidden_input'
+    // 'options' => $imagesList
+  ]) ?> -->
 
-    <?= $form->field($model, 'main_image_id')->hiddenInput(['id' => 'main_image_hidden_input', 'maxlength' => true]) ?>
+  <?= $form->field($model, 'main_image_id')->hiddenInput(['id' => 'main_image_hidden_input', 'maxlength' => true]) ?>
 
-    <?php if (!$model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $imageName)): ?>
+  <?php if (!$model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $imageName)): ?>
 
-      <div>
-        <?= Html::img(Reasanik::$galleryPath . 'categories/' . $imageName, ['alt' => $model->name]) ?>
-      </div>
-
-    <?php endif; ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <div>
+    <?= Html::img(Reasanik::$galleryPath . 'categories/' . $imageName, ['alt' => $model->name]) ?>
     </div>
+
+  <?php endif; ?>
+
+  <div class="form-group">
+    <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+  </div>
 
   <?php ActiveForm::end(); ?>
 

@@ -12,8 +12,8 @@ $this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="category-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+  <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', compact('params')) ?>
+  <?= $this->render('_form', compact('params')) ?>
 
 </div>

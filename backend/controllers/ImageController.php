@@ -30,23 +30,23 @@ class ImageController extends AppController
 
   public function actionDeleteMultiple()
   {
-      $pk = Yii::$app->request->post('pk'); // Array or selected records primary keys
-  
-      // Preventing extra unnecessary query
-      if (!$pk) {
-        return;
+    $pk = Yii::$app->request->post('pk'); // Array or selected records primary keys
+
+    // Preventing extra unnecessary query
+    if (!$pk) {
+      return;
+    }
+
+    $count = 0;
+
+    $images = Image::findAll(['id' => $pk]);
+
+    foreach ($images as $image) {
+      if ($image->delete()) {
+        $count++;
       }
-  
-      $count = 0;
+    }
 
-      $images = Image::findAll(['id' => $pk]);
-
-      foreach ($images as $image) {
-        if ($image->delete()) {
-          $count++;
-        }
-      }
-
-      return $count;
+    return $count;
   }
 }

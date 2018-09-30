@@ -20,6 +20,15 @@ class CategoryController extends AppController
   private $childrenList = [];
   private $imagesList = [];
 
+  public function behaviors()
+  {
+    $behaviors = parent::behaviors();
+
+    $behaviors['verbs']['actions']['delete-multiple'] = ['POST'];
+
+    return $behaviors;
+  }
+
   // protected function change()
   // {
   //   $this->loadModel();
@@ -108,4 +117,25 @@ class CategoryController extends AppController
     }
   }
 
+  public function actionDeleteMultiple()
+  {
+    $pk = Yii::$app->request->post('pk'); // Array or selected records primary keys
+
+    // Preventing extra unnecessary query
+    if (!$pk) {
+      return;
+    }
+
+    $count = 0;
+
+    $categories = Category::findAll(['id' => $pk]);
+
+    foreach ($categories as $category) {
+      if ($category->delete()) {
+        $count++;
+      }
+    }
+
+    return $count;
+  }
 }
