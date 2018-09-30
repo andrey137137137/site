@@ -24,7 +24,7 @@ class UploadForm extends \yii\db\ActiveRecord
 
   protected $galleryPath = false;
   protected $imageParams;
-  protected $names = ['new' => false, 'old' => false];
+  protected $names = ['oldUpdate' => false, 'new' => false, 'old' => false];
 
   private $imagePathes;
 
@@ -62,10 +62,39 @@ class UploadForm extends \yii\db\ActiveRecord
     ];
   }
 
+  public function beforeSave($insert)
+  {
+    if (parent::beforeSave($insert))
+    {
+      if (!$insert)
+      {
+        $this->rememberOldUpdateDate();
+      }
+
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  public function beforeDelete()
+  {
+    if (parent::beforeDelete())
+    {
+      $this->rememberOldUpdateDate();
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
   protected function getTranslitedName($name, $ext)
   {
-    return (new Translit())->translit($name, true, 'ru-en') .
-        '.' . $ext;
+    return (new Translit())->translit($name, true, 'ru-en') . '.' . $ext;
   }
 
   protected function updateImages($from, $insert)
@@ -115,6 +144,11 @@ class UploadForm extends \yii\db\ActiveRecord
     }
   }
 
+  private function rememberOldUpdateDate()
+  {
+    $this->names['oldUpdate'] = $this->getOldAttribute('updated_at');
+  }
+
   private function createImages($from)
   {
     $this->setImagePathes();
@@ -145,10 +179,11 @@ class UploadForm extends \yii\db\ActiveRecord
 
     foreach ($this->imageParams as $root => $params)
     {
-      $this->imagePathes[$root] = $params['folder'] . 
-        $this->id . '_' . 
-        ($params['prefix'] ? $params['prefix'] . '_' : '') . 
-        $name;
+      $this->imagePathes[$root] = $params['folder']
+        . $this->id . '_'
+        . ($new ? $this->updated_at : $this->names['oldUpdate']) . '_'
+        . ($params['prefix'] ? $params['prefix'] . '_' : '')
+        . $name;
     }
   }
 }

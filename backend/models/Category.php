@@ -84,13 +84,15 @@ class Category extends UploadForm
   {
     return [
       'id' => 'Идентификатор',
-      'parent_id' => 'Родительская категория',
-      'main_image_id' => 'Превью',
       // 'image_name' => 'Расширение',
       'name' => 'Заголовок',
       'alias' => 'Алиас',
       'description' => 'Описание',
       'is_main' => 'На главную страницу',
+      'created_at' => 'Дата создания',
+      'updated_at' => 'Дата обновления',
+      'parent_id' => 'Родительская категория',
+      'main_image_id' => 'Превью',
     ];
   }
 
@@ -150,13 +152,16 @@ class Category extends UploadForm
   {
     parent::afterSave($insert, $changedAttributes);
 
-    foreach ($this->imageFiles as $image)
+    if ($this->imageFiles)
     {
-      $imageModel = new Image;
-      $imageModel->cat_id = $this->id;
-      $imageModel->imageFile = $image;
-      $imageModel->save();
-      $imageModel = null;
+      foreach ($this->imageFiles as $image)
+      {
+        $imageModel = new Image;
+        $imageModel->cat_id = $this->id;
+        $imageModel->imageFile = $image;
+        $imageModel->save();
+        $imageModel = null;
+      }
     }
 
     if ($this->imageOrigin && file_exists($this->imageOrigin) && !is_dir($this->imageOrigin))
@@ -200,13 +205,11 @@ class Category extends UploadForm
     {
       foreach ($this->categories as $category)
       {
-        if ( ! $category->delete())
+        if (!$category->delete())
         {
           return false;
         }
       }
-
-      $this->names['old'] = $this->mainImage->image_name;
 
       foreach ($this->images as $image)
       {
@@ -216,8 +219,9 @@ class Category extends UploadForm
         }
       }
 
-      // $this->setGalleryPath();
+      $this->names['old'] = $this->image_name;
       $this->deleteImages();
+
       return true;
     }
     else

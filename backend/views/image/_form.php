@@ -9,7 +9,7 @@ use kartik\file\FileInput;
 /* @var $form yii\widgets\ActiveForm */
 
 extract($params);
-$imageName = $model->id . '_' . $model->image_name;
+$imageName = $model->id . '_' . $model->updated_at . '_' . $model->image_name;
 ?>
 
 <div class="image-form">

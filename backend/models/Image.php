@@ -56,9 +56,9 @@ class Image extends UploadForm
     $rules = parent::rules();
 
     $rules[] = [['cat_id'/*, 'image_name'*/], 'required'];
-    $rules[] = [['cat_id'/*, 'create_at', 'update_at'*/], 'integer'];
+    $rules[] = [['cat_id'/*, 'created_at', 'updated_at'*/], 'integer'];
     // [['cat_id'], 'default', 'value' => 1];
-    // [['create_at', 'update_at'], 'default', 'value' => 0];
+    // [['created_at', 'updated_at'], 'default', 'value' => 0];
     $rules[] = [['description', 'meta_keys', 'meta_desc'], 'string'];
     $rules[] = [['name'/*, 'image_name'*/, 'alias'], 'string', 'max' => 255];
     $rules[] = [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['cat_id' => 'id']];
@@ -83,8 +83,8 @@ class Image extends UploadForm
       'description' => 'Описание',
       'meta_keys' => 'Meta Keys',
       'meta_desc' => 'Meta Desc',
-      'create_at' => 'Дата создания',
-      'update_at' => 'Дата обновления',
+      'created_at' => 'Дата создания',
+      'updated_at' => 'Дата обновления',
       'cat_id' => 'Категория',
     ];
   }
@@ -126,6 +126,12 @@ class Image extends UploadForm
       $this->updateImages($this->imageFile->tempName, $insert);
 
       $this->image_name = $this->names['new'];
+
+      if (!$insert && $this->imageFile)
+      {
+        $this->deleteOldCatPrevious();
+      }
+
       $this->imageFile = null;
       $this->save();
     }
@@ -138,11 +144,7 @@ class Image extends UploadForm
       $this->names['old'] = $this->image_name;
       $this->deleteImages();
 
-      // if ($this->id == $this->cat->main_image_id)
-      // {
-      //   $this->cat->main_image_id == null;
-      //   $this->cat->save();
-      // }
+      $this->deleteOldCatPrevious();
 
       return true;
     }
@@ -166,5 +168,18 @@ class Image extends UploadForm
   public function getCat()
   {
     return $this->hasOne(Category::className(), ['id' => 'cat_id']);
+  }
+
+  private function deleteOldCatPrevious()
+  {
+    $categories = Category::findAll(['main_image_id' => $this->id]);
+
+    foreach ($categories as $category)
+    {
+      $category->main_image_id = null;
+      $category->save();
+      $category->main_image_id = $this->id;
+      $category->save();
+    }
   }
 }
