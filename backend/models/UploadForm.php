@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 // use yii\base\Model;
 // use yii\web\UploadedFile;
-use yii\behaviors\TimestampBehavior;
+// use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use dastanaron\translit\Translit;
 use abeautifulsite\SimpleImage;
@@ -26,6 +26,7 @@ class UploadForm extends \yii\db\ActiveRecord
   protected $imageParams;
   protected $names = ['oldUpdate' => false, 'new' => false, 'old' => false];
 
+  protected $updateDate = true;
   private $imagePathes;
 
   /**
@@ -41,7 +42,7 @@ class UploadForm extends \yii\db\ActiveRecord
   public function behaviors()
   {
     return [
-      TimestampBehavior::className(),
+      // TimestampBehavior::className(),
       [
         'class' => SluggableBehavior::className(),
         'attribute' => 'name',
@@ -66,9 +67,20 @@ class UploadForm extends \yii\db\ActiveRecord
   {
     if (parent::beforeSave($insert))
     {
-      if (!$insert)
+      if ($insert)
+      {
+        $now = time();
+        $this->created_at = $now;
+        $this->updated_at = $now;
+      }
+      else
       {
         $this->rememberOldUpdateDate();
+
+        if ($this->updateDate)
+        {
+          $this->updated_at = time();
+        }
       }
 
       return true;
@@ -77,6 +89,13 @@ class UploadForm extends \yii\db\ActiveRecord
     {
       return false;
     }
+  }
+
+  public function afterSave($insert, $changedAttributes)
+  {
+    parent::afterSave($insert, $changedAttributes);
+
+    $this->updateDate = false;
   }
 
   public function beforeDelete()
