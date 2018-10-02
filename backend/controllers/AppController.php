@@ -28,6 +28,7 @@ class AppController extends Controller
         'class' => VerbFilter::className(),
         'actions' => [
           'delete' => ['POST'],
+          'delete-multiple' => ['POST'],
         ],
       ],
       'access' => [
@@ -131,7 +132,35 @@ class AppController extends Controller
     return $this->redirect(['index']);
   }
 
+  public function actionDeleteMultiple()
+  {
+    $pk = Yii::$app->request->post('pk'); // Array of selected records primary keys
+
+    // Preventing extra unnecessary query
+    if (!$pk) {
+      return;
+    }
+
+    $count = 0;
+
+    $modelClass = $this->getModelClass();
+    $models = $modelClass::findAll(['id' => $pk]);
+
+    foreach ($models as $model) {
+      if ($model->delete()) {
+        $count++;
+      }
+    }
+
+    return $count;
+  }
+
   protected function additionalViewParams()
+  {
+    return [];
+  }
+
+  protected function getListQuery()
   {
     return [];
   }
@@ -168,7 +197,16 @@ class AppController extends Controller
 
       if ($this->model->save())
       {
-        return $this->redirect(['update', 'id' => $this->model->id]);
+        if ($this->curModelId)
+        {
+          $redirectParams = ['update', 'id' => $this->model->id];
+        }
+        else
+        {
+          $redirectParams = ['index'];
+        }
+
+        return $this->redirect($redirectParams);
       }
     }
 

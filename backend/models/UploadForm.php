@@ -171,7 +171,6 @@ class UploadForm extends \yii\db\ActiveRecord
   private function createImages($from)
   {
     $this->setImagePathes();
-
     // Image::$driver = Image::DRIVER_GD2;
 
     foreach ($this->imageParams as $root => $params)

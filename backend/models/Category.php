@@ -132,7 +132,10 @@ class Category extends UploadForm
           $this->setGalleryPath();
 
           // $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->names['new'];
-          $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->mainImage->image_name;
+          $this->imageOrigin = $this->galleryPath
+            . 'images/' . $this->mainImage->id
+            . '_' . $this->mainImage->updated_at . '_'
+            . $this->mainImage->image_name;
         }
         else
         {

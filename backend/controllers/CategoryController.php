@@ -20,14 +20,36 @@ class CategoryController extends AppController
   private $childrenList = [];
   private $imagesList = [];
 
-  public function behaviors()
-  {
-    $behaviors = parent::behaviors();
+  // public function behaviors()
+  // {
+  //   $behaviors = parent::behaviors();
 
-    $behaviors['verbs']['actions']['delete-multiple'] = ['POST'];
+  //   $behaviors['verbs']['actions']['delete-multiple'] = ['POST'];
 
-    return $behaviors;
-  }
+  //   return $behaviors;
+  // }
+
+  // public function actionDeleteMultiple()
+  // {
+  //   $pk = Yii::$app->request->post('pk'); // Array or selected records primary keys
+
+  //   // Preventing extra unnecessary query
+  //   if (!$pk) {
+  //     return;
+  //   }
+
+  //   $count = 0;
+
+  //   $categories = Category::findAll(['id' => $pk]);
+
+  //   foreach ($categories as $category) {
+  //     if ($category->delete()) {
+  //       $count++;
+  //     }
+  //   }
+
+  //   return $count;
+  // }
 
   // protected function change()
   // {
@@ -70,15 +92,15 @@ class CategoryController extends AppController
 
     $imagesList = [];
 
-    foreach ($this->imagesList as $i => $array)
+    foreach ($this->imagesList as $array)
     {
       $imagesList[$array['id']] = [
-        // 'data-imagesrc' => \Reasanik::$galleryPath . 'images/' . $array['id'] . $array['image_name']
-        'data-imagesrc' => \Reasanik::$galleryPath . 'thumbs/' . $array['id'] . '_thumb_' . $array['image_name']
+        'data-imagesrc' => \Reasanik::$galleryPath
+          . 'thumbs/' . $array['id'] . '_'
+          . $array['updated_at'] . '_thumb_'
+          . $array['image_name']
       ];
     }
-
-    // var_dump($imagesList);
 
     return [
       'parentsList' => $this->getArray($categories, 'name', 'id', [null => 'Нет родителя']),
@@ -92,7 +114,7 @@ class CategoryController extends AppController
 
     $this->setChildren($this->curModelId);
 
-    $result = Image::find()->select(['id', 'name', 'image_name'])->where(['cat_id' => $this->childrenList])->orderBy('name')->asArray()->all();
+    $result = Image::find()->select(['id', 'name', 'image_name', 'updated_at'])->where(['cat_id' => $this->childrenList])->orderBy('name')->asArray()->all();
 
     $this->imagesList = $result;
 
@@ -115,27 +137,5 @@ class CategoryController extends AppController
         $this->setChildren($id);
       }
     }
-  }
-
-  public function actionDeleteMultiple()
-  {
-    $pk = Yii::$app->request->post('pk'); // Array or selected records primary keys
-
-    // Preventing extra unnecessary query
-    if (!$pk) {
-      return;
-    }
-
-    $count = 0;
-
-    $categories = Category::findAll(['id' => $pk]);
-
-    foreach ($categories as $category) {
-      if ($category->delete()) {
-        $count++;
-      }
-    }
-
-    return $count;
   }
 }
