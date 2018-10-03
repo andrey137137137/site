@@ -146,9 +146,7 @@ class UploadForm extends \yii\db\ActiveRecord
     {
       $this->imagePathes[$root] = $params['folder']
         . ($params['prefix'] ? $params['prefix'] . '_' : '')
-        . $this->id . '_'
-        // . ($new ? $this->updated_at : $this->names['oldUpdate']) . '_'
-        . $name;
+        . $this->id . '_' . $name;
     }
   }
 }

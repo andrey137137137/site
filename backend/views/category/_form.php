@@ -39,27 +39,28 @@ $imageName = 'category_' . $model->id . '_' . $model->image_name;
         ]
       ]
     );
+  } else {
+
+    echo Html::dropDownList('', null, $dropDownList, [
+      'id' => 'main_image_dropdownlist',
+      'options' => $imagesList
+    ]);
+
+    // echo $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
+    //   'id' => 'main_image_hidden_input'
+    //   // 'options' => $imagesList
+    // ]);
+
+    echo $form->field($model, 'main_image_id')->hiddenInput(['id' => 'main_image_hidden_input', 'maxlength' => true]);
+
+    if (file_exists(Yii::getAlias('@gallery') . '/categories/' . $imageName)): ?>
+
+      <div>
+      <?= Html::img(Reasanik::$galleryPath . 'categories/' . $imageName, ['alt' => $model->name]) ?>
+      </div>
+
+    <?php endif;
   } ?>
-
-  <?= Html::dropDownList('', null, $dropDownList, [
-    'id' => 'main_image_dropdownlist',
-    'options' => $imagesList
-  ]) ?>
-
-  <!-- ?= $form->field($model, 'main_image_id')->dropDownList($dropDownList, [
-    'id' => 'main_image_hidden_input'
-    // 'options' => $imagesList
-  ]) ?> -->
-
-  <?= $form->field($model, 'main_image_id')->hiddenInput(['id' => 'main_image_hidden_input', 'maxlength' => true]) ?>
-
-  <?php if (!$model->isNewRecord && file_exists(Yii::getAlias('@gallery') . '/categories/' . $imageName)): ?>
-
-    <div>
-    <?= Html::img(Reasanik::$galleryPath . 'categories/' . $imageName, ['alt' => $model->name]) ?>
-    </div>
-
-  <?php endif; ?>
 
   <div class="form-group">
     <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
