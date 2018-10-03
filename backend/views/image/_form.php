@@ -9,7 +9,7 @@ use kartik\file\FileInput;
 /* @var $form yii\widgets\ActiveForm */
 
 extract($params);
-$imageName = $model->id . '_' . $model->updated_at . '_' . $model->image_name;
+$imageName = $model->id . '_' . $model->image_name;
 ?>
 
 <div class="image-form">
@@ -41,7 +41,7 @@ $imageName = $model->id . '_' . $model->updated_at . '_' . $model->image_name;
             // 'initialPreviewConfig' => [
             //     ['caption' => "Moon.jpg", 'size' => 930321, 'width' => "120px", 'key' => 1, 'showRemove' => false,],
             // ],
-            'showRemove' => false,
+            // 'showRemove' => true,
             // 'overwriteInitial' => false,
             // 'maxFileSize' => 100,
             // 'initialCaption' => "The Moon and the Earth"

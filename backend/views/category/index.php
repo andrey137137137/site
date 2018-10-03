@@ -43,11 +43,9 @@ $gridColumns = [
     'content' => function ($model, $key, $index, $widget) {
       $image = $model->main_image_id
         ? Reasanik::$galleryPath
-          . 'categories/' . $model->id . '_'
-					. $model->updated_at . '_category_'
+          . 'categories/category_' . $model->id . '_'
 					. $model->image_name
         : '/img/empty.png';
-      // return Html::decode("<div class='img-wrap><img class='img-wrap__img src='/img/{$image}' alt='{$model->name}'></div>");
       return Html::img($image, ['alt' => $model->name]);
     }
   ],

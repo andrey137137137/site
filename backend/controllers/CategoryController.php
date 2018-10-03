@@ -96,8 +96,7 @@ class CategoryController extends AppController
     {
       $imagesList[$array['id']] = [
         'data-imagesrc' => \Reasanik::$galleryPath
-          . 'thumbs/' . $array['id'] . '_'
-          . $array['updated_at'] . '_thumb_'
+          . 'thumbs/thumb_' . $array['id'] . '_'
           . $array['image_name']
       ];
     }
@@ -114,7 +113,7 @@ class CategoryController extends AppController
 
     $this->setChildren($this->curModelId);
 
-    $result = Image::find()->select(['id', 'name', 'image_name', 'updated_at'])->where(['cat_id' => $this->childrenList])->orderBy('name')->asArray()->all();
+    $result = Image::find()->select(['id', 'name', 'image_name'])->where(['cat_id' => $this->childrenList])->orderBy('name')->asArray()->all();
 
     $this->imagesList = $result;
 

@@ -4,7 +4,6 @@ namespace backend\models;
 
 use Yii;
 // use yii\base\Model;
-// use yii\web\UploadedFile;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use dastanaron\translit\Translit;
@@ -24,9 +23,8 @@ class UploadForm extends \yii\db\ActiveRecord
 
   protected $galleryPath = false;
   protected $imageParams;
-  protected $names = ['oldUpdate' => false, 'new' => false, 'old' => false];
+  protected $names = ['new' => false, 'old' => false];
 
-  protected $updateDate = true;
   private $imagePathes;
 
   /**
@@ -61,54 +59,6 @@ class UploadForm extends \yii\db\ActiveRecord
       //   'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
       // ]
     ];
-  }
-
-  // public function beforeSave($insert)
-  // {
-  //   if (parent::beforeSave($insert))
-  //   {
-  //     if ($insert)
-  //     {
-  //       $now = time();
-  //       $this->created_at = $now;
-  //       $this->updated_at = $now;
-  //     }
-  //     else
-  //     {
-  //       $this->rememberOldUpdateDate();
-
-  //       if ($this->updateDate)
-  //       {
-  //         $this->updated_at = time();
-  //       }
-  //     }
-
-  //     return true;
-  //   }
-  //   else
-  //   {
-  //     return false;
-  //   }
-  // }
-
-  // public function afterSave($insert, $changedAttributes)
-  // {
-  //   parent::afterSave($insert, $changedAttributes);
-
-  //   $this->updateDate = false;
-  // }
-
-  public function beforeDelete()
-  {
-    if (parent::beforeDelete())
-    {
-      $this->rememberOldUpdateDate();
-      return true;
-    }
-    else
-    {
-      return false;
-    }
   }
 
   protected function getTranslitedName($name, $ext)
@@ -163,11 +113,6 @@ class UploadForm extends \yii\db\ActiveRecord
     {
       $this->imageParams[$root]['folder'] = $this->galleryPath . $params['folder'];
     }
-  }
-
-  private function rememberOldUpdateDate()
-  {
-    $this->names['oldUpdate'] = $this->getOldAttribute('updated_at');
   }
 
   private function createImages($from)

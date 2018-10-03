@@ -10,7 +10,7 @@ use kartik\file\FileInput;
 
 extract($params);
 // $imageName = $model->id . $model->mainImage->image_name;
-$imageName = $model->id . '_' . $model->updated_at . '_category_' . $model->image_name;
+$imageName = 'category_' . $model->id . '_' . $model->image_name;
 
 ?>
 
@@ -28,16 +28,18 @@ $imageName = $model->id . '_' . $model->updated_at . '_category_' . $model->imag
 
   <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-  <?php
-    if ($model->isNewRecord)
-    {
-      // echo $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
-      echo $form->field($model, 'imageFiles[]')->widget(
-        FileInput::classname(), 
-        ['options' => ['multiple' => true, 'accept' => 'image/*'],]
-      );
-    }
-  ?>
+  <?php if ($model->isNewRecord) {
+    // echo $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']);
+    echo $form->field($model, 'imageFiles[]')->widget(
+      FileInput::classname(), 
+      [
+        'options' => ['multiple' => true, 'accept' => 'image/*'],
+        'pluginOptions' => [
+          'showRemove' => true
+        ]
+      ]
+    );
+  } ?>
 
   <?= Html::dropDownList('', null, $dropDownList, [
     'id' => 'main_image_dropdownlist',
