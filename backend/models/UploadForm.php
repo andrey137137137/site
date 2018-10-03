@@ -5,7 +5,7 @@ namespace backend\models;
 use Yii;
 // use yii\base\Model;
 // use yii\web\UploadedFile;
-// use yii\behaviors\TimestampBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use dastanaron\translit\Translit;
 use abeautifulsite\SimpleImage;
@@ -42,7 +42,7 @@ class UploadForm extends \yii\db\ActiveRecord
   public function behaviors()
   {
     return [
-      // TimestampBehavior::className(),
+      TimestampBehavior::className(),
       [
         'class' => SluggableBehavior::className(),
         'attribute' => 'name',
@@ -63,40 +63,40 @@ class UploadForm extends \yii\db\ActiveRecord
     ];
   }
 
-  public function beforeSave($insert)
-  {
-    if (parent::beforeSave($insert))
-    {
-      if ($insert)
-      {
-        $now = time();
-        $this->created_at = $now;
-        $this->updated_at = $now;
-      }
-      else
-      {
-        $this->rememberOldUpdateDate();
+  // public function beforeSave($insert)
+  // {
+  //   if (parent::beforeSave($insert))
+  //   {
+  //     if ($insert)
+  //     {
+  //       $now = time();
+  //       $this->created_at = $now;
+  //       $this->updated_at = $now;
+  //     }
+  //     else
+  //     {
+  //       $this->rememberOldUpdateDate();
 
-        if ($this->updateDate)
-        {
-          $this->updated_at = time();
-        }
-      }
+  //       if ($this->updateDate)
+  //       {
+  //         $this->updated_at = time();
+  //       }
+  //     }
 
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
+  //     return true;
+  //   }
+  //   else
+  //   {
+  //     return false;
+  //   }
+  // }
 
-  public function afterSave($insert, $changedAttributes)
-  {
-    parent::afterSave($insert, $changedAttributes);
+  // public function afterSave($insert, $changedAttributes)
+  // {
+  //   parent::afterSave($insert, $changedAttributes);
 
-    $this->updateDate = false;
-  }
+  //   $this->updateDate = false;
+  // }
 
   public function beforeDelete()
   {
@@ -113,7 +113,9 @@ class UploadForm extends \yii\db\ActiveRecord
 
   protected function getTranslitedName($name, $ext)
   {
-    return (new Translit())->translit($name, true, 'ru-en') . '.' . $ext;
+    return $this->updated_at . '_'
+      . (new Translit())->translit($name, true, 'ru-en')
+      . '.' . $ext;
   }
 
   protected function updateImages($from, $insert)
@@ -198,9 +200,9 @@ class UploadForm extends \yii\db\ActiveRecord
     foreach ($this->imageParams as $root => $params)
     {
       $this->imagePathes[$root] = $params['folder']
-        . $this->id . '_'
-        . ($new ? $this->updated_at : $this->names['oldUpdate']) . '_'
         . ($params['prefix'] ? $params['prefix'] . '_' : '')
+        . $this->id . '_'
+        // . ($new ? $this->updated_at : $this->names['oldUpdate']) . '_'
         . $name;
     }
   }

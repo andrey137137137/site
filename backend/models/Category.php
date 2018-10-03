@@ -117,24 +117,19 @@ class Category extends UploadForm
 
       if ($this->main_image_id != $oldMainImageId)
       {
-        // $this->names['old'] = Image::findOne($oldMainImageId)->image_name;
         $this->names['old'] = $this->image_name;
 
         if ($this->main_image_id)
         {
-          // $this->names['new'] = $this->mainImage->image_name;
-
-          $extPos = strrpos($this->mainImage->image_name, '.');
-          $ext = substr($this->mainImage->image_name, $extPos + 1);
+          // $extPos = strrpos($this->mainImage->image_name, '.');
+          // $ext = substr($this->mainImage->image_name, $extPos + 1);
   
-          $this->names['new'] = $this->getTranslitedName($this->name, $ext);
-
+          // $this->names['new'] = $this->getTranslitedName($this->name, $ext);
           $this->setGalleryPath();
 
-          // $this->imageOrigin = $this->galleryPath . 'images/' . $this->mainImage->id . '_' . $this->names['new'];
           $this->imageOrigin = $this->galleryPath
-            . 'images/' . $this->mainImage->id
-            . '_' . $this->mainImage->updated_at . '_'
+            . 'images/' . $this->mainImage->id . '_'
+            // . $this->mainImage->updated_at . '_'
             . $this->mainImage->image_name;
         }
         else
@@ -169,7 +164,12 @@ class Category extends UploadForm
 
     if ($this->imageOrigin && file_exists($this->imageOrigin) && !is_dir($this->imageOrigin))
     {
+      $extPos = strrpos($this->mainImage->image_name, '.');
+      $ext = substr($this->mainImage->image_name, $extPos + 1);
+      $this->names['new'] = $this->getTranslitedName($this->name, $ext);
+
       $this->updateImages($this->imageOrigin, $insert);
+
       $this->image_name = $this->names['new'];
       $this->imageOrigin = null;
       $this->changedImage = true;
