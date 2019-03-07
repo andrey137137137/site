@@ -40,150 +40,130 @@ function frameCorners($tag = 'div')
 
 <?php if ( ! empty($images)): ?>
 
-  <!-- <div> -->
-  <!-- <div class="container"> -->
+    <!-- <div> -->
+    <!-- <div class="container"> -->
 
     <div id="mainSlider" class="frame_wrap main-slider">
-      <?php frameCorners() ?>
+        <?php frameCorners() ?>
 
-      <ul id="rs-slider" class="frame frame_wrap__frame">
+        <ul id="rs-slider" class="frame frame_wrap__frame">
 
-        <?php foreach ($images as $i => $image)
-        {
-          
-          // $tempImageName = $image->id . $image->ext;
+            <?php foreach ($images as $i => $image)
+            {
+              
+              // $tempImageName = $image->id . $image->ext;
 
-        ?>
+            ?>
 
-          <li class="img_wrap frame__img_wrap" data-number="<?= $i ?>">
-            <!-- <picture class="frame__img_wrape" data-number="<?= $i ?>" style="display: block;">
-              <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)">
-              <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)">
-              <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)">
-              <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>">
-            </picture> -->
-            <?= Html::img(
-              Reasanik::$galleryPath . 'images/'
-                . $image->id . '_' . $image->image_name,
-              ['class' => 'img_wrap__img frame__img', 'alt' => $image->name]
-            ) ?>
-          </li>
+            <li class="img_wrap frame__img_wrap" data-number="<?= $i ?>">
+                <!-- <picture class="frame__img_wrape" data-number="<?= $i ?>" style="display: block;"> <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)"> <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)"> <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)"> <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>"> </picture> -->
+                <?= Html::img(
+                  Reasanik::$galleryPath . 'images/'
+                    . $image->id . '_' . $image->image_name,
+                  ['class' => 'img_wrap__img frame__img', 'alt' => $image->name]
+                ) ?>
+            </li>
 
-        <?php } ?>
+            <?php } ?>
 
-      </ul>
+        </ul>
     </div>
 
     <div class="wrap-carousel">
-      <div id="carousel" class="carousel">
-        <ul class="simple-slider">
+        <div id="carousel" class="carousel">
+            <ul class="simple-slider">
 
-          <!-- Thumbnails -->
-          <?php foreach ($images as $i => $image)
-          {
+                <!-- Thumbnails -->
+                <?php foreach ($images as $i => $image)
+              {
 
-            switch ($i)
-            {
-              case 0:
-                $carSlideModif = 'first';
-                break;
-              case count($images) - 1:
-                $carSlideModif = 'last';
-                break;
-              default:
-                $carSlideModif = false;
+                switch ($i)
+                {
+                  case 0:
+                    $carSlideModif = 'first';
+                    break;
+                  case count($images) - 1:
+                    $carSlideModif = 'last';
+                    break;
+                  default:
+                    $carSlideModif = false;
 
-            }
+                }
 
-            $carSlideClasses = $carSlideClass;
+                $carSlideClasses = $carSlideClass;
 
-            if ($carSlideModif)
-            {
-              $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
-            }
+                if ($carSlideModif)
+                {
+                  $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
+                }
 
-            // $tempImageName = $image->id . $image->ext;
+                // $tempImageName = $image->id . $image->ext;
 
-          ?>
+              ?>
 
-            <li class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
-              <?= $perforationList ?>
+                <li class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
+                    <?= $perforationList ?>
 
-              <article class="frame carousel__frame">
-                <a class="frame__img_wrap" href="#" data-number="<?= $i ?>">
-                  <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;">
-                    <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)">
-                    <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)">
-                    <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)">
-                    <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>">
-                  </picture> -->
-                  <?= Html::img(
-                    Reasanik::$galleryPath . 'thumbs/thumb_'
-                      . $image->id . '_' . $image->image_name,
-                    ['class' => 'frame__img', 'alt' => $image->name]
-                  ) ?>
-                </a>
-              </article>
+                    <article class="frame carousel__frame">
+                        <a class="frame__img_wrap" href="#" data-number="<?= $i ?>">
+                            <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;"> <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)"> <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)"> <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)"> <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>"> </picture> -->
+                            <?= Html::img(
+                        Reasanik::$galleryPath . 'thumbs/thumb_'
+                          . $image->id . '_' . $image->image_name,
+                        ['class' => 'frame__img', 'alt' => $image->name]
+                      ) ?>
+                        </a>
+                    </article>
 
-              <?= $perforationList ?>
-            </li> 
+                    <?= $perforationList ?>
+                </li>
 
-          <?php } ?>
+                <?php } ?>
 
-        </ul>
+            </ul>
 
-        <div class="carousel-nav left">
-          <div id="prev-page"></div>
-          <div id="backward"></div>
+            <div class="carousel-nav left">
+                <div id="prev-page"></div>
+                <div id="backward"></div>
+            </div>
+
+            <div class="carousel-nav right">
+                <div id="forward"></div>
+                <div id="next-page"></div>
+            </div>
+
         </div>
-
-        <div class="carousel-nav right">
-          <div id="forward"></div>
-          <div id="next-page"></div>
-        </div>
-
-      </div>
-    <!-- 
-      <div class="nav flex-container">
-        <div class="btn toStart">|&lt;</div>
-        <div class="btn prev">&lt; prev</div>
-        <div class="btn toCenter">center</div>
-        <div class="btn next">next &gt;</div>
-        <div class="btn toEnd">&gt;|</div>
-      </div>
-     -->
+        <!-- <div class="nav flex-container"> <div class="btn toStart">|&lt;</div> <div class="btn prev">&lt; prev</div> <div class="btn toCenter">center</div> <div class="btn next">next &gt;</div> <div class="btn toEnd">&gt;|</div> </div> -->
     </div>
-  <!-- </div> -->
+    <!-- </div> -->
 
 <?php endif; ?>
 
 <?php foreach ($categories as $key => $category): ?>
 
-  <article class="category">
+<article class="category">
 
     <!-- <ul class="wrap-frame active"> -->
     <ul class="frame_wrap">
 
-      <?php frameCorners('li') ?>
+        <?php frameCorners('li') ?>
 
-      <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame frame_wrap__frame']) ?>
+        <?= Html::beginTag('a', ['href' => '/site/category?id=' . $category->id, 'class' => 'frame frame_wrap__frame']) ?>
         <li class="frame__img_wrap">
-          <?= Html::img(
+            <?= Html::img(
             Reasanik::$galleryPath . 'categories/category_'
               . $category->id . '_' . $category->image_name,
             ['class' => 'frame__img', 'alt' => $category->name]
           ) ?>
         </li>
-        <!-- <li class="foreground image-container">
-          <image src="" alt="">
-        </li> -->
-      <?= Html::endTag('a') ?>
+        <!-- <li class="foreground image-container"> <image src="" alt=""> </li> -->
+        <?= Html::endTag('a') ?>
 
     </ul>
 
     <h2 class="category_header"><?= Html::encode($category->name) ?></h2>
     <p class="category_desc"><?= Html::encode($category->description) ?></p>
 
-  </article>
+</article>
 
 <?php endforeach; ?>

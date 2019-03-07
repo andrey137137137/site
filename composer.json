@@ -31,7 +31,9 @@
     "kartik-v/yii2-detail-view": "*",
     "dastanaron/yii2-translit": "^1.0",
     "kartik-v/yii2-grid": "@dev",
-    "kartik-v/yii2-editable": "@dev"
+    "kartik-v/yii2-editable": "@dev",
+    "twig/twig": "^2.0",
+    "yiisoft/yii2-twig": "^2.2"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.0.0",

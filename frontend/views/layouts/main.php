@@ -9,6 +9,8 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\widgets\Menu;
 
+$parallax = [100, 85, 70, 55, 40, 30, 10];
+
 AppAsset::register($this);
 
 $this->beginPage() ?>
@@ -30,6 +32,23 @@ $this->beginPage() ?>
 
 <body>
 <?php $this->beginBody() ?>
+
+  <div class="parallax" id="parallax">
+    <?php foreach ($parallax as $i => $value) {
+      $number = ++$i;
+      echo Html::beginTag('div', [
+        'class' => 'parallax__layer', 
+        'data-depth' => $value
+      ]);
+        echo Html::img("/img/parallax/layer_${number}.png",
+          [
+            'class' => 'parallax__img',
+            'alt' => 'Reasanik'
+          ]
+        );
+      echo Html::endTag('div');
+    } ?>
+  </div>
 
   <div class="main_wrapper">
 
