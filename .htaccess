@@ -5,6 +5,7 @@ Options -Indexes
 # IndexIgnore */*
 
 RewriteEngine on
+# RewriteBase /
 
 # Если запрос начинается с /admin, то заменяем на /backend/web/
 RewriteCond %{REQUEST_URI} ^/(admin)

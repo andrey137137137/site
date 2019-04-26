@@ -9,6 +9,7 @@ jQuery(function($) {
   //   Centered Navigation
   // -------------------------------------------------------------
   // (function () {
+  var $slider = $("#rs-slider");
   var $frame = $("#carousel");
   // var $slidee = $frame.children('ul').eq(0);
   var $slidee = $frame.find(".carousel__slide");
@@ -136,22 +137,38 @@ jQuery(function($) {
   //   });
   // }());
 
-  $("#rs-slider").responsiveSlides({
-    manualControls: "#carousel",
-    nav: true,
-    pause: false,
-    prevText: "",
-    nextText: "",
-    // maxwidth: 540,
-    before: function() {
-      // console.log(i);
-    },
-    after: function() {
-      // $('#carousel .simple-slider').find('.active').removeClass('active');
-      var number = $(".rslides1_on").data("number");
+  // $("#rs-slider").responsiveSlides({
+  //   manualControls: "#carousel",
+  //   nav: true,
+  //   pause: false,
+  //   prevText: "",
+  //   nextText: "",
+  //   // maxwidth: 540,
+  //   before: function() {
+  //     // console.log(i);
+  //   },
+  //   after: function() {
+  //     // $('#carousel .simple-slider').find('.active').removeClass('active');
+  //     var number = $(".rslides1_on").data("number");
 
-      $frame.sly("activate", number);
-      // console.log(number);
-    }
+  //     $frame.sly("activate", number);
+  //     // console.log(number);
+  //   }
+  // });
+
+  $slider.slick({
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    prevArrow: $("#rs-slider-prev"),
+    nextArrow: $("#rs-slider-next"),
+    fade: true,
+    infinite: true,
+    speed: 300
+  });
+
+  $slider.on("afterChange", function(e, slick, currentSlide) {
+    $frame.sly("activate", currentSlide);
+    console.log(currentSlide);
   });
 });

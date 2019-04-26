@@ -46,7 +46,7 @@ function frameCorners($tag = 'div')
     <div id="mainSlider" class="frame_wrap main-slider">
         <?php frameCorners() ?>
 
-        <ul id="rs-slider" class="frame frame_wrap__frame">
+        <div id="rs-slider" class="frame frame_wrap__frame">
 
             <?php foreach ($images as $i => $image)
             {
@@ -55,18 +55,20 @@ function frameCorners($tag = 'div')
 
             ?>
 
-            <li class="img_wrap frame__img_wrap" data-number="<?= $i ?>">
+            <div class="img_wrap frame__img_wrap" data-number="<?= $i ?>">
                 <!-- <picture class="frame__img_wrape" data-number="<?= $i ?>" style="display: block;"> <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)"> <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)"> <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)"> <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>"> </picture> -->
                 <?= Html::img(
                   Reasanik::$galleryPath . 'images/'
                     . $image->id . '_' . $image->image_name,
                   ['class' => 'img_wrap__img frame__img', 'alt' => $image->name]
                 ) ?>
-            </li>
+            </div>
 
             <?php } ?>
 
-        </ul>
+        </div>
+        <a id="rs-slider-prev" class="rslides_nav rslides1_nav prev" href="#"></a>
+        <a id="rs-slider-next" class="rslides_nav rslides1_nav next" href="#"></a>
     </div>
 
     <div class="wrap-carousel">
