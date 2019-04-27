@@ -71,12 +71,22 @@ function frameCorners($tag = 'div')
         <a id="rs-slider-next" class="rslides_nav rslides1_nav next" href="#"></a>
     </div>
 
+      <!-- <ul class="simple-slider"></ul>
+      <div class="carousel-nav left">
+          <div id="prev-page"></div>
+          <div id="backward"></div>
+      </div>
+      <div class="carousel-nav right">
+          <div id="forward"></div>
+          <div id="next-page"></div>
+      </div> -->
+
+    <!-- <div class="nav flex-container"> <div class="btn toStart">|&lt;</div> <div class="btn prev">&lt; prev</div> <div class="btn toCenter">center</div> <div class="btn next">next &gt;</div> <div class="btn toEnd">&gt;|</div> </div> -->
+
     <div class="wrap-carousel">
         <div id="carousel" class="carousel">
-            <ul class="simple-slider">
 
-                <!-- Thumbnails -->
-                <?php foreach ($images as $i => $image)
+              <?php foreach ($images as $i => $image)
               {
 
                 switch ($i)
@@ -101,9 +111,9 @@ function frameCorners($tag = 'div')
 
                 // $tempImageName = $image->id . $image->ext;
 
-              ?>
+                ?>
 
-                <li class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
+                <div class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
                     <?= $perforationList ?>
 
                     <article class="frame carousel__frame">
@@ -118,24 +128,11 @@ function frameCorners($tag = 'div')
                     </article>
 
                     <?= $perforationList ?>
-                </li>
+                </div>
 
-                <?php } ?>
-
-            </ul>
-
-            <div class="carousel-nav left">
-                <div id="prev-page"></div>
-                <div id="backward"></div>
-            </div>
-
-            <div class="carousel-nav right">
-                <div id="forward"></div>
-                <div id="next-page"></div>
-            </div>
+              <?php }?>
 
         </div>
-        <!-- <div class="nav flex-container"> <div class="btn toStart">|&lt;</div> <div class="btn prev">&lt; prev</div> <div class="btn toCenter">center</div> <div class="btn next">next &gt;</div> <div class="btn toEnd">&gt;|</div> </div> -->
     </div>
     <!-- </div> -->
 

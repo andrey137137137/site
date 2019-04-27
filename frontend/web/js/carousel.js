@@ -28,114 +28,102 @@ jQuery(function($) {
     }
   );
 
-  // Call Sly on frame
-  $frame.sly({
-    horizontal: 1,
-    // itemNav: 'centered',
-    itemNav: "forceCentered",
-    // itemNav: 'basic',
-    smart: 1,
-    activateOn: "click",
-    // activateMiddle: 1,
-    mouseDragging: 1,
-    touchDragging: 1,
-    // releaseSwing: 1,
-    startAt: 0,
-    // scrollTrap: 1,
-    // scrollBar: $nav.find('.scrollbar'),
-    scrollBy: 1,
-    // pagesBar: $nav.find('.pages'),
-    // activatePageOn: 'click',
-    speed: 300,
-    elasticBounds: 1,
-    // easing: 'easeOutExpo',
-    dragHandle: 1,
-    dynamicHandle: 1,
-    clickBar: 1
+  // // Call Sly on frame
+  // $frame.sly({
+  //   horizontal: 1,
+  //   // itemNav: 'centered',
+  //   itemNav: "forceCentered",
+  //   // itemNav: 'basic',
+  //   smart: 1,
+  //   activateOn: "click",
+  //   // activateMiddle: 1,
+  //   mouseDragging: 1,
+  //   touchDragging: 1,
+  //   // releaseSwing: 1,
+  //   startAt: 0,
+  //   // scrollTrap: 1,
+  //   // scrollBar: $nav.find('.scrollbar'),
+  //   scrollBy: 1,
+  //   // pagesBar: $nav.find('.pages'),
+  //   // activatePageOn: 'click',
+  //   speed: 300,
+  //   elasticBounds: 1,
+  //   // easing: 'easeOutExpo',
+  //   dragHandle: 1,
+  //   dynamicHandle: 1,
+  //   clickBar: 1
 
-    // cycleBy: 'items',
-    // cycleInterval: 200,
-    // pauseOnHover: 1,
+  //   // cycleBy: 'items',
+  //   // cycleInterval: 200,
+  //   // pauseOnHover: 1,
 
-    // Buttons
-    // backward: $('#backward'),
-    // forward: $('#forward'),
-    // prev: $nav.find('.prev'),
-    // next: $nav.find('.next'),
-    // prevPage: $('#prev-page'),
-    // nextPage: $('#next-page')
+  //   // Buttons
+  //   // backward: $('#backward'),
+  //   // forward: $('#forward'),
+  //   // prev: $nav.find('.prev'),
+  //   // next: $nav.find('.next'),
+  //   // prevPage: $('#prev-page'),
+  //   // nextPage: $('#next-page')
+  // });
+
+  // $frame.sly("on", "active", function(eventName, itemIndex) {
+  //   console.log("Sly " + itemIndex);
+  // });
+
+  // $("#backward").hover(
+  //   function() {
+  //     $frame.sly("moveBy", -400);
+  //   },
+  //   function() {
+  //     $frame.sly("stop");
+  //   }
+  // );
+
+  // $("#forward").hover(
+  //   function() {
+  //     $frame.sly("moveBy", 400);
+  //   },
+  //   function() {
+  //     $frame.sly("stop");
+  //   }
+  // );
+
+  // $("#prev-page").hover(
+  //   function() {
+  //     $frame.sly("moveBy", -700);
+  //   },
+  //   function() {
+  //     $frame.sly("stop");
+  //   }
+  // );
+
+  // $("#next-page").hover(
+  //   function() {
+  //     $frame.sly("moveBy", 700);
+  //   },
+  //   function() {
+  //     $frame.sly("stop");
+  //   }
+  // );
+
+  $frame.slick({
+    infinite: true,
+    arrows: false,
+    centerMode: true,
+    variableWidth: true
   });
 
-  $("#backward").hover(
-    function() {
-      $frame.sly("moveBy", -400);
-    },
-    function() {
-      $frame.sly("stop");
-    }
-  );
+  $frame.on("init", function(e, slick) {
+    slick.$slides.eq(0).addClass("active");
+  });
 
-  $("#forward").hover(
-    function() {
-      $frame.sly("moveBy", 400);
-    },
-    function() {
-      $frame.sly("stop");
-    }
-  );
+  $frame.on("beforeChange", function(e, slick, currentSlide, nextSlide) {
+    slick.$slides.eq(currentSlide).removeClass("active");
+  });
 
-  $("#prev-page").hover(
-    function() {
-      $frame.sly("moveBy", -700);
-    },
-    function() {
-      $frame.sly("stop");
-    }
-  );
-
-  $("#next-page").hover(
-    function() {
-      $frame.sly("moveBy", 700);
-    },
-    function() {
-      $frame.sly("stop");
-    }
-  );
-
-  //   // To Start button
-  //   $nav.find('.toStart').on('click', function () {
-  //     var item = $(this).data('item');
-  //     // Animate a particular item to the start of the frame.
-  //     // If no item is provided, the whole content will be animated.
-  //     $frame.sly('toStart', item);
-  //   });
-
-  //   // To Center button
-  //   $nav.find('.toCenter').on('click', function () {
-  //     var item = $(this).data('item');
-  //     // Animate a particular item to the center of the frame.
-  //     // If no item is provided, the whole content will be animated.
-  //     $frame.sly('toCenter', item);
-  //   });
-
-  //   // To End button
-  //   $nav.find('.toEnd').on('click', function () {
-  //     var item = $(this).data('item');
-  //     // Animate a particular item to the end of the frame.
-  //     // If no item is provided, the whole content will be animated.
-  //     $frame.sly('toEnd', item);
-  //   });
-
-  //   // Add item
-  //   $nav.find('.add').on('click', function () {
-  //     $frame.sly('add', '<li>' + $slidee.children().length + '</li>');
-  //   });
-
-  //   // Remove item
-  //   $nav.find('.remove').on('click', function () {
-  //     $frame.sly('remove', -1);
-  //   });
-  // }());
+  $frame.on("afterChange", function(e, slick, currentSlide) {
+    slick.$slides.eq(currentSlide).addClass("active");
+  });
 
   // $("#rs-slider").responsiveSlides({
   //   manualControls: "#carousel",
@@ -157,6 +145,7 @@ jQuery(function($) {
   // });
 
   $slider.slick({
+    asNavFor: $frame,
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
@@ -164,11 +153,12 @@ jQuery(function($) {
     nextArrow: $("#rs-slider-next"),
     fade: true,
     infinite: true,
-    speed: 300
+    speed: 500,
+    waitForAnimate: false
   });
 
-  $slider.on("afterChange", function(e, slick, currentSlide) {
-    $frame.sly("activate", currentSlide);
-    console.log(currentSlide);
-  });
+  // $slider.on("afterChange", function(e, slick, currentSlide) {
+  //   $frame.sly("activate", currentSlide);
+  //   // console.log(currentSlide);
+  // });
 });
