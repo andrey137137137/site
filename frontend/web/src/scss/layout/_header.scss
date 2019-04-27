@@ -1,0 +1,141 @@
+.logo,
+.menu_checker,
+.menu a,
+.menu__link {
+  padding: 0 20px;
+}
+
+.menu {
+  $block: &;
+
+  // display: flex;
+  // flex-wrap: wrap;
+
+  &__link,
+  li {
+    float: left;
+  }
+
+  &__link#{$block}__link--active,
+  .current_page_item,
+  .active {
+    color: $white;
+  }
+}
+
+.header {
+  // position: fixed;
+  position: relative;
+  // z-index: $z7;
+  padding-top: 10px;
+  width: 100%;
+  height: $headerHeight + $headerSeperator;
+  // height: 100%;
+  // font-size: 36px;
+  // line-height: $headerHeight;
+  // line-height: 51px;
+  overflow: visible;
+  transition: height $transitionTime, line-height $transitionTime;
+
+  .container {
+    display: block;
+    // justify-content: space-between;
+
+    // &:after {
+    //   display: block;
+    //   clear: both;
+    //   content: '';
+    // }
+  }
+
+  &.narrow {
+    height: $headerNarrowHeight + $headerSeperator;
+    // line-height: $headerNarrowHeight;
+  }
+
+  &:after {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: $headerSeperator;
+    background-color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    content: "";
+  }
+}
+
+.logo {
+  // display: flex;
+  align-items: center;
+  float: left;
+
+  color: $white;
+  // line-height: 40px;
+
+  b {
+    display: block;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: #162f57;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background: $white url(images/8.jpg);
+  }
+
+  div {
+    height: auto;
+  }
+
+  .first-part {
+    border-radius: 5px;
+    border: 3px solid $white;
+    text-transform: capitalize;
+  }
+
+  &:after {
+    display: block;
+    /*margin-top: 3px;*/
+    border-top: 3px solid $white;
+    // content: '';
+  }
+
+  // img {
+  // }
+}
+
+.nav {
+  position: relative;
+  float: right;
+}
+
+.menu_checker:before {
+  display: block;
+  border: 2px solid #ffffff;
+  margin-bottom: 9px;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font: 36px/1 FontAwesome;
+  color: $white;
+  content: "\f0c9";
+  cursor: pointer;
+}
+
+.main_menu {
+  position: absolute;
+  right: 0;
+  z-index: $z7;
+  display: none;
+  line-height: 51px;
+  background-color: $headerFooterBgColor;
+
+  li {
+    width: 125px;
+  }
+}

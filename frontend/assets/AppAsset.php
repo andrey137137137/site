@@ -12,6 +12,8 @@ class AppAsset extends AssetBundle
   public $basePath = '@webroot';
   public $baseUrl = '@web';
   public $css = [
+    '//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css',
+    '//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css',
     'css/style.min.css',
   ];
   // public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
