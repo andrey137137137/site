@@ -89,25 +89,25 @@ function frameCorners($tag = 'div')
               <?php foreach ($images as $i => $image)
               {
 
-                switch ($i)
-                {
-                  case 0:
-                    $carSlideModif = 'first';
-                    break;
-                  case count($images) - 1:
-                    $carSlideModif = 'last';
-                    break;
-                  default:
-                    $carSlideModif = false;
+                // switch ($i)
+                // {
+                //   case 0:
+                //     $carSlideModif = 'first';
+                //     break;
+                //   case count($images) - 1:
+                //     $carSlideModif = 'last';
+                //     break;
+                //   default:
+                //     $carSlideModif = false;
 
-                }
+                // }
 
                 $carSlideClasses = $carSlideClass;
 
-                if ($carSlideModif)
-                {
-                  $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
-                }
+                // if ($carSlideModif)
+                // {
+                //   $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
+                // }
 
                 // $tempImageName = $image->id . $image->ext;
 
@@ -135,6 +135,14 @@ function frameCorners($tag = 'div')
         </div>
     </div>
     <!-- </div> -->
+<!-- 
+    <div style="width: 100%">
+      <div id="test-carousel">
+        <?php //for ($i=0; $i < 8; $i++) {?>
+          <div style="border: 1px solid green; width: 300px; height: 300px; background: white"></div>
+        <?php //}?>
+      </div>
+    </div> -->
 
 <?php endif; ?>
 
