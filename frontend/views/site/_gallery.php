@@ -71,7 +71,7 @@ function frameCorners($tag = 'div')
         <a id="rs-slider-next" class="rslides_nav rslides1_nav next" href="#"></a>
     </div>
 
-      <!-- <ul class="simple-slider"></ul>
+      <!-- 
       <div class="carousel-nav left">
           <div id="prev-page"></div>
           <div id="backward"></div>
@@ -85,53 +85,54 @@ function frameCorners($tag = 'div')
 
     <div class="wrap-carousel">
         <div id="carousel" class="carousel">
+            <ul class="simple-slider">
 
               <?php foreach ($images as $i => $image)
               {
 
-                // switch ($i)
-                // {
-                //   case 0:
-                //     $carSlideModif = 'first';
-                //     break;
-                //   case count($images) - 1:
-                //     $carSlideModif = 'last';
-                //     break;
-                //   default:
-                //     $carSlideModif = false;
+                switch ($i)
+                {
+                  case 0:
+                    $carSlideModif = 'first';
+                    break;
+                  case count($images) - 1:
+                    $carSlideModif = 'last';
+                    break;
+                  default:
+                    $carSlideModif = false;
 
-                // }
+                }
 
                 $carSlideClasses = $carSlideClass;
 
-                // if ($carSlideModif)
-                // {
-                //   $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
-                // }
+                if ($carSlideModif)
+                {
+                  $carSlideClasses .= ' ' . $carSlideClass . '--' . $carSlideModif;
+                }
 
                 // $tempImageName = $image->id . $image->ext;
 
                 ?>
 
-                <div class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
+                <li class="<?= $carSlideClasses ?>" data-number="<?= $i ?>">
                     <?= $perforationList ?>
 
                     <article class="frame carousel__frame">
-                        <a class="frame__img_wrap" href="#" data-number="<?= $i ?>">
+                        <div class="frame__img_wrap" data-number="<?= $i ?>">
                             <!-- <picture class="wrap-image" data-number="<?= $i ?>" style="display: block;"> <source srcset="<?= Reasanik::$galleryPath ?>extralarge/<?= $image->image_name ?>" media="(min-width: 1048px)"> <source srcset="<?= Reasanik::$galleryPath ?>large/<?= $image->image_name ?>" media="(min-width: 768px)"> <source srcset="<?= Reasanik::$galleryPath ?>medium/<?= $image->image_name ?>" media="(min-width: 500px)"> <img srcset="<?= Reasanik::$galleryPath ?>small/<?= $image->image_name ?>" alt="<?= $image->cat_id . ' : ' . $image->id . ' : ' . $image->name ?>"> </picture> -->
                             <?= Html::img(
                         Reasanik::$galleryPath . 'thumbs/thumb_'
                           . $image->id . '_' . $image->image_name,
                         ['class' => 'frame__img', 'alt' => $image->name]
                       ) ?>
-                        </a>
+                        </div>
                     </article>
 
                     <?= $perforationList ?>
-                </div>
+                </li>
 
               <?php }?>
-
+            </ul>
         </div>
     </div>
     <!-- </div> -->
