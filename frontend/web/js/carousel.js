@@ -123,6 +123,7 @@ jQuery(function($) {
       return;
     }
 
+    $slider.slick("slickGoTo", itemIndex);
     console.log("Sly index: " + itemIndex);
   });
 
