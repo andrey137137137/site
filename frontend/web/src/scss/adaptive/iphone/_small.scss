@@ -87,31 +87,33 @@ form {
 //   justify-content: flex-start;
 // }
 
-.rslides_nav,
+.slider-arrow,
 .carousel-nav {
   position: absolute;
   font-family: FontAwesome;
   color: $white;
 }
 
-.main-slider {
+.main_slider {
+  $block: &;
+
   // z-index: $z6;
   flex-shrink: 0;
   margin: 0 auto;
 
-  &.active .main-slider-demonstration {
+  &.active #{$block}-demonstration {
     opacity: 1;
   }
 
-  .rslides_nav {
+  .slider-arrow {
     position: absolute;
     top: 0;
     z-index: $z6;
     font-size: 50px;
     line-height: $defaultWrapFrameHeight;
-    width: 50%;
+    width: $mainSliderInsideFrameMargin;
     height: 100%;
-    opacity: 0;
+    opacity: 0.5;
     transition: opacity $transitionTime;
 
     &:hover {
@@ -119,7 +121,7 @@ form {
       text-decoration: none;
     }
 
-    &.prev {
+    &--prev {
       left: 0;
       text-align: left;
 
@@ -128,7 +130,7 @@ form {
       }
     }
 
-    &.next {
+    &--next {
       right: 0;
       text-align: right;
 
@@ -137,14 +139,14 @@ form {
       }
     }
   }
-}
 
-.main-slider-demonstration {
-  // opacity: 0;
-  transition: opacity $transitionTime,
-    width $transitionTime ease $transitionTime,
-    height $transitionTime ease $transitionTime,
-    border-radius $transitionTime ease $transitionTime;
+  #{$block}-demonstration {
+    // opacity: 0;
+    transition: opacity $transitionTime,
+      width $transitionTime ease $transitionTime,
+      height $transitionTime ease $transitionTime,
+      border-radius $transitionTime ease $transitionTime;
+  }
 }
 
 .wrap-carousel {
@@ -164,13 +166,13 @@ form {
     overflow: hidden;
   }
 
-  &__slide {
+  &-slide {
     float: left;
     color: $white;
     transition: box-shadow $transitionTime;
   }
 
-  &__perforation_list {
+  &-perforation_list {
     display: flex;
     // flex-wrap: nowrap;
     flex-wrap: wrap;
@@ -178,7 +180,7 @@ form {
     height: 14.37125748502994%;
   }
 
-  &__perforation_item {
+  &-perforation_item {
     float: left;
     // margin: 2.173913043478261% auto;
     margin: 2.173913043478261% 2.989130434782609%;
@@ -186,7 +188,7 @@ form {
     height: 66.66666666666667%;
   }
 
-  &__frame {
+  &-frame {
     margin: 0 auto;
     width: 96.73913043478261%;
     height: 71.25748502994012%;
@@ -286,15 +288,15 @@ form {
   width: 100%;
   text-align: left;
 
-  &__container {
+  &-container {
     @include padding("* 20px");
   }
 
-  &__title {
+  &-title {
     @include padding("* * 20px");
   }
 
-  &__desc {
+  &-desc {
     @include padding("5px * 10px");
   }
 }

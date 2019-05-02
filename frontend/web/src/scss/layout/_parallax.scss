@@ -11,13 +11,13 @@
   // size: 100%;
   overflow: hidden;
 
-  &__layer {
+  &-layer {
     @include position("absolute 0 * * 0");
     size: 100%;
     will-change: transform;
   }
 
-  &__img {
+  &-img {
     @include position("absolute * * 0 50%");
     max-width: 100%;
     width: 100%;
@@ -30,17 +30,17 @@
   //   perspective: 100px;
 
   //   &,
-  //   #{$block}__layer {
+  //   #{$block}-layer {
   //     right: 0;
   //     bottom: 0;
   //     size: auto;
   //   }
 
-  //   #{$block}__layer {
+  //   #{$block}-layer {
   //     will-change: unset;
   //   }
 
-  //   #{$block}__img {
+  //   #{$block}-img {
   //     display: block;
   //     max-width: 100%;
   //   }
@@ -49,7 +49,7 @@
 
   //   // @for $layerNum from $layers through 1
   //   // {
-  //   //   #{$block}__layer:nth-child(#{$layerNum}) {
+  //   //   #{$block}-layer:nth-child(#{$layerNum}) {
   //   //     $currentLayer: $layers - $layerNum;
   //   //     $perspective: -$currentLayer * 50px;
   //   //     $scale: $currentLayer * .5 + 1;

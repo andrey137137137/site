@@ -8,13 +8,13 @@
   // opacity: 0;
   // transition: opacity $transitionTime;
 
-  &__container {
-    justify-content: center;
-  }
+  // &-container {
+  //   justify-content: center;
+  // }
 
-  &__footer {
+  &-main_menu {
     display: table;
-    margin: 0 auto;
+    @include margin("* auto");
   }
 }
 

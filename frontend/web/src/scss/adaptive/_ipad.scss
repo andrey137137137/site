@@ -1,13 +1,13 @@
-.main-slider {
+.main_slider {
   width: 758px;
   height: 587px;
 
-  .rslides_nav {
+  .slider-arrow {
     font-size: 60px;
     line-height: 587px;
   }
 
-  .frame_wrap__corner {
+  .frame_wrap-corner {
     &--inside_left_top {
       border-top: $mainSliderBorderSize solid $white;
       border-left: $mainSliderBorderSize solid $white;

@@ -1,8 +1,8 @@
-.main-slider {
+.main_slider {
   width: 532px;
   height: 412px;
 
-  .frame_wrap__corner {
+  .frame_wrap-corner {
     &--inside_left_top,
     &--inside_right_top,
     &--inside_left_bottom,
@@ -83,7 +83,8 @@
       border-bottom: $mainSliderBorderSize solid $white;
     }
   }
-  .frame_wrap__frame {
+
+  .frame_wrap-frame {
     top: $mainSliderOutsideFrameMargin;
     width: 86.6412213740458%;
     height: 82.75862068965517%;
@@ -93,7 +94,7 @@
     @include box-shadow(18px, 35px, $blackShadow);
   }
 
-  .rslides_nav {
+  .slider-arrow {
     line-height: 412px;
   }
 }

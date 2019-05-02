@@ -9,16 +9,25 @@
 //   }
 // }
 
+@import "adaptive/iphone/small";
+
 @media screen and (min-width: 420px) {
-  .main-slider {
+  .logo,
+  .menu_checker,
+  .menu a,
+  .menu-link {
+    @include padding("* 20px");
+  }
+
+  .main_slider {
     width: 410px;
     height: 318px;
 
-    .frame_wrap__frame {
+    .frame_wrap-frame {
       border: $mainSliderBorderSize solid $white;
     }
 
-    .rslides_nav {
+    .slider-arrow {
       line-height: 318px;
     }
   }
@@ -88,6 +97,15 @@
 @media screen and (min-width: 1193px) {
   .category {
     width: 25%;
+  }
+}
+
+@media screen and (min-width: 1367px) {
+  .main_slider {
+    .slider-arrow {
+      width: 50%;
+      opacity: 0;
+    }
   }
 }
 

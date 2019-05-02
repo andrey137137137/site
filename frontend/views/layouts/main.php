@@ -38,12 +38,12 @@ $this->beginPage() ?>
     // foreach ($parallax as $i => $value) {
     //   $number = ++$i;
     //   echo Html::beginTag('div', [
-    //     'class' => 'parallax__layer', 
+    //     'class' => 'parallax-layer', 
     //     'data-depth' => $value
     //   ]);
     //     echo Html::img("/img/parallax/layer_${number}.png",
     //       [
-    //         'class' => 'parallax__img',
+    //         'class' => 'parallax-img',
     //         'alt' => 'Reasanik'
     //       ]
     //     );
@@ -73,14 +73,14 @@ $this->beginPage() ?>
           <div id="menu-check" class="menu_checker"></div>
           <?php
             $menuItems = [
-                ['class' => 'menu__link', 'label' => 'Главная', 'url' => ['site/index']],
-                ['class' => 'menu__link', 'label' => 'Фото', 'url' => ['site/category']],
-                ['class' => 'menu__link', 'label' => 'Контакты', 'url' => ['site/contact']],
+                ['class' => 'menu-link', 'label' => 'Главная', 'url' => ['site/index']],
+                ['class' => 'menu-link', 'label' => 'Фото', 'url' => ['site/category']],
+                ['class' => 'menu-link', 'label' => 'Контакты', 'url' => ['site/contact']],
             ];
 
             echo Menu::widget([
               'items' => $menuItems,
-              'options' => ['id' => 'main-menu', 'class' => 'menu main_menu header__main_menu'],
+              'options' => ['id' => 'main-menu', 'class' => 'menu main_menu header-main_menu'],
             ]);
           ?>
         </nav>
@@ -89,7 +89,7 @@ $this->beginPage() ?>
     </header>
 
     <main class="main">
-      <div class="container main__container">
+      <div class="container main-container">
         <?php
           echo Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -103,10 +103,10 @@ $this->beginPage() ?>
   </div>
 
   <footer id="main-footer" class="footer">
-    <div class="container footer__container">
+    <div class="container footer-container">
       <?= Menu::widget([
         'items' => $menuItems,
-        'options' => ['class' => 'menu footer__main_menu'],
+        'options' => ['class' => 'menu footer-main_menu'],
       ]) ?>
     </div>
   </footer>
