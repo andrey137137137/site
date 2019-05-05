@@ -12,8 +12,8 @@ class AppAsset extends AssetBundle
   public $basePath = '@webroot';
   public $baseUrl = '@web';
   public $css = [
-    'https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css',
-    'https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css',
+    '//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css',
+    '//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css',
     'css/style.min.css',
   ];
   // public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
     // 'https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js',
     // 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
     'js/lib/jquery-3.2.0.min.js',
-    'https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js',
+    '//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js',
     // 'js/lib/jquery-migrate-3.0.0.min.js',
     // 'js/parallax.js',
     // 'js/lib/responsiveslides.js',

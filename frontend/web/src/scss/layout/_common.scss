@@ -188,14 +188,13 @@ p {
   &-img {
     position: relative;
     display: block;
-    // top: 50%;
+    top: 50%;
     // left: 50%;
-    margin: 0 auto;
-    width: auto;
-    height: auto;
+    @include margin("* auto");
+    @include size("auto");
     max-width: 100%;
     max-height: 100%;
-    // transform: translate(0, -50%);
+    transform: translateY(-50%);
   }
 
   &-foreground {
@@ -342,5 +341,12 @@ p {
     #{$block}-foreground {
       opacity: 0;
     }
+  }
+}
+
+.slick {
+  &-list,
+  &-track {
+    height: 100%;
   }
 }
