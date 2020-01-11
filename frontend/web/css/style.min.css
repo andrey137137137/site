@@ -528,7 +528,15 @@ body {
 body {
   font: 20px "Franklin Gothic Medium", Arial, Helvetica, sans-serif;
   color: #4cbee8;
-  background: #163578 url("../img/bg.jpg") no-repeat right top/cover;
+  background-color: #163578;
+}
+
+.body_bg_main {
+  background: #163578 url("../img/body-main.jpg") no-repeat right top/cover;
+}
+
+.body_bg_common {
+  background: #163578 url("../img/body-common.jpg") no-repeat center top/cover;
 }
 
 .header,

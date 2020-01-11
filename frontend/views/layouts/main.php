@@ -10,6 +10,14 @@ use common\widgets\Alert;
 use yii\widgets\Menu;
 
 // $parallax = [1, 1, 1, 1, 1, 0.6, 0.15, 0.1];
+// var_dump($this->context->module->requestedRoute);
+if ($this->context->module->defaultRoute === $this->context->module->requestedRoute) {
+  $bodyBgModif = 'main';
+} else {
+  $bodyBgModif = 'common';
+}
+
+$bodyBgClass = 'body_bg_' . $bodyBgModif;
 
 AppAsset::register($this);
 
@@ -30,7 +38,7 @@ $this->beginPage() ?>
   <?php $this->head() ?>
 </head>
 
-<body>
+<body class="<?= $bodyBgClass ?>">
 <?php $this->beginBody() ?>
 
   <div class="parallax" id="parallax">
