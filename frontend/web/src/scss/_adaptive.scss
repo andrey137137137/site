@@ -85,6 +85,8 @@
 }
 
 @media screen and (min-width: 899px) {
+  @include bodyBgImages("lmd", "lmd");
+
   .category {
     width: 33.33333333333333%;
   }
@@ -95,6 +97,8 @@
 }
 
 @media screen and (min-width: 1193px) {
+  @include bodyBgImages("xl", "xl");
+
   .category {
     width: 25%;
   }
@@ -110,7 +114,13 @@
 }
 
 @media screen and (min-width: 1487px) {
+  @include bodyBgImages("xxl", "xxl");
+
   .category {
     width: 20%;
   }
+}
+
+@media screen and (min-width: 2520px) {
+  @include bodyBgImages("xxxl", "xxxl");
 }

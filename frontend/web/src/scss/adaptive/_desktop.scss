@@ -1,3 +1,5 @@
+@include bodyBgImages("lg", "lg");
+
 .main_slider {
   z-index: $z6;
   width: 1048px;
@@ -18,9 +20,7 @@
 .wrap-carousel {
   z-index: 1;
   // margin-top: round(-($mainSliderHeight + $mainSliderCornerHeight*2)/2 - round(($carouselMargin*2 + $carouselHeight)/2));
-  margin-top: round(
-    -$rslidesNavLineheight/2 - round(($carouselMargin * 2 + $carouselHeight)/2)
-  );
+  margin-top: round(-$rslidesNavLineheight/2 - round(($carouselMargin * 2 + $carouselHeight)/2));
 }
 
 .carousel {

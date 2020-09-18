@@ -2,6 +2,6 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Reasanik';
+$this->title = '';
 
 echo $this->render('_gallery', compact('params'));

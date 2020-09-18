@@ -31,3 +31,5 @@ phpunit.phar
 /phpunit.xml
 
 /.vscode
+
+package-lock.json
