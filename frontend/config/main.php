@@ -42,18 +42,18 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-              '/' => 'site/index',
-              'contacts' => 'site/contact',
-              'photo' => 'site/category',
-              // '<controller:\w+>/<id>' => 'site/view',
+                '/' => 'site/index',
+                'contacts' => 'site/contact',
+                'photo' => 'site/category',
+                // '<controller:\w+>/<id>' => 'site/view',
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];

@@ -20,71 +20,11 @@ class CategoryController extends AppController
   private $childrenList = [];
   private $imagesList = [];
 
-  // public function behaviors()
-  // {
-  //   $behaviors = parent::behaviors();
-
-  //   $behaviors['verbs']['actions']['delete-multiple'] = ['POST'];
-
-  //   return $behaviors;
-  // }
-
-  // public function actionDeleteMultiple()
-  // {
-  //   $pk = Yii::$app->request->post('pk'); // Array or selected records primary keys
-
-  //   // Preventing extra unnecessary query
-  //   if (!$pk) {
-  //     return;
-  //   }
-
-  //   $count = 0;
-
-  //   $categories = Category::findAll(['id' => $pk]);
-
-  //   foreach ($categories as $category) {
-  //     if ($category->delete()) {
-  //       $count++;
-  //     }
-  //   }
-
-  //   return $count;
-  // }
-
-  // protected function change()
-  // {
-  //   $this->loadModel();
-
-  //   $oldMainImageId = $this->dbModel->main_image_id;
-
-  //   if ($this->dbModel->load(Yii::$app->request->post()) && $this->dbModel->save())
-  //   {
-  //     if ($this->dbModel->main_image_id)
-  //     {
-  //       $image = $this->galleryPath . 'images/' . $this->dbModel->main_image_id . '_' . $this->dbModel->mainImage->filename;
-
-  //       if (file_exists($image))
-  //       {
-  //         $this->updateImages($image);
-  //       }
-  //     }
-  //     else/*if ($oldMainImageId)*/
-  //     {
-  //       $this->deleteImages();
-  //     }
-
-  //     return $this->redirect(['update', 'id' => $this->dbModel->id]);
-  //   }
-
-  //   return $this->renderView();
-  // }
-
   protected function additionalViewParams()
   {
     $categories = Category::find()->select(['id', 'name']);
 
-    if ($this->curModelId)
-    {
+    if ($this->curModelId) {
       $categories = $categories->where('(parent_id is null or parent_id != :id) and (id != :id)', ['id' => $this->curModelId]);
     }
 
@@ -92,8 +32,7 @@ class CategoryController extends AppController
 
     $imagesList = [];
 
-    foreach ($this->imagesList as $array)
-    {
+    foreach ($this->imagesList as $array) {
       $imagesList[$array['id']] = [
         'data-imagesrc' => \Reasanik::$galleryPath
           . 'thumbs/thumb_' . $array['id'] . '_'
@@ -126,13 +65,11 @@ class CategoryController extends AppController
 
   private function setChildren($curId)
   {
-    if ($buffArray = Category::find()->select(['id', 'name'])->where(['parent_id' => $curId])->asArray()->all())
-    {
+    if ($buffArray = Category::find()->select(['id', 'name'])->where(['parent_id' => $curId])->asArray()->all()) {
       $buffArray = ArrayHelper::getColumn($buffArray, 'id');
       $this->childrenList = array_merge($this->childrenList, $buffArray);
 
-      foreach ($buffArray as $i => $id)
-      {
+      foreach ($buffArray as $i => $id) {
         $this->setChildren($id);
       }
     }

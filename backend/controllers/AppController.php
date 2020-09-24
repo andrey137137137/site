@@ -46,24 +46,6 @@ class AppController extends Controller
     ];
   }
 
-// public function behaviors()
-// {
-//     return [
-//         'access' => [
-//             'class' => AccessControl::className(),
-//             'only' => ['*'],
-//             'rules' => [
-//                 // разрешаем аутентифицированным пользователям
-//                 [
-//                     'allow' => true,
-//                     'roles' => ['admin'],
-//                 ],
-//                 // всё остальное по умолчанию запрещено
-//             ],
-//         ],
-//     ];
-// }
-
   /**
    * @inheritdoc
    */
@@ -169,8 +151,7 @@ class AppController extends Controller
   {
     $array = $default;
 
-    foreach (ArrayHelper::map($list, $value, $label) as $key => $val)
-    {
+    foreach (ArrayHelper::map($list, $value, $label) as $key => $val) {
       $array[$key] = $val;
     }
 
@@ -182,27 +163,21 @@ class AppController extends Controller
     $modelClass = $this->getModelClass();
     $this->model = $this->curModelId ? $this->findModel($this->curModelId) : new $modelClass;
 
-    if ($this->model->load(Yii::$app->request->post()))
-    {
-      switch ($this->modelClass)
-      {
+    if ($this->model->load(Yii::$app->request->post())) {
+      switch ($this->modelClass) {
         case 'Category':
           $this->model->imageFiles = UploadedFile::getInstances($this->model, 'imageFiles');
-        break;
+          break;
 
         case 'Image':
           $this->model->imageFile = UploadedFile::getInstance($this->model, 'imageFile');
-        break;
+          break;
       }
 
-      if ($this->model->save())
-      {
-        if ($this->curModelId)
-        {
+      if ($this->model->save()) {
+        if ($this->curModelId) {
           $redirectParams = ['update', 'id' => $this->model->id];
-        }
-        else
-        {
+        } else {
           $redirectParams = ['index'];
         }
 
@@ -220,8 +195,7 @@ class AppController extends Controller
       'dropDownList' => $this->getArray($this->getListQuery(), 'name', 'id', $this->defaultListValue)
     ];
 
-    foreach ($this->additionalViewParams() as $key => $value)
-    {
+    foreach ($this->additionalViewParams() as $key => $value) {
       $params[$key] = $value;
     }
 
@@ -239,8 +213,7 @@ class AppController extends Controller
   {
     $modelClass = $this->getModelClass();
 
-    if (($model = $modelClass::findOne($id)) === null)
-    {
+    if (($model = $modelClass::findOne($id)) === null) {
       throw new NotFoundHttpException('The requested page does not exist.');
     }
 
@@ -249,6 +222,6 @@ class AppController extends Controller
 
   private function getModelClass($className = false)
   {
-    return $this->modelNamespace . '\\' . ( ! $className ? $this->modelClass : $className);
+    return $this->modelNamespace . '\\' . (!$className ? $this->modelClass : $className);
   }
 }
