@@ -1,23 +1,23 @@
-jQuery(function($) {
-  "use strict";
+jQuery(function ($) {
+  'use strict';
 
-  setTimeout(function() {
-    $("#mainSlider").addClass("active");
+  setTimeout(function () {
+    $('#mainSlider').addClass('active');
   }, 500);
 
-  var $slider = $("#rs-slider");
-  var $carousel = $("#carousel");
+  var $slider = $('#rs-slider');
+  var $carousel = $('#carousel');
   // // var $slidee = $carousel.children('ul').eq(0);
   // var $slidee = $carousel.find(".carousel__slide");
   var isSliderClicked = false;
 
-  $slider.on("beforeChange", function(e, slick, currentSlide, nextSlide) {
+  $slider.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
     isSliderClicked = true;
-    $carousel.sly("activate", nextSlide);
+    $carousel.sly('activate', nextSlide);
     console.log(nextSlide);
   });
 
-  $slider.on("afterChange", function(e, slick, currentSlide) {
+  $slider.on('afterChange', function (e, slick, currentSlide) {
     isSliderClicked = false;
   });
 
@@ -26,13 +26,13 @@ jQuery(function($) {
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
-    prevArrow: $("#rs-slider-prev"),
-    nextArrow: $("#rs-slider-next"),
+    prevArrow: $('#rs-slider-prev'),
+    nextArrow: $('#rs-slider-next'),
     fade: true,
     infinite: true,
-    lazyLoad: "ondemand",
+    lazyLoad: 'ondemand',
     speed: 500,
-    waitForAnimate: false
+    waitForAnimate: false,
   });
 
   // $carousel.on("init", function(e, slick) {
@@ -67,8 +67,8 @@ jQuery(function($) {
   //   waitForAnimate: false
   // });
 
-  $(window).resize(function(e) {
-    $carousel.sly("reload");
+  $(window).resize(function (e) {
+    $carousel.sly('reload');
   });
 
   // $carousel.hover(
@@ -84,10 +84,10 @@ jQuery(function($) {
   $carousel.sly({
     horizontal: 1,
     // itemNav: 'centered',
-    itemNav: "forceCentered",
+    itemNav: 'forceCentered',
     // itemNav: 'basic',
     smart: 1,
-    activateOn: "click",
+    activateOn: 'click',
     // activateMiddle: 1,
     mouseDragging: 1,
     touchDragging: 1,
@@ -103,7 +103,7 @@ jQuery(function($) {
     // easing: 'easeOutExpo',
     dragHandle: 1,
     dynamicHandle: 1,
-    clickBar: 1
+    clickBar: 1,
 
     // cycleBy: 'items',
     // cycleInterval: 200,
@@ -118,49 +118,49 @@ jQuery(function($) {
     // nextPage: $('#next-page')
   });
 
-  $carousel.sly("on", "active", function(e, itemIndex) {
+  $carousel.sly('on', 'active', function (e, itemIndex) {
     if (isSliderClicked) {
       return;
     }
 
-    $slider.slick("slickGoTo", itemIndex);
-    console.log("Sly index: " + itemIndex);
+    $slider.slick('slickGoTo', itemIndex);
+    console.log('Sly index: ' + itemIndex);
   });
 
-  $("#backward").hover(
-    function() {
-      $carousel.sly("moveBy", -400);
+  $('#backward').hover(
+    function () {
+      $carousel.sly('moveBy', -400);
     },
-    function() {
-      $carousel.sly("stop");
-    }
+    function () {
+      $carousel.sly('stop');
+    },
   );
 
-  $("#forward").hover(
-    function() {
-      $carousel.sly("moveBy", 400);
+  $('#forward').hover(
+    function () {
+      $carousel.sly('moveBy', 400);
     },
-    function() {
-      $carousel.sly("stop");
-    }
+    function () {
+      $carousel.sly('stop');
+    },
   );
 
-  $("#prev-page").hover(
-    function() {
-      $carousel.sly("moveBy", -700);
+  $('#prev-page').hover(
+    function () {
+      $carousel.sly('moveBy', -700);
     },
-    function() {
-      $carousel.sly("stop");
-    }
+    function () {
+      $carousel.sly('stop');
+    },
   );
 
-  $("#next-page").hover(
-    function() {
-      $carousel.sly("moveBy", 700);
+  $('#next-page').hover(
+    function () {
+      $carousel.sly('moveBy', 700);
     },
-    function() {
-      $carousel.sly("stop");
-    }
+    function () {
+      $carousel.sly('stop');
+    },
   );
 
   //   // To Start button

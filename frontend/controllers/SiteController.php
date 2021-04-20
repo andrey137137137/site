@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use Yii;
@@ -47,11 +48,11 @@ class SiteController extends Controller
    */
   public function actions()
   {
-      return [
-          'error' => [
-              'class' => 'yii\web\ErrorAction',
-          ],
-      ];
+    return [
+      'error' => [
+        'class' => 'yii\web\ErrorAction',
+      ],
+    ];
   }
 
   /**
@@ -79,12 +80,10 @@ class SiteController extends Controller
     $this->loadCatModels($condition);
     $parents = [];
 
-    if ($this->categoryModel)
-    {
+    if ($this->categoryModel) {
       $parentModel = $this->categoryModel;
 
-      while ($parent = $parentModel->parent)
-      {
+      while ($parent = $parentModel->parent) {
         $parents[] = [
           'id' => $parent->id,
           'name' => $parent->name
@@ -94,9 +93,7 @@ class SiteController extends Controller
 
       $images = $this->categoryModel->images;
       $categories = $this->categoriesModel->select('*')->where(['parent_id' => $this->categoryModel->id]);
-    }
-    else
-    {
+    } else {
       $images = null;
       $categories = $this->categoriesModel->select('*')->where(['parent_id' => null]);
     }
@@ -124,6 +121,16 @@ class SiteController extends Controller
   }
 
   /**
+   * Displays calculator page.
+   *
+   * @return mixed
+   */
+  public function actionCalculator()
+  {
+    return $this->render('calculator');
+  }
+
+  /**
    * Finds the Image model based on its primary key value.
    * If the model is not found, a 404 HTTP exception will be thrown.
    * @param string $id
@@ -132,8 +139,7 @@ class SiteController extends Controller
    */
   private function loadCatModels($condition = false)
   {
-    if ($condition && ($this->categoryModel = Category::findOne($condition)) === null)
-    {
+    if ($condition && ($this->categoryModel = Category::findOne($condition)) === null) {
       throw new NotFoundHttpException('The requested page does not exist.');
     }
 

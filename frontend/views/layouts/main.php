@@ -25,6 +25,7 @@ $this->beginPage() ?>
 
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
   <meta charset="<?= Yii::$app->charset ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,7 +40,7 @@ $this->beginPage() ?>
 </head>
 
 <body class="<?= $bodyBgClass ?>">
-<?php $this->beginBody() ?>
+  <?php $this->beginBody() ?>
 
   <div class="parallax" id="parallax">
     <?php
@@ -66,30 +67,32 @@ $this->beginPage() ?>
       <div class="container">
 
         <?php
-          echo Html::beginTag('a', ['href' => '/', 'class' => 'img_wrap logo']);
-            echo Html::img('/img/logo.png',
-                            [
-                              'class' => 'img',
-                                'alt' => 'Reasanik',
-                                // 'style' => 'width:15px;'
-                            ]
-                        );
-          echo Html::endTag('a');
+        echo Html::beginTag('a', ['href' => '/', 'class' => 'img_wrap logo']);
+        echo Html::img(
+          '/img/logo.png',
+          [
+            'class' => 'img',
+            'alt' => 'Reasanik',
+            // 'style' => 'width:15px;'
+          ]
+        );
+        echo Html::endTag('a');
         ?>
 
         <nav class="nav">
           <div id="menu-check" class="menu_checker"></div>
           <?php
-            $menuItems = [
-                ['class' => 'menu-link', 'label' => 'Главная', 'url' => ['site/index']],
-                ['class' => 'menu-link', 'label' => 'Фото', 'url' => ['site/category']],
-                ['class' => 'menu-link', 'label' => 'Контакты', 'url' => ['site/contact']],
-            ];
+          $menuItems = [
+            ['class' => 'menu-link', 'label' => 'Главная', 'url' => ['site/index']],
+            ['class' => 'menu-link', 'label' => 'Фото', 'url' => ['site/category']],
+            ['class' => 'menu-link', 'label' => 'Контакты', 'url' => ['site/contact']],
+            ['class' => 'menu-link', 'label' => 'Калькулятор', 'url' => ['site/calculator']],
+          ];
 
-            echo Menu::widget([
-              'items' => $menuItems,
-              'options' => ['id' => 'main-menu', 'class' => 'menu main_menu header-main_menu'],
-            ]);
+          echo Menu::widget([
+            'items' => $menuItems,
+            'options' => ['id' => 'main-menu', 'class' => 'menu main_menu header-main_menu'],
+          ]);
           ?>
         </nav>
 
@@ -99,13 +102,13 @@ $this->beginPage() ?>
     <main class="main">
       <div class="container main-container">
         <?php
-          echo Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            'options' => ['class' => 'menu breadcrumbs'],
-           ]);
-          echo Alert::widget();
-          echo $content;
-         ?>
+        echo Breadcrumbs::widget([
+          'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+          'options' => ['class' => 'menu breadcrumbs'],
+        ]);
+        echo Alert::widget();
+        echo $content;
+        ?>
       </div>
     </main>
   </div>
@@ -119,7 +122,8 @@ $this->beginPage() ?>
     </div>
   </footer>
 
-<?php $this->endBody() ?>
+  <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

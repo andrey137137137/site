@@ -15,68 +15,72 @@ AppAsset::register($this);
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
 
-<div class="wrap">
+<head>
+  <meta charset="<?= Yii::$app->charset ?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?= Html::csrfMetaTags() ?>
+  <title><?= Html::encode($this->title) ?></title>
+  <?php $this->head() ?>
+</head>
+
+<body>
+  <?php $this->beginBody() ?>
+
+  <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Сайт',
-        // 'brandUrl' => Yii::$app->homeUrl,
-        'brandUrl' => '/../../',
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
+      'brandLabel' => 'Сайт',
+      // 'brandUrl' => Yii::$app->homeUrl,
+      'brandUrl' => '/../../',
+      'options' => [
+        'class' => 'navbar-inverse navbar-fixed-top',
+      ],
     ]);
     $menuItems = [
-        ['label' => 'Альбомы', 'url' => ['/category/index']],
-        ['label' => 'Изображения', 'url' => ['/image/index']],
+      ['label' => 'Альбомы', 'url' => ['/category/index']],
+      ['label' => 'Изображения', 'url' => ['/image/index']],
+      ['label' => 'Калькулятор', 'url' => ['/site/calculator']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+      $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Выйти (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+      $menuItems[] = '<li>'
+        . Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton(
+          'Выйти (' . Yii::$app->user->identity->username . ')',
+          ['class' => 'btn btn-link logout']
+        )
+        . Html::endForm()
+        . '</li>';
     }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
+      'options' => ['class' => 'navbar-nav navbar-right'],
+      'items' => $menuItems,
     ]);
     NavBar::end();
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            // 'homeLink' => ['label' => 'Главная', 'link' => '/admin'],
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+      <?= Breadcrumbs::widget([
+        // 'homeLink' => ['label' => 'Главная', 'link' => '/admin'],
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+      ]) ?>
+      <?= Alert::widget() ?>
+      <?= $content ?>
     </div>
-</div>
+  </div>
 
-<footer class="footer">
+  <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+      <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+      <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
-</footer>
+  </footer>
 
-<?php $this->endBody() ?>
+  <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

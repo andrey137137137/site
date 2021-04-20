@@ -1,7 +1,7 @@
-jQuery(function($) {
-  "use strict";
+jQuery(function ($) {
+  'use strict';
 
-  var parallax = document.getElementById("parallax");
+  var parallax = document.getElementById('parallax');
   var parallaxInstance = new Parallax(parallax);
   console.log(parallaxInstance);
 });
