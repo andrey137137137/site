@@ -1,5 +1,5 @@
 new Vue({
-  el: "#calculator",
+  el: '#calculator',
   data: {
     course: 0,
     membrane: 0,
@@ -11,22 +11,30 @@ new Vue({
     cutting: 0,
     printing: 0,
     lamination: 0,
-    outputData = [
+    outputData: [
       [0, 0],
       [1, 0],
       [0, 1],
-      [1, 1]
+      [1, 1],
     ],
   },
   computed: {
     quadrature() {
-      return sizeWithReserve(this.width) * sizeWithReserve(this.height);
+      return this.sizeWithReserve(this.width) * this.sizeWithReserve(this.height);
     },
     quadratureMembrane() {
       return this.quadrature * this.membrane;
     },
     plotter() {
       return this.slicing * this.cutting + this.quadratureMembrane;
+    },
+    plotterWithCourse() {
+      return this.formatPrint(this.plotter * this.course);
+    },
+    plotterWithPercent() {
+      return this.formatPrint(
+        this.plotterWithCourse + this.getPercent(this.plotterWithCourse, this.percent),
+      );
     },
   },
   methods: {
@@ -36,26 +44,28 @@ new Vue({
     getPercent(all, part) {
       return (all / 100) * part;
     },
-    formatPrint(title, output) {
+    formatPrint(output) {
       // echo sprintf(title + ": %.2f", output);
+      return output;
     },
     printResult(isLamination, isDieCutting, toCalcPercent) {
       toCalcPercent = toCalcPercent || false;
-      title = "Печать";
-      titleSeparator = ", ";
-      calcPrinting = this.printing;
-      caclPlotter = 0;
+
+      var title = 'Печать';
+      var titleSeparator = ', ';
+      var calcPrinting = this.printing;
+      var caclPlotter = 0;
 
       if (isLamination) {
-        title += titleSeparator + "ламинация";
+        title += titleSeparator + 'ламинация';
         calcPrinting += this.lamination;
       }
       if (isDieCutting) {
-        title += titleSeparator + "высечка";
+        title += titleSeparator + 'высечка';
         caclPlotter += this.plotter;
       }
 
-      result = this.quadrature * calcPrinting + caclPlotter + this.quadratureMembrane;
+      var result = this.quadrature * calcPrinting + caclPlotter + this.quadratureMembrane;
       result *= this.course;
 
       if (toCalcPercent) {
@@ -65,21 +75,14 @@ new Vue({
       this.formatPrint(title, result);
     },
   },
-  onSubmit()
-  {
-    plotter = this.plotter * this.course;
-
-    this.formatPrint("Плоттер", plotter);
-
+  onSubmit() {
     this.outputData.forEach(function (item) {
       this.printResult(item[0], item[1]);
     });
 
     // С процентами:
-    this.formatPrint("Плоттер", plotter + this.getPercent(plotter, this.percent));
-
     this.outputData.forEach(function (item) {
       this.printResult(item[0], item[1], true);
     });
-  }
+  },
 });

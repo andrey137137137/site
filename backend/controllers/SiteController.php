@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -26,7 +27,7 @@ class SiteController extends Controller
             'allow' => true,
           ],
           [
-            'actions' => ['logout', 'index'],
+            'actions' => ['logout', 'index', 'calculator'],
             'allow' => true,
             'roles' => ['@'],
           ],
@@ -64,25 +65,31 @@ class SiteController extends Controller
   }
 
   /**
+   * Displays calculator page.
+   *
+   * @return mixed
+   */
+  public function actionCalculator()
+  {
+    return $this->render('calculator');
+  }
+
+  /**
    * Login action.
    *
    * @return string
    */
   public function actionLogin()
   {
-    if ( ! Yii::$app->user->isGuest)
-    {
+    if (!Yii::$app->user->isGuest) {
       return $this->goHome();
     }
 
     $model = new LoginForm();
 
-    if ($model->load(Yii::$app->request->post()) && $model->login())
-    {
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
       return $this->goBack();
-    }
-    else
-    {
+    } else {
       return $this->render('login', compact('model'));
     }
   }
