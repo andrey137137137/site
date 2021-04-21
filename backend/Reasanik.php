@@ -1,13 +1,20 @@
 <?php
 
-use yii\helpers\Html;
+namespace backend;
 
-// namespace Reasanik;
+use yii\helpers\Html;
 
 class Reasanik
 {
-  public static $galleryPath = '/img/gallery/';
-  public static $imageExtensions = ['gif', 'jpg', 'jpeg', 'png'];
+  public static function beginFormGroup()
+  {
+    return '<div class="form-group"><div class="row">';
+  }
+
+  public static function endFormGroup()
+  {
+    return '</div></div>';
+  }
 
   public static function renderInput($title, $name, $max = false)
   {

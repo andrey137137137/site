@@ -36,6 +36,12 @@ new Vue({
         this.plotterWithCourse + this.getPercent(this.plotterWithCourse, this.percent),
       );
     },
+    resultList() {
+      return this.printResult();
+    },
+    resultListWithPercent() {
+      return this.printResult(true);
+    },
   },
   methods: {
     sizeWithReserve(size) {
@@ -48,7 +54,7 @@ new Vue({
       // echo sprintf(title + ": %.2f", output);
       return output;
     },
-    printResult(isLamination, isDieCutting, toCalcPercent) {
+    getResult(isLamination, isDieCutting, toCalcPercent) {
       toCalcPercent = toCalcPercent || false;
 
       var title = 'Печать';
@@ -72,17 +78,22 @@ new Vue({
         result += this.getPercent(result, this.percent);
       }
 
-      this.formatPrint(title, result);
+      return {
+        title: title,
+        value: this.formatPrint(result),
+      };
     },
-  },
-  onSubmit() {
-    this.outputData.forEach(function (item) {
-      this.printResult(item[0], item[1]);
-    });
+    printResult(toCalcPercent) {
+      toCalcPercent = toCalcPercent || false;
 
-    // С процентами:
-    this.outputData.forEach(function (item) {
-      this.printResult(item[0], item[1], true);
-    });
+      var $vm = this;
+      var result = [];
+
+      $vm.outputData.forEach(function (item) {
+        result.push($vm.getResult(item[0], item[1], toCalcPercent));
+      });
+
+      return result;
+    },
   },
 });
