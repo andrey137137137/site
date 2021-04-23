@@ -13,16 +13,19 @@ use yii\helpers\Html;
 
 <?= Reasanik::beginFormGroup() ?>
 <?php
-Reasanik::renderInput('Курс', 'course');
-Reasanik::renderInput('Плёнка', 'membrane');
-Reasanik::renderInput('Монтажка', 'montaging');
+Reasanik::renderInput('Курс', 's');
+Reasanik::renderInput('Плёнка', 'p');
+Reasanik::renderInput('Монтажка', 'm');
+
+Reasanik::renderInput('Ширина', 'w');
+Reasanik::renderInput('Высота', 'h');
+Reasanik::renderInput('Рез', 'r');
+
+Reasanik::renderInput('Порезка', 'pr');
+Reasanik::renderInput('Печать', 'pt');
+Reasanik::renderInput('Ламинация', 'lam');
+
 Reasanik::renderInput('Процент', 'percent', 100);
-Reasanik::renderInput('Ширина', 'width');
-Reasanik::renderInput('Высота', 'height');
-Reasanik::renderInput('Рез', 'slicing');
-Reasanik::renderInput('Порезка', 'cutting');
-Reasanik::renderInput('Печать', 'printing');
-Reasanik::renderInput('Ламинация', 'lamination');
 ?>
 <?= Reasanik::endFormGroup() ?>
 

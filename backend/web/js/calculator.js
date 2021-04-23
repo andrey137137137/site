@@ -1,46 +1,72 @@
 new Vue({
   el: '#calculator',
   data: {
-    course: 0,
-    membrane: 0,
-    montaging: 0,
+    s: 0,
+    p: 0,
+    m: 0,
+    w: 0,
+    h: 0,
+    r: 0,
+    pr: 0,
+    pt: 0,
+    lam: 0,
     percent: 0,
-    width: 0,
-    height: 0,
-    slicing: 0,
-    cutting: 0,
-    printing: 0,
-    lamination: 0,
-    outputData: [
-      [0, 0],
-      [1, 0],
-      [0, 1],
-      [1, 1],
+    calcConfig: [
+      [0, 0, 0],
+      [1, 0, 0],
+      [0, 1, 0],
+      [1, 1, 0],
+      [0, 1, 1],
+      [1, 1, 1],
     ],
   },
   computed: {
-    quadrature() {
-      return this.sizeWithReserve(this.width) * this.sizeWithReserve(this.height);
+    kv() {
+      return this.sizeWithReserve(this.w) * this.sizeWithReserve(this.h);
     },
-    quadratureMembrane() {
-      return this.quadrature * this.membrane;
+    pl() {
+      return this.kv * this.p;
     },
-    plotter() {
-      return this.slicing * this.cutting + this.quadratureMembrane;
+    mm() {
+      return this.kv * this.m;
     },
-    plotterWithCourse() {
-      return this.formatPrint(this.plotter * this.course);
+    por() {
+      return this.r * this.pr + this.pl + this.mm;
     },
-    plotterWithPercent() {
-      return this.formatPrint(
-        this.plotterWithCourse + this.getPercent(this.plotterWithCourse, this.percent),
-      );
+    pors() {
+      return this.formatPrint(this.por * this.s);
     },
-    resultList() {
-      return this.printResult();
+    porWithPercent() {
+      return this.formatPrint(this.pors + this.getPercent(this.pors, this.percent));
     },
-    resultListWithPercent() {
-      return this.printResult(true);
+    titles() {
+      var $vm = this;
+      var title;
+      var result = [];
+
+      $vm.calcConfig.forEach(function (item) {
+        title = 'Печать';
+
+        if (item[0]) {
+          title += $vm.getUpdateTitle('ламинация');
+        }
+        if (item[1]) {
+          title += $vm.getUpdateTitle('высечка');
+        }
+        if (item[2]) {
+          title += $vm.getUpdateTitle('монтажка');
+        }
+
+        result.push(title);
+      });
+
+      return result;
+    },
+    calcList() {
+      return this.getCalculations();
+    },
+    calcListWithPercent() {
+      return this.getCalculations(true);
     },
   },
   methods: {
@@ -54,25 +80,32 @@ new Vue({
       // echo sprintf(title + ": %.2f", output);
       return output;
     },
-    getResult(isLamination, isDieCutting, toCalcPercent) {
+    getUpdateTitle(name) {
+      return ', ' + name;
+    },
+    getCalculation(isLamination, isDieCutting, isMontaging, toCalcPercent) {
       toCalcPercent = toCalcPercent || false;
 
       var title = 'Печать';
-      var titleSeparator = ', ';
-      var calcPrinting = this.printing;
-      var caclPlotter = 0;
+      var calcPrinting = this.pt;
+      var calcPor = 0;
+      var calcMM = 0;
 
       if (isLamination) {
-        title += titleSeparator + 'ламинация';
-        calcPrinting += this.lamination;
+        title += this.getUpdateTitle('ламинация');
+        calcPrinting += this.lam;
       }
       if (isDieCutting) {
-        title += titleSeparator + 'высечка';
-        caclPlotter += this.plotter;
+        title += this.getUpdateTitle('высечка');
+        calcPor += this.por;
+      }
+      if (isMontaging) {
+        title += this.getUpdateTitle('монтажка');
+        calcMM += this.mm;
       }
 
-      var result = this.quadrature * calcPrinting + caclPlotter + this.quadratureMembrane;
-      result *= this.course;
+      var result = this.kv * calcPrinting + calcPor + calcMM + this.pl;
+      result *= this.s;
 
       if (toCalcPercent) {
         result += this.getPercent(result, this.percent);
@@ -83,14 +116,14 @@ new Vue({
         value: this.formatPrint(result),
       };
     },
-    printResult(toCalcPercent) {
+    getCalculations(toCalcPercent) {
       toCalcPercent = toCalcPercent || false;
 
       var $vm = this;
       var result = [];
 
-      $vm.outputData.forEach(function (item) {
-        result.push($vm.getResult(item[0], item[1], toCalcPercent));
+      $vm.calcConfig.forEach(function (item) {
+        result.push($vm.getCalculation(item[0], item[1], item[2], toCalcPercent));
       });
 
       return result;
