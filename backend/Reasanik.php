@@ -20,7 +20,7 @@ class Reasanik
   {
     $inputOptions = [
       'class' => 'form-control',
-      'v-model' => $name,
+      'v-model.number' => $name,
       'min' => 0
     ];
 
