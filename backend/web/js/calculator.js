@@ -34,7 +34,10 @@ new Vue({
       return this.r * this.pr + this.pl + this.mm;
     },
     pors() {
-      return this.formatPrint(this.por * this.s);
+      return this.por * this.s;
+    },
+    porWithCourse() {
+      return this.formatPrint(this.pors);
     },
     porWithPercent() {
       return this.formatPrint(this.pors + this.getPercent(this.pors, this.percent));
@@ -77,8 +80,8 @@ new Vue({
       return (all / 100) * part;
     },
     formatPrint(output) {
-      // echo sprintf(title + ": %.2f", output);
-      return output;
+      return new Intl.NumberFormat('nu-RU', { maximumFractionDigits: 2 }).format(output);
+      // return output;
     },
     getUpdateTitle(name) {
       return ', ' + name;

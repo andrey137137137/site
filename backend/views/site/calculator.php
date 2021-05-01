@@ -11,31 +11,42 @@ use yii\helpers\Html;
 
 <h2>ВВОД</h2>
 
-<?= Reasanik::beginFormGroup() ?>
 <?php
+echo Reasanik::beginFormRow();
+
+echo Reasanik::beginFormGroup();
 Reasanik::renderInput('Курс', 's');
 Reasanik::renderInput('Плёнка', 'p');
 Reasanik::renderInput('Монтажка', 'm');
+echo Reasanik::endFormGroup();
 
+echo Reasanik::beginFormGroup();
 Reasanik::renderInput('Ширина', 'w');
 Reasanik::renderInput('Высота', 'h');
 Reasanik::renderInput('Рез', 'r');
+echo Reasanik::endFormGroup();
 
+echo Reasanik::beginFormGroup();
 Reasanik::renderInput('Порезка', 'pr');
 Reasanik::renderInput('Печать', 'pt');
 Reasanik::renderInput('Ламинация', 'lam');
+echo Reasanik::endFormGroup();
 
+echo Reasanik::beginFormGroup();
 Reasanik::renderInput('Процент', 'percent', 100);
+echo Reasanik::endFormGroup();
+
+echo Reasanik::endFormRow();
 ?>
-<?= Reasanik::endFormGroup() ?>
 
 <h2>ВЫВОД</h2>
 
-<?= Reasanik::beginFormGroup() ?>
 <?php
+echo Reasanik::beginFormRow();
+
 Reasanik::renderOutput();
 Reasanik::renderOutput(true);
-?>
-<?= Reasanik::endFormGroup() ?>
 
-<?= Html::endForm() ?>
+echo Reasanik::endFormRow();
+
+echo Html::endForm();

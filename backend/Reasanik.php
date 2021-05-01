@@ -6,14 +6,24 @@ use yii\helpers\Html;
 
 class Reasanik
 {
-  public static function beginFormGroup()
+  public static function beginFormRow()
   {
     return '<div class="form-group"><div class="row">';
   }
 
-  public static function endFormGroup()
+  public static function endFormRow()
   {
     return '</div></div>';
+  }
+
+  public static function beginFormGroup()
+  {
+    return '<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">';
+  }
+
+  public static function endFormGroup()
+  {
+    return '</div>';
   }
 
   public static function renderInput($title, $name, $max = false)
@@ -27,39 +37,44 @@ class Reasanik
     if ($max !== false) {
       $inputOptions['max'] = $max;
     }
-?>
 
-    <div class="col-md-2">
-      <?= Html::label($title . ':', $name, ['class' => 'form-label']) ?>
-      <?= Html::input('number', $name, '', $inputOptions) ?>
-    </div>
+    echo Html::label($title . ':', $name, ['class' => 'form-label']);
+    echo Html::input('number', $name, '', $inputOptions);
+  }
+
+  private static function _renderOutputItem($number, $title, $value, $attrs = [])
+  {
+?>
+    <li class="col" <?= join(' ', $attrs) ?>>
+      <div class="row row-no-gutters">
+        <div class="col-xs-8 col-sm-7">
+          <?= $number ?>. <?= $title ?>:
+        </div>
+        <div class="col-xs-4 col-sm-5">
+          <?= $value ?>
+        </div>
+      </div>
+    </li>
   <?php
   }
 
   public static function renderOutput($withPercent = false)
   {
     $title = $withPercent ? "С процентом" : "Без процента";
-    $plotter = $withPercent ? "porWithPercent" : "pors";
+    $plotter = $withPercent ? "porWithPercent" : "porWithCourse";
     $list = $withPercent ? "calcListWithPercent" : "calcList";
-    $listStyle = "padding-left: 0;";
+    // $listStyle = "padding-left: 0;";
   ?>
 
     <div class="col-md-6">
       <h3><?= $title ?></h3>
-      <div class="row">
-        <div class="col-md-7">
-          <ol style="list-style-position: inside; <?= $listStyle ?>">
-            <li> Плоттер: </li>
-            <li v-for="title in titles"> {{title}}: </li>
-          </ol>
-        </div>
-        <div class="col-md-5">
-          <ul style="list-style-type: none; <?= $listStyle ?>">
-            <li> {{<?= $plotter ?>}} </li>
-            <li v-for="item in <?= $list ?>"> {{item.value}} </li>
-          </ul>
-        </div>
-      </div>
+      <!-- <ol class="row row-no-gutters" style="list-style-position: inside; ?= $listStyle ?>"> -->
+      <ul class="list-unstyled row row-no-gutters">
+        <?php
+        self::_renderOutputItem(1, 'Плоттер', '{{' . $plotter . '}}');
+        self::_renderOutputItem('{{index + 2}}', '{{item.title}}', '{{item.value}}', ['v-for="(item, index) in ' . $list . '"']);
+        ?>
+      </ul>
     </div>
 <?php
   }
