@@ -121,16 +121,6 @@ class SiteController extends Controller
   }
 
   /**
-   * Displays calculator page.
-   *
-   * @return mixed
-   */
-  public function actionCalculator()
-  {
-    return $this->render('calculator');
-  }
-
-  /**
    * Finds the Image model based on its primary key value.
    * If the model is not found, a 404 HTTP exception will be thrown.
    * @param string $id

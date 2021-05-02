@@ -12,7 +12,7 @@ return [
   'homeUrl' => '/admin',
   'defaultRoute' => 'site/index',
   'controllerNamespace' => 'backend\controllers',
-  'bootstrap' => ['log'],
+  // 'bootstrap' => ['log'],
   'modules' => [
     'gridview' =>  [
       'class' => '\kartik\grid\Module'
@@ -32,6 +32,16 @@ return [
       // this is the name of the session cookie used for login on the backend
       'name' => 'advanced-backend',
     ],
+    // 'assetManager' => [
+    //   'bundles' => [
+    //     'yii\bootstrap\BootstrapAsset' => [
+    //       'css' => []
+    //     ],
+    //     'yii\bootstrap\BootstrapPluginAsset' => [
+    //       'js' => []
+    //     ],
+    //   ],
+    // ],
     'log' => [
       'traceLevel' => YII_DEBUG ? 3 : 0,
       'targets' => [

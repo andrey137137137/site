@@ -43,10 +43,8 @@ echo Reasanik::endFormRow();
 
 <?php
 echo Reasanik::beginFormRow();
-
 Reasanik::renderOutput();
 Reasanik::renderOutput(true);
-
 echo Reasanik::endFormRow();
 
 echo Html::endForm();

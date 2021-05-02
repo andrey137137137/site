@@ -49,7 +49,6 @@ return [
       'rules' => [
         '/' => 'site/index',
         'contacts' => 'site/contact',
-        'calculator' => 'site/calculator',
         'photo' => 'site/category',
         // '<controller:\w+>/<id>' => 'site/view',
       ],

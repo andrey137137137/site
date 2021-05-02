@@ -42,40 +42,41 @@ class Reasanik
     echo Html::input('number', $name, '', $inputOptions);
   }
 
-  private static function _renderOutputItem($number, $title, $value, $attrs = [])
-  {
-?>
-    <li class="col" <?= join(' ', $attrs) ?>>
-      <div class="row row-no-gutters">
-        <div class="col-xs-8 col-sm-7">
-          <?= $number ?>. <?= $title ?>:
-        </div>
-        <div class="col-xs-4 col-sm-5">
-          <?= $value ?>
-        </div>
-      </div>
-    </li>
-  <?php
-  }
-
   public static function renderOutput($withPercent = false)
   {
     $title = $withPercent ? "С процентом" : "Без процента";
     $plotter = $withPercent ? "porWithPercent" : "porWithCourse";
     $list = $withPercent ? "calcListWithPercent" : "calcList";
-    // $listStyle = "padding-left: 0;";
-  ?>
-
+?>
     <div class="col-md-6">
-      <h3><?= $title ?></h3>
-      <!-- <ol class="row row-no-gutters" style="list-style-position: inside; ?= $listStyle ?>"> -->
-      <ul class="list-unstyled row row-no-gutters">
-        <?php
-        self::_renderOutputItem(1, 'Плоттер', '{{' . $plotter . '}}');
-        self::_renderOutputItem('{{index + 2}}', '{{item.title}}', '{{item.value}}', ['v-for="(item, index) in ' . $list . '"']);
-        ?>
-      </ul>
+      <h3> <?= $title ?> </h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>Значение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          self::_renderOutputItem(1, 'Плоттер', '{{' . $plotter . '}}');
+          self::_renderOutputItem('{{index + 2}}', '{{item.title}}', '{{item.value}}', ['v-for="(item, index) in ' . $list . '"']);
+          ?>
+        </tbody>
+      </table>
     </div>
+  <?php
+  }
+
+  private static function _renderOutputItem($number, $title, $value, $attrs = [])
+  {
+  ?>
+    <tr <?= join(' ', $attrs) ?>>
+      <th scope="row"> <?= $number ?> </th>
+      <td> <?= $title ?> </td>
+      <td> <?= $value ?> </td>
+    </tr>
 <?php
   }
 }

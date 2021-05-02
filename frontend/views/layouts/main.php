@@ -86,7 +86,6 @@ $this->beginPage() ?>
             ['class' => 'menu-link', 'label' => 'Главная', 'url' => ['site/index']],
             ['class' => 'menu-link', 'label' => 'Фото', 'url' => ['site/category']],
             ['class' => 'menu-link', 'label' => 'Контакты', 'url' => ['site/contact']],
-            ['class' => 'menu-link', 'label' => 'Калькулятор', 'url' => ['site/calculator']],
           ];
 
           echo Menu::widget([
