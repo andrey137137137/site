@@ -21,15 +21,15 @@ Reasanik::renderInput('Монтажка', 'm');
 echo Reasanik::endFormGroup();
 
 echo Reasanik::beginFormGroup();
-Reasanik::renderInput('Ширина', 'w');
-Reasanik::renderInput('Высота', 'h');
-Reasanik::renderInput('Рез', 'r');
-echo Reasanik::endFormGroup();
-
-echo Reasanik::beginFormGroup();
 Reasanik::renderInput('Порезка', 'pr');
 Reasanik::renderInput('Печать', 'pt');
 Reasanik::renderInput('Ламинация', 'lam');
+echo Reasanik::endFormGroup();
+
+echo Reasanik::beginFormGroup();
+Reasanik::renderInput('Ширина', 'w');
+Reasanik::renderInput('Высота', 'h');
+Reasanik::renderInput('Рез', 'r');
 echo Reasanik::endFormGroup();
 
 echo Reasanik::beginFormGroup();
